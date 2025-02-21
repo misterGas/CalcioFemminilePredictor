@@ -10,6 +10,7 @@ Ogni utente può pronosticare per ogni partita:
 - l'MVP (Most Valuable Player)
 
 e può ottenere punti in base a varie situazioni definite all'interno dell'applicazione.
+
 Per ogni giornata di campionato, l'utente può stilare una propria Best 11: formazione formata dalle 11 giocatrici che secondo lui/lei hanno giocato meglio nei vari incontri proposti nella giornata.
 
 Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una squadra insieme ai suoi amici o altri utenti della community e pronosticare partite speciali. Fase di sviluppo ancora primaria.
