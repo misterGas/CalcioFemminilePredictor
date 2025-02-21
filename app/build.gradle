@@ -1,0 +1,61 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    namespace = "com.embeddedproject.calciofemminileitaliano"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.embeddedproject.calciofemminileitaliano"
+        minSdk = 33
+        targetSdk = 34
+        versionCode = 400
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation(libs.okhttp)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.auth)
+    implementation(platform(libs.firebase.bom))
+    //noinspection UseTomlInstead
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //noinspection UseTomlInstead
+    implementation 'com.google.firebase:firebase-messaging'
+    //noinspection UseTomlInstead
+    implementation("com.google.firebase:firebase-storage")
+    implementation libs.androidx.work.runtime.ktx
+    implementation libs.gson
+    implementation libs.lottie //animations
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+}

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ShowBest11">
+
+    <Toolbar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_toolbar"
+        android:id="@+id/toolbar">
+
+        <RelativeLayout
+            android:id="@+id/toolbar_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout" />
+
+            <ImageView
+                android:id="@+id/season"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/season"
+                android:contentDescription="@string/season"
+                android:layout_marginEnd="30sp" />
+
+            <TextView
+                android:id="@+id/season_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="6sp"
+                android:src="@drawable/season"
+                android:layout_marginEnd="58sp"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/back_to_championship_prediction"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:gravity="center"
+                android:src="@drawable/back"
+                android:tooltipText="@string/back_to_championship_prediction"
+                android:contentDescription="@string/back_to_championship_prediction" />
+
+            <RelativeLayout
+                android:id="@+id/module_rel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/back_to_championship_prediction"
+                tools:ignore="RelativeOverlap">
+
+                <ImageView
+                    android:id="@+id/module_image"
+                    android:layout_width="25sp"
+                    android:layout_height="25sp"
+                    android:src="@drawable/module"
+                    android:contentDescription="@string/module" />
+
+                <TextView
+                    android:id="@+id/module"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16.5sp"
+                    android:layout_marginTop="1sp"
+                    android:textColor="@color/module"
+                    android:layout_marginStart="5sp"
+                    android:layout_toEndOf="@id/module_image"
+                    tools:ignore="RelativeOverlap" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/championship_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/best11"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:layout_below="@+id/logout"/>
+        </RelativeLayout>
+    </Toolbar>
+
+    <ProgressBar
+        android:id="@+id/progress_updating_best11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10sp"
+        android:indeterminate="true"
+        android:layout_below="@id/toolbar" />
+
+    <ScrollView
+        android:id="@+id/pitch_scrollview"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10sp"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/layout_433"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10sp"
+                android:layout_marginHorizontal="10sp"
+                android:visibility="gone">
+
+                <include android:id="@+id/module_433" layout="@layout/module_433" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_442"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10sp"
+                android:layout_marginHorizontal="10sp"
+                android:visibility="gone">
+
+                <include android:id="@+id/module_442" layout="@layout/module_442" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_4231"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10sp"
+                android:layout_marginHorizontal="10sp"
+                android:visibility="gone">
+
+                <include android:id="@+id/module_4231" layout="@layout/module_4231" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_352"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10sp"
+                android:layout_marginHorizontal="10sp"
+                android:visibility="gone">
+
+                <include android:id="@+id/module_352" layout="@layout/module_352" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_343"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10sp"
+                android:layout_marginHorizontal="10sp"
+                android:visibility="gone">
+
+                <include android:id="@+id/module_343" layout="@layout/module_343" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_3412"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10sp"
+                android:layout_marginHorizontal="10sp"
+                android:visibility="gone">
+
+                <include android:id="@+id/module_3412" layout="@layout/module_3412" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginVertical="10sp"
+        android:layout_below="@id/toolbar"
+        android:layout_toEndOf="@id/pitch_scrollview">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_players_best11"
+            android:layout_width="160sp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/home_scorer"
+            android:scrollbars="vertical" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/result_prediction_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp">
+
+        <ImageView
+            android:id="@+id/open_result_prediction"
+            android:layout_width="23sp"
+            android:layout_height="23sp"
+            android:src="@drawable/arrow_right"
+            android:contentDescription="@string/result_prediction" />
+
+        <TextView
+            android:id="@+id/result_prediction_info_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="18sp"
+            android:text="@string/result_prediction"
+            android:fontFamily="sans-serif-black"
+            android:textStyle="italic|bold"
+            android:layout_toEndOf="@+id/open_result_prediction" />
+
+        <ImageView
+            android:id="@+id/result_prediction_completed"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginStart="3sp"
+            android:layout_marginTop="2sp"
+            android:src="@drawable/completed"
+            android:contentDescription="@string/objective_completed"
+            android:visibility="gone"
+            android:layout_toEndOf="@id/result_prediction_info_description" />
+
+        <TextView
+            android:id="@+id/result_prediction_answered_components_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5sp"
+            android:textColor="@android:color/holo_green_dark"
+            android:textStyle="bold|italic"
+            android:textSize="16sp"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/result_prediction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="5sp"
+        android:layout_marginHorizontal="10sp"
+        android:layout_below="@id/result_prediction_info">
+
+        <TextView
+            android:id="@+id/result_prediction_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/predict_match"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/result_prediction_votes_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/match_prediction_team"
+            android:layout_marginTop="10sp"
+            android:layout_below="@id/result_prediction_question" />
+
+        <ImageView
+            android:id="@+id/add_result_prediction"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_marginTop="5sp"
+            android:src="@drawable/add_prediction"
+            android:visibility="gone"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/add_prediction"
+            android:tooltipText="@string/add_prediction"
+            android:layout_below="@id/result_prediction_votes_recycler_view" />
+
+        <ImageView
+            android:id="@+id/remove_result_prediction"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_marginTop="5sp"
+            android:src="@drawable/remove_prediction"
+            android:visibility="gone"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/remove_prediction"
+            android:tooltipText="@string/remove_prediction"
+            android:layout_below="@id/result_prediction_votes_recycler_view" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/official_result_prediction_info_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="10sp">
+
+        <ImageView
+            android:id="@+id/open_official_result_prediction"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:layout_marginTop="3sp"
+            android:src="@drawable/arrow_right"
+            android:contentDescription="@string/result_prediction" />
+
+        <TextView
+            android:id="@+id/official_result_prediction_info_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="11sp"
+            android:text="@string/result_prediction_official_decision"
+            android:fontFamily="sans-serif-black"
+            android:textStyle="italic|bold"
+            android:layout_toEndOf="@+id/open_official_result_prediction"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/official_result_prediction_final_decision"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-black"
+            android:textStyle="italic|bold"
+            android:layout_below="@+id/official_result_prediction_info_description"
+            android:layout_toEndOf="@id/open_official_result_prediction"
+            tools:ignore="SmallSp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/official_result_prediction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="10sp"
+        android:layout_below="@id/official_result_prediction_info_relative_layout">
+
+        <TextView
+            android:id="@+id/official_result_prediction_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:gravity="center"
+            android:textColor="@color/black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/result_prediction_official_votes_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/match_prediction_team"
+            android:layout_marginTop="10sp"
+            android:layout_below="@id/official_result_prediction_info" />
+
+        <TextView
+            android:id="@+id/official_result_prediction_decision"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:layout_marginTop="10sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/result_prediction_official_votes_recycler_view" />
+    </RelativeLayout>
+
+</RelativeLayout>

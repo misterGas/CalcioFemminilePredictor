@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Women Football Predictor</string>
+
+    <string name="intro_text">Welcome to Women Football Predictor! Here you can predict a lot of women football matches and gain a lot of points to climb the rankings. However, play just for fun!</string>
+    <string name="lets_start">Let\'s start</string>
+
+    <string name="select_championship">Select championship</string>
+    <string name="predictions_rules">About predictions rules</string>
+    <string name="championship">Championship</string>
+    <string name="not_predicted">Not predicted</string>
+    <string name="double_points">x2</string>
+    <string name="activate_double_points">Activate x2</string>
+    <string name="match_not_predicted">Match not predicted</string>
+    <string name="to_be_defined">To be defined</string>
+
+    <string name="back_to_championship_prediction">Back to championship prediction</string>
+    <string name="standings">Standings</string>
+    <string name="result">Result</string>
+    <string name="prediction_target">Target</string>
+    <string name="prediction_target_prediction">Prediction</string>
+    <string name="prediction_target_real">Effective</string>
+    <string name="prediction_target_points">Points</string>
+    <string name="match_result">W/N/L</string>
+    <string name="goals">Goals</string>
+    <string name="goal_difference">Goal difference</string>
+    <string name="total_points">Total points</string>
+
+    <string name="show_result_details">Show result details</string>
+
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+
+    <string name="user">User nickname</string>
+    <string name="position">Position</string>
+    <string name="ranking">Ranking position</string>
+    <string name="zero">0</string>
+
+    <string name="login">Login</string>
+    <string name="registration">Registration</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgotten_password">Forgotten password</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="nickname">Nickname</string>
+    <string name="nickname_info">This nickname will be visible in the predictions\' standings. You can change once a month</string>
+    <string name="avatar">Avatar</string>
+    <string name="avatar_info">This avatar will be visible in the predictions\' standings. You can change it whenever you want</string>
+    <string name="secure_code_header">Secure code</string>
+    <string name="secure_code_info_sum">Write the last digit of the digits sum computation of the secure code (example: 1269 -> 1 + 2 + 6 + 9 = 18 -> 8)</string>
+    <string name="secure_code_info_mul">Write the last digit of the digits multiplication computation of the secure code (example: 1743 -> 1 * 7 * 4 * 3 = 84 -> 4)</string>
+    <string name="all_fields_required">All fields are required</string>
+    <string name="email_unmarked">Email not acceptable</string>
+    <string name="incorrect">Email or password incorrect</string>
+    <string name="login_completed">Login completed correctly</string>
+    <string name="secure_code_incorrect">Secure code computation incorrect</string>
+    <string name="nickname_already_used">Nickname already used</string>
+    <string name="email_already_used">Email already used by another account</string>
+    <string name="password_too_short">Password must have at least 6 characters</string>
+    <string name="registration_completed">Login to verify your identity</string>
+
+    <string name="back_to_login">Back to login</string>
+    <string name="modify_password">Recovery password</string>
+    <string name="watch_emails">Watch your email inbox</string>
+    <string name="email_not_found">Email not found</string>
+
+    <string name="logout">Logout</string>
+    <string name="are_you_sure_logout">Are you sure you want to logout?</string>
+    <string name="logout_completed">Logout completed correctly</string>
+    <string name="back_to_select_championship">Back to select championship</string>
+    <string name="back_to_user_info">Back to user info</string>
+
+    <string name="day">Day</string>
+    <string name="regular_season">Regular season</string>
+    <string name="preliminary">Preliminary round</string>
+    <string name="round_32">Round of 32</string>
+    <string name="round_16">Round of 16</string>
+    <string name="quarterfinals">Quarterfinals</string>
+    <string name="semifinals">Semifinals</string>
+    <string name="final_">Final</string>
+    <string name="shield_group">Shield group</string>
+    <string name="salvation_group">Salvation group</string>
+    <string name="qualifications">Qualifier</string>
+    <string name="points">Points</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="home_team">Home team</string>
+    <string name="guest_team">Guest team</string>
+    <string name="vs">-</string>
+    <string name="programmed">Programmed</string>
+    <string name="live">Live</string>
+    <string name="finished">Finished</string>
+    <string name="predict_scorers">Your scorers</string>
+
+    <string name="update_data">Update matches results</string>
+    <string name="data_updated">Matches results updated correctly</string>
+    <string name="turn_up_volume">Turn up the volume</string>
+    <string name="no_connection">No connection</string>
+    <string name="connection_activated">Connection activated</string>
+    <string name="retry">Retry</string>
+
+    <string name="hi">Hi</string>
+    <string name="match_predicted">Matches predicted</string>
+
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    <string name="italy_serie_a_women">Serie A Femminile</string>
+    <string name="uefa_womens_euro">UEFA Women\'s Euro</string>
+    <string name="english_womens_super_league">Women\'s Super League</string>
+    <string name="uefa_womens_champions_league">UEFA Women\'s Champions League</string>
+
+    <string name="hear_rules">Hear rules</string>
+    <string name="profile">Profile</string>
+
+    <string name="rules_1">
+        Are you ready to try your hand at the world of women\'s football predictions? This application is just for you!
+        Predict the result of each match of the most important national and international championships and when the match is over, you will see a summary of which results you guessed correctly and which ones you got wrong.
+        But don\'t worry: you\'ll have plenty of opportunities to earn points!\nFor each match, you will be able to earn points with:\n
+        - the result: if you guess win/null/lose: +3 points;\n
+        - home team goals: if you guess the number of goals of the home team: +3 points;\n
+        - guest team goals: if you guess the number of goals of the guest team: +3 points;\n
+        - goal difference: if you guess the goal difference between the two teams: +2 points;\n
+        - goal match scorer: if you guess a goal scorer of the match: +6 points per player. In case of more than one goals from the same player, the points assignment for this player for this target remains 6;\n
+        - own goal match scorer: if you guess an own goal scorer of the match: +8 points per player. In case of more than one own goals from the same player, the points assignment for this player for this target remains 8;\n
+        - bonus more than one goal scorer: if you guess a scorer than scores more than one goal on the match: +2 points per goal;\n
+        - bonus more than one own goal scorer: if you guess a scorer than scores more than one own goal on the match: +4 points per own goal;\n
+        - the MVP predicted correctly: if you guess the MVP (Most Valuable Player) in the match: +10 points.\n
+        \nFor a match in each match day, you can also activate double points: all points accumulated in that match are doubled.\n
+        \n\nYou can predict the result of the match (goals scored) until six hours before its start. From then until the start of the match, you can predict the MVP and the goals and own goals scorers basing on the goals you have predicted for each team.
+        \n\nAll clear? If so, we hope you have fun predicting women\'s football matches!
+    </string>
+
+    <string name="search_nickname">Search user nickname</string>
+
+    <string name="objectives">Objectives</string>
+    <string name="title_objective">Objective title</string>
+    <string name="description_objective">Objective description</string>
+    <string name="objective_completed">Completed</string>
+    <string name="show_objectives">Show objectives</string>
+
+    <string name="objectives_matches_predicted">Matches predicted</string>
+    <string name="objectives_matches_predicted_description">Predict matches</string>
+    <string name="objectives_matches_predicted_correctly">Matches predicted correctly</string>
+    <string name="objectives_matches_predicted_correctly_description">Predict matches correctly on the result</string>
+    <string name="objectives_points">Points</string>
+    <string name="objectives_points_description">Gain points predicting matches</string>
+    <string name="objectives_round_points">Round Points</string>
+    <string name="objectives_round_points_description">Gain round points predicting matches</string>
+    <string name="objectives_scorers_goal">Goal scorers predicted correctly</string>
+    <string name="objectives_scorers_goal_description">Predict correctly goal scorers in matches</string>
+    <string name="objectives_scorers_goal_bonus">More than one goal bonus</string>
+    <string name="objectives_scorers_goal_bonus_description">Predict correctly scorers that scores more than one goal in a match and obtain bonus points for each score</string>
+    <string name="objectives_scorers_own_goal">Own goal scorers predicted correctly</string>
+    <string name="objectives_scorers_own_goal_description">Predict correctly own goal scorers in matches</string>
+    <string name="objectives_scorers_own_goal_bonus">More than one own goal bonus</string>
+    <string name="objectives_scorers_own_goal_bonus_description">Predict correctly scorers that scores more than one own goal in a match and obtain bonus points for each score</string>
+    <string name="objectives_goals_predicted">Goals number predicted</string>
+    <string name="objectives_goals_predicted_description">Predict the number of goals scored</string>
+    <string name="objectives_mvp_predicted_correctly">MVP predicted correctly</string>
+    <string name="objectives_mvp_predicted_correctly_description">Predict correctly the MVP (Most Valuable Player) in matches</string>
+    <string name="objectives_match_points">Match points</string>
+    <string name="objectives_match_points_description">Gain match points predicting matches</string>
+
+    <string name="edit">Edit</string>
+    <string name="edit_nickname">Edit nickname</string>
+    <string name="edit_first_name">Edit first name</string>
+    <string name="edit_last_name">Edit last name</string>
+    <string name="edit_email">Edit email</string>
+
+    <string name="match_about_to_start">is about to start in a few hours</string>
+    <string name="assign_scorers_notification">Assign now your predictions for the match scorers</string>
+
+    <string name="role">Role</string>
+    <string name="goalkeeper">GK</string>
+    <string name="defender">DEF</string>
+    <string name="midfielder">MID</string>
+    <string name="forward">FOR</string>
+    <string name="goalkeeper_info">Goalkeeper</string>
+    <string name="defender_info">Defender</string>
+    <string name="midfielder_info">Midfielder</string>
+    <string name="forward_info">Forward</string>
+
+    <string name="add_net">Add net</string>
+    <string name="remove_net">Remove net</string>
+    <string name="assign_match_scorers">Predict match scorers</string>
+    <string name="assign_scorers">Predict scorers</string>
+    <string name="slot">Slot</string>
+    <string name="assign">Assign net</string>
+    <string name="assigned">Assigned</string>
+    <string name="assign_scorers_description">Select a slot (each corresponds to a net that you have predicted) and then select a scorer for that slot. The choice of a slot will not affect the points assignment</string>
+    <string name="reset_assignments">Reset scorers predictions</string>
+
+    <string name="add_officials_scorers">Add official scorers</string>
+    <string name="scorer">Scorer</string>
+    <string name="timeline">Minute</string>
+
+    <string name="player_number">Shirt number</string>
+
+    <string name="add_players">Add players</string>
+    <string name="add_player">Add player</string>
+    <string name="team">Team</string>
+    <string name="search_team_name">Search team</string>
+    <string name="select_team">Select team</string>
+    <string name="added_players">Added players</string>
+    <string name="player_added">Player added correctly to the team</string>
+    <string name="player_already_added">Player with this shirt number already added for this team</string>
+    <string name="role_required">The player role is required</string>
+    <string name="import_players">Import players (JSON file)</string>
+    <string name="search_in_file_system">Choose the JSON file in your file system</string>
+    <string name="players_imported_correctly">Players imported correctly</string>
+    <string name="problems_during_importing">Problems during importing</string>
+    <string name="players_not_imported">players not imported</string>
+
+    <string name="own_goal">(OG)</string>
+
+    <string name="match_day_ongoing">Match day ongoing: double points assignment can\'t be changed</string>
+
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="tomorrow">Tomorrow</string>
+
+    <string name="show_predicted_scorers">Predicted scorers</string>
+    <string name="show_official_scorers">Official scorers</string>
+
+    <string name="goal_predicted_number">Goal scorers predicted correctly</string>
+    <string name="own_goal_predicted_number">Own goal scorers predicted correctly</string>
+
+    <string name="match_finished">Assign match finished</string>
+    <string name="confirmation_finished">Are you sure you want to assign</string>
+    <string name="as_finished">as finished?</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="match_finished_assigned">assigned as finished</string>
+
+    <string name="duel_comparison">Compare predictions</string>
+    <string name="comparison">Predictions comparison</string>
+    <string name="back_to_standings">Back to championship standings</string>
+
+    <string name="prediction">Prediction</string>
+
+    <string name="comparison_info">Comparison info</string>
+    <string name="comparison_details">
+        The predictions comparison refers only to finished matches predicted at least regarding the result from both users.\n
+        - result (W/N/L): +3 points\n
+        - home team goals: +3 points\n
+        - guest team goals: +3 points\n
+        - goal difference: +2 points\n
+        - goal match scorer: +6 points per player\n
+        - own goal match scorer: +8 points per player\n
+        - bonus more than one goal scorer: +2 points per goal\n
+        - bonus more than one own goal scorer: +4 points per own goal\n
+        - MVP predicted correctly: +10 points
+    </string>
+    <string name="ok">OK</string>
+
+    <string name="more_goals_bonus">More goals bonus</string>
+    <string name="more_goals_bonus_failed">More goals bonus not achieved</string>
+    <string name="more_own_goals_bonus">More own goals bonus</string>
+    <string name="more_own_goals_bonus_failed">More own goals bonus not achieved</string>
+
+    <string name="predict_mvp">Predict MVP</string>
+    <string name="mvp">MVP</string>
+    <string name="add_official_mvp">Add official MVP</string>
+    <string name="predicted_mvp">Predicted MVP</string>
+    <string name="official_mvp">Official MVP</string>
+    <string name="mvp_predicted_correctly">MVP predicted correctly</string>
+
+    <string name="select_season">Select season</string>
+    <string name="season">Season</string>
+
+    <string name="manager">Manager</string>
+    <string name="switch_to_manager">Switch to manager mode</string>
+    <string name="switch_to_normal_user">Switch to normal user mode</string>
+    <string name="manager_mode_info">Are you sure you want to switch to manager mode? Switching to manager mode means you can add new players and assign official scorers and MVPs of each match.</string>
+    <string name="normal_user_mode_info">Are you sure you want to switch to normal user mode? Switching to normal user mode means you cannot add new players and assign official scorers and MVPs for each match anymore.</string>
+    <string name="manager_mode_activated">Manager mode activated</string>
+    <string name="manager_mode_deactivated">Manager mode deactivated</string>
+
+    <string name="privacy_policy"><u>Privacy policy</u></string>
+    <string name="accept_privacy_policy">I accept the privacy policy</string>
+    <string name="you_need_to_accept_privacy_policy">You need to accept the privacy policy in order to continue you registration</string>
+
+    <string name="nickname_cannot_be_updated">Not editable more than once in a month</string>
+
+    <string name="back_to_result_details">Back to result details</string>
+
+    <string name="result_histograms">Result\'s histograms</string>
+    <string name="scores_histogram">Scores predictions</string>
+    <string name="scorers_histogram">Scorers predictions</string>
+    <string name="mvp_histogram">MVP predictions</string>
+
+    <string name="histograms_info">Result\'s histograms info</string>
+    <string name="histograms_details">The result\'s histograms describes an anonymous panoramic view of the match predictions from all users, using histograms which represents the frequencies of the predictions for the result, the home and the guest scorers and the match MVP.</string>
+
+    <string name="best11">Best 11</string>
+    <string name="add_best11_player">Add a Best 11 player</string>
+    <string name="predict_best11">Create your Best 11</string>
+    <string name="show_best11">Show your Best 11</string>
+
+    <string name="change_module">Change team module</string>
+    <string name="select_module">Select team module</string>
+    <string name="module">Module</string>
+    <string name="module_description">Changing the module means that the last players on the bottom right on each role actually saved will be deleted each time you change module if the new module has less role slots than the actual one. So, you have to assign them once again. We therefore recommend that you first decide on the module carefully, visualizing the role that is assigned to each slot in the training.</string>
+
+    <string name="select_goalkeeper">Select goalkeeper</string>
+    <string name="select_defender">Select defender</string>
+    <string name="select_midfielder">Select midfielder</string>
+    <string name="select_forward">Select forward</string>
+
+    <string name="locked">Locked</string>
+    <string name="unlock_from">Unlock from</string>
+
+    <string name="join_a_team">Join a team</string>
+    <string name="join_team_info">Join a team with your friends or other people of the community and compete in special events in which the team components will face various challenges</string>
+    <string name="search_team">Search team</string>
+    <string name="create_team">Create team</string>
+    <string name="team_name">Team name</string>
+    <string name="team_info">Team info</string>
+    <string name="join_team">Join team</string>
+    <string name="private_team">Private team</string>
+    <string name="team_name_required">Team name required</string>
+    <string name="team_password_required">Team password required</string>
+    <string name="team_created_correctly">Team created correctly</string>
+    <string name="team_captain">Captain</string>
+    <string name="c">C</string>
+    <string name="your_team">Your team</string>
+    <string name="incorrect_password">Incorrect team password</string>
+    <string name="team_joined_correctly">Team joined correctly</string>
+    <string name="team_name_already_used">Team name already used</string>
+
+    <string name="special_events">Special Events</string>
+    <string name="coming_soon">Coming soon!</string>
+
+    <string name="long_vs">vs</string>
+    <string name="join_special_event">Join</string>
+
+    <string name="match_outcome">Match outcome</string>
+    <string name="match_outcome_info">How will the match finish?</string>
+    <string name="normal_time">Normal time</string>
+    <string name="extra_time">Extra time</string>
+    <string name="penalty_shootout">Penalty shoot-out</string>
+    <string name="votes">Votes:</string>
+
+    <string name="official_outcome_info1">At the end of the match outcome survey, with</string>
+    <string name="official_outcome_info2">votes, this is the situation:</string>
+
+    <string name="decision_by_votes">The definitive decision has been taken using votes criteria</string>
+    <string name="decision_by_random">The definitive decision has been taken using the random criteria between the options with the most votes</string>
+    <string name="decision_by_captain_privilege">The definitive decision has been taken using the captain privilege criteria between the options with the most votes</string>
+
+    <string name="outcome_official_decision">Match outcome: official decision</string>
+
+    <string name="season_recap">Season recap</string>
+
+    <string name="played">MP</string>
+    <string name="points_info">TP</string>
+    <string name="wins">W</string>
+    <string name="nulls">N</string>
+    <string name="lost">L</string>
+    <string name="scored">G+</string>
+    <string name="suffered">G-</string>
+    <string name="difference">GD</string>
+
+    <string name="played_long">Matches played</string>
+    <string name="points_info_long">Total points</string>
+    <string name="wins_long">Wins</string>
+    <string name="nulls_long">Nulls</string>
+    <string name="lost_long">Lost</string>
+    <string name="scored_long">Goals scored</string>
+    <string name="suffered_long">Goals suffered</string>
+    <string name="difference_long">Goals difference</string>
+
+    <string name="results_recap">Results recap</string>
+    <string name="full_team">The team is full, retry with another team</string>
+
+    <string name="HOME">Home</string>
+    <string name="AWAY">Away</string>
+    <string name="WIN">Win</string>
+    <string name="NULL">Null</string>
+    <string name="LOST">Lost</string>
+
+    <string name="result_prediction">Result prediction</string>
+    <string name="predict_match">Predict match result</string>
+    <string name="add_prediction">Add your result prediction</string>
+    <string name="remove_prediction">Remove your result prediction</string>
+    <string name="result_prediction_official_decision">Result prediction: official decision</string>
+    <string name="remove_prediction_confirm">Do you want to remove your result prediction?</string>
+    <string name="official_result_info1">At the end of the match result prediction survey, with</string>
+
+    <!--States names translated-->
+    <string name="albania">Albania</string>
+    <string name="andorra">Andorra</string>
+    <string name="armenia">Armenia</string>
+    <string name="austria">Austria</string>
+    <string name="azerbaijan">Azerbaijan</string>
+    <string name="belarus">Belarus</string>
+    <string name="belgium">Belgium</string>
+    <string name="bosnia_herzegovina">Bosnia Herzegovina</string>
+    <string name="bulgaria">Bulgaria</string>
+    <string name="croatia">Croatia</string>
+    <string name="cyprus">Cyprus</string>
+    <string name="czech_republic">Czech Republic</string>
+    <string name="denmark">Denmark</string>
+    <string name="england">England</string>
+    <string name="estonia">Estonia</string>
+    <string name="faroe_islands">Faroe Islands</string>
+    <string name="finland">Finland</string>
+    <string name="france">France</string>
+    <string name="georgia">Georgia</string>
+    <string name="germany">Germany</string>
+    <string name="greece">Greece</string>
+    <string name="hungary">Hungary</string>
+    <string name="iceland">Iceland</string>
+    <string name="ireland">Ireland</string>
+    <string name="israel">Israel</string>
+    <string name="italy">Italy</string>
+    <string name="kazakhstan">Kazakhstan</string>
+    <string name="kosovo">Kosovo</string>
+    <string name="latvia">Latvia</string>
+    <string name="lithuania">Lithuania</string>
+    <string name="luxembourg">Luxembourg</string>
+    <string name="malta">Malta</string>
+    <string name="moldova">Moldova</string>
+    <string name="montenegro">Montenegro</string>
+    <string name="netherlands">Netherlands</string>
+    <string name="north_macedonia">North Macedonia</string>
+    <string name="northern_ireland">Northern Ireland</string>
+    <string name="norway">Norway</string>
+    <string name="poland">Poland</string>
+    <string name="portugal">Portugal</string>
+    <string name="romania">Romania</string>
+    <string name="scotland">Scotland</string>
+    <string name="serbia">Serbia</string>
+    <string name="slovakia">Slovakia</string>
+    <string name="slovenia">Slovenia</string>
+    <string name="spain">Spain</string>
+    <string name="sweden">Sweden</string>
+    <string name="switzerland">Switzerland</string>
+    <string name="turkey">Turkey</string>
+    <string name="ukraine">Ukraine</string>
+    <string name="wales">Wales</string>
+</resources>

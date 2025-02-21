@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/season_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="@string/day" />
+
+    <RelativeLayout
+        android:id="@+id/points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/season_day">
+
+        <TextView
+            android:id="@+id/season_day_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/season_day_points_image"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:visibility="gone"
+            android:src="@drawable/points"
+            android:layout_toEndOf="@id/season_day_points"
+            android:contentDescription="@string/points" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/predict_best11"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/best11"
+        android:visibility="gone"
+        android:layout_marginEnd="25sp"
+        android:contentDescription="@string/best11" />
+
+    <RelativeLayout
+        android:id="@+id/locked"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/table_result_values"
+        android:visibility="gone"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginTop="30sp"
+        android:layout_marginBottom="10sp"
+        android:gravity="center"
+        android:layout_below="@id/season_day">
+
+        <ImageView
+            android:id="@+id/day_locked"
+            android:layout_width="match_parent"
+            android:layout_height="100sp"
+            android:src="@drawable/locked"
+            android:contentDescription="@string/locked" />
+
+    </RelativeLayout>
+
+    <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+        android:id="@+id/recycler_view_day_match_predictor"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/match_predictor_details"
+        android:layout_below="@id/points" />
+
+</RelativeLayout>

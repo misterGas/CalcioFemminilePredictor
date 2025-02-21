@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10sp">
+
+    <TextView
+        android:id="@+id/result_prediction_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/predict_match"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10sp"
+        android:textStyle="bold" />
+
+    <NumberPicker
+        android:id="@+id/home_result_prediction"
+        android:layout_width="100sp"
+        android:layout_height="120sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginHorizontal="25sp"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_below="@id/result_prediction_info" />
+
+    <NumberPicker
+        android:id="@+id/guest_result_prediction"
+        android:layout_width="100sp"
+        android:layout_height="120sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginHorizontal="25sp"
+        android:layout_alignParentEnd="true"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_below="@id/result_prediction_info" />
+
+    <ImageView
+        android:id="@+id/home_team_image"
+        android:layout_width="45sp"
+        android:layout_height="45sp"
+        android:layout_toEndOf="@id/home_result_prediction"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="95sp"
+        android:contentDescription="@string/home_team" />
+
+    <ImageView
+        android:id="@+id/guest_team_image"
+        android:layout_width="45sp"
+        android:layout_height="45sp"
+        android:layout_toStartOf="@id/guest_result_prediction"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="95sp"
+        android:contentDescription="@string/guest_team" />
+
+    <TextView
+        android:id="@+id/home_team"
+        android:layout_width="120sp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/home_result_prediction"
+        android:paddingTop="10sp"
+        android:paddingBottom="5sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/home_result_prediction" />
+
+    <TextView
+        android:id="@+id/guest_team"
+        android:layout_width="120sp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/guest_result_prediction"
+        android:paddingTop="10sp"
+        android:paddingBottom="5sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="end"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/guest_result_prediction" />
+</RelativeLayout>

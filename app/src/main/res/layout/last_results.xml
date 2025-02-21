@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/result"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="5sp"
+        android:background="@drawable/circle"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/result_info"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:contentDescription="@string/team" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/last_result"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="5sp"
+        android:background="@drawable/circle_black"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/last_result_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/team" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

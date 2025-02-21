@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Objectives">
+
+    <Toolbar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_toolbar"
+        android:id="@+id/toolbar">
+
+        <RelativeLayout
+            android:id="@+id/toolbar_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
+
+            <ImageView
+                android:id="@+id/back_to_user_info"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:gravity="center"
+                android:src="@drawable/back"
+                android:tooltipText="@string/back_to_user_info"
+                android:contentDescription="@string/back_to_user_info" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout"/>
+
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/objectives"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:layout_below="@+id/logout" />
+
+        </RelativeLayout>
+
+    </Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginVertical="10sp"
+        android:layout_below="@id/toolbar">
+
+        <ProgressBar
+            android:id="@+id/total_objectives_completed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="2sp"
+            android:layout_marginHorizontal="10sp"
+            android:layout_alignParentEnd="true"
+            android:progressTint="@color/role"
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+
+        <TextView
+            android:id="@+id/total_objectives_completed_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10sp"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_below="@+id/total_objectives_completed" />
+
+        <ProgressBar
+            android:id="@+id/progress_updating_objectives"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10sp"
+            android:indeterminate="true"
+            android:layout_below="@id/total_objectives_completed" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_all_objectives"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/objectives_type"
+            android:scrollbars="vertical"
+            android:layout_marginTop="5sp"
+            android:layout_below="@id/total_objectives_completed_number" />
+    </RelativeLayout>
+</RelativeLayout>

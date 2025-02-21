@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/component_relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="2sp">
+
+    <TextView
+        android:id="@+id/component_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/user"
+        android:gravity="center" />
+
+    <RelativeLayout
+        android:id="@+id/captain_relative_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tooltipText="@string/team_captain"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/circle_captain"
+            android:layout_width="18sp"
+            android:layout_height="18sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10sp"
+            android:src="@drawable/circle_captain"
+            android:contentDescription="@string/team_captain" />
+
+        <TextView
+            android:id="@+id/captain"
+            android:layout_width="15sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/c"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="11.5sp"
+            android:gravity="center" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

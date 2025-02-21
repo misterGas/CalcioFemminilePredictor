@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="3sp"
+    android:gravity="end">
+
+    <TextView
+        android:id="@+id/scorer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="120sp"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
+        android:gravity="end"
+        android:text="@string/scorer" />
+
+    <ImageView
+        android:id="@+id/scorer_guessed"
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:visibility="gone"
+        android:layout_marginEnd="3sp"
+        android:contentDescription="@string/objective_completed"
+        android:layout_toStartOf="@id/scorer" />
+
+    <ImageView
+        android:id="@+id/bonus_more_goals"
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:layout_marginTop="1sp"
+        android:visibility="gone"
+        android:layout_marginEnd="3sp"
+        android:src="@drawable/more_nets_bonus"
+        android:contentDescription="@string/more_goals_bonus"
+        android:layout_toStartOf="@id/scorer_guessed" />
+
+    <ImageView
+        android:id="@+id/bonus_more_goals_achieved"
+        android:layout_width="8sp"
+        android:layout_height="8sp"
+        android:visibility="gone"
+        android:layout_alignStart="@id/bonus_more_goals"
+        android:layout_marginStart="8sp"
+        android:contentDescription="@string/objective_completed"
+        tools:ignore="SmallSp" />
+
+</RelativeLayout>

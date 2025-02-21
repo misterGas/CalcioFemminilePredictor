@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UserInfo">
+
+    <Toolbar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_toolbar"
+        android:id="@+id/toolbar">
+
+        <RelativeLayout
+            android:id="@+id/toolbar_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
+
+            <ImageView
+                android:id="@+id/back_to_select_championship"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:gravity="center"
+                android:src="@drawable/back"
+                android:tooltipText="@string/back_to_select_championship"
+                android:contentDescription="@string/back_to_select_championship" />
+
+            <ImageView
+                android:id="@+id/open_objectives"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:gravity="center"
+                android:src="@drawable/objectives"
+                android:layout_toEndOf="@id/back_to_select_championship"
+                android:tooltipText="@string/objectives"
+                android:contentDescription="@string/objectives" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout"/>
+
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:layout_below="@+id/logout" />
+
+        </RelativeLayout>
+
+    </Toolbar>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:layout_marginVertical="20sp"
+            android:layout_below="@id/toolbar">
+
+            <TableLayout
+                android:id="@+id/user_info_table"
+                android:layout_width="350sp"
+                android:layout_height="wrap_content"
+                tools:ignore="UselessParent"
+                android:layout_marginBottom="10sp">
+
+                <TableRow
+                    android:background="@color/table_result_values"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/user_nickname"
+                        android:layout_width="200sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/nickname"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="8sp" />
+
+                    <TextView
+                        android:id="@+id/user_nickname_value"
+                        android:layout_width="300sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="8sp" />
+
+                    <ImageView
+                        android:id="@+id/edit_nickname_image"
+                        android:layout_width="25sp"
+                        android:layout_height="25sp"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="5sp"
+                        android:src="@drawable/edit"
+                        android:tooltipText="@string/edit"
+                        android:contentDescription="@string/edit" />
+                </TableRow>
+
+                <TableRow
+                    android:background="@color/table_result_values"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/user_first_name"
+                        android:layout_width="200sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@string/first_name"
+                        android:padding="8sp" />
+
+                    <TextView
+                        android:id="@+id/user_first_name_value"
+                        android:layout_width="300sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="8sp" />
+
+                    <ImageView
+                        android:id="@+id/edit_first_name_image"
+                        android:layout_width="25sp"
+                        android:layout_height="25sp"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="5sp"
+                        android:src="@drawable/edit"
+                        android:tooltipText="@string/edit"
+                        android:contentDescription="@string/edit" />
+                </TableRow>
+
+                <TableRow
+                    android:background="@color/table_result_values"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/user_last_name"
+                        android:layout_width="200sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text="@string/last_name"
+                        android:padding="8sp" />
+
+                    <TextView
+                        android:id="@+id/user_last_name_value"
+                        android:layout_width="300sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="8sp" />
+
+                    <ImageView
+                        android:id="@+id/edit_last_name_image"
+                        android:layout_width="25sp"
+                        android:layout_height="25sp"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="5sp"
+                        android:src="@drawable/edit"
+                        android:tooltipText="@string/edit"
+                        android:contentDescription="@string/edit" />
+                </TableRow>
+
+                <TableRow
+                    android:background="@color/table_result_values"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/user_email"
+                        android:layout_width="200sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/email"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="8sp" />
+
+                    <TextView
+                        android:id="@+id/user_email_value"
+                        android:layout_width="300sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:padding="8sp" />
+
+                    <ImageView
+                        android:id="@+id/edit_email_image"
+                        android:layout_width="25sp"
+                        android:layout_height="25sp"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="5sp"
+                        android:tooltipText="@string/edit"
+                        android:contentDescription="@string/edit" />
+                </TableRow>
+            </TableLayout>
+
+            <RelativeLayout
+                android:id="@+id/show_team_join"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginStart="10sp"
+                android:layout_toEndOf="@id/user_info_table">
+
+                <TextView
+                    android:id="@+id/join_team"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:text="@string/join_a_team" />
+
+                <TextView
+                    android:id="@+id/join_team_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:text="@string/join_team_info"
+                    android:layout_below="@id/join_team" />
+
+                <Button
+                    android:id="@+id/show_teams"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:text="@string/search_team"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/objective"
+                    android:layout_below="@id/join_team_info" />
+
+                <Button
+                    android:id="@+id/create_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10sp"
+                    android:text="@string/create_team"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/module_select"
+                    android:layout_below="@id/join_team_info" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/show_team_joined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginStart="10sp"
+                android:layout_toEndOf="@id/user_info_table">
+
+                <TextView
+                    android:id="@+id/team_joined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:text="@string/your_team" />
+
+                <TextView
+                    android:id="@+id/team_joined_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/module"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textStyle="bold|italic"
+                    android:gravity="center"
+                    android:layout_below="@id/team_joined" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/team_components_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/team_component"
+                    android:layout_marginBottom="5sp"
+                    android:layout_below="@id/team_joined_name" />
+
+            </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/progress_updating_user_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10sp"
+                android:indeterminateTint="@color/module"
+                android:indeterminate="true"
+                android:layout_marginStart="10sp"
+                android:layout_toEndOf="@id/user_info_table" />
+        </RelativeLayout>
+</RelativeLayout>

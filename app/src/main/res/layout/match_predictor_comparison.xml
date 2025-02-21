@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="10sp"
+    android:layout_marginVertical="10sp"
+    android:gravity="center"
+    android:background="@color/prediction_background">
+
+    <RelativeLayout
+        android:id="@+id/match_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/match_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:paddingTop="5sp"
+            android:gravity="center"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/match_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:textColor="@color/black"
+            android:layout_below="@id/match_date" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/finished"
+            android:textColor="@color/black"
+            android:layout_below="@id/match_time" />
+
+
+        <TextView
+            android:id="@+id/home_real_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:paddingBottom="5dp"
+            android:textSize="30sp"
+            android:layout_marginStart="100sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/black"
+            android:layout_below="@id/status"/>
+
+        <TextView
+            android:id="@+id/vs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:layout_toEndOf="@+id/home_real_result"
+            android:layout_toStartOf="@id/guest_real_result"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/black"
+            android:text="@string/vs"
+            android:layout_below="@id/status"/>
+
+        <TextView
+            android:id="@+id/guest_real_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:paddingBottom="5dp"
+            android:textSize="30sp"
+            android:layout_marginEnd="100sp"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/black"
+            android:layout_below="@id/status"/>
+
+        <ImageView
+            android:id="@+id/home_team_image"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:layout_marginStart="105sp"
+            android:paddingTop="5sp"
+            android:paddingBottom="5dp"
+            android:contentDescription="@string/home_team"
+            android:layout_below="@id/home_real_result" />
+
+        <ImageView
+            android:id="@+id/guest_team_image"
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="105sp"
+            android:paddingTop="5sp"
+            android:paddingBottom="5dp"
+            android:contentDescription="@string/guest_team"
+            android:layout_below="@id/guest_real_result" />
+
+        <TextView
+            android:id="@+id/home_team"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:paddingTop="10sp"
+            android:paddingBottom="5sp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="25sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/home_team_image" />
+
+        <TextView
+            android:id="@+id/guest_team"
+            android:layout_width="120sp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="10sp"
+            android:paddingBottom="5sp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="end"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="25sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/guest_team_image" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/match_info">
+
+        <RelativeLayout
+            android:id="@+id/result_predictions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/predicted_scores_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10sp"
+                android:layout_marginBottom="5sp">
+
+                <ImageView
+                    android:id="@+id/open_predicted_scores"
+                    android:layout_width="23sp"
+                    android:layout_height="23sp"
+                    android:src="@drawable/arrow_right"
+                    android:contentDescription="@string/prediction" />
+
+                <TextView
+                    android:id="@+id/predicted_scores"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="16sp"
+                    android:text="@string/prediction"
+                    android:fontFamily="sans-serif-black"
+                    android:textStyle="italic|bold"
+                    android:layout_toEndOf="@+id/open_predicted_scores" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/users_predictions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@id/predicted_scores_info">
+
+                <TextView
+                    android:id="@+id/actual_user_scores_nickname"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25sp"
+                    android:textColor="@color/number"
+                    android:textStyle="bold|italic"
+                    android:gravity="start" />
+
+                <TextView
+                    android:id="@+id/actual_user_home_prediction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginStart="25sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="start"
+                    android:layout_below="@id/actual_user_scores_nickname" />
+
+                <TextView
+                    android:id="@+id/actual_user_vs"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5dp"
+                    android:gravity="center"
+                    android:layout_marginStart="24sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/vs"
+                    android:layout_below="@id/actual_user_scores_nickname" />
+
+                <TextView
+                    android:id="@+id/actual_user_guest_prediction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginStart="55sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="start"
+                    android:layout_below="@id/actual_user_scores_nickname" />
+
+                <TextView
+                    android:id="@+id/vs_user_scores_nickname"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25sp"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/role"
+                    android:textStyle="bold|italic"
+                    android:gravity="end" />
+
+                <TextView
+                    android:id="@+id/vs_user_home_prediction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginEnd="55sp"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:layout_below="@id/vs_user_scores_nickname" />
+
+                <TextView
+                    android:id="@+id/vs_user_vs"
+                    android:layout_width="40sp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginEnd="24sp"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/vs"
+                    android:layout_below="@id/vs_user_scores_nickname" />
+
+                <TextView
+                    android:id="@+id/vs_user_guest_prediction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5sp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginEnd="25sp"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:layout_below="@id/vs_user_scores_nickname" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/predicted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result_predictions">
+
+            <RelativeLayout
+                android:id="@+id/predicted_scorers_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginHorizontal="10sp"
+                android:layout_marginBottom="5sp">
+
+                <ImageView
+                    android:id="@+id/open_predicted_scorers"
+                    android:layout_width="23sp"
+                    android:layout_height="23sp"
+                    android:src="@drawable/arrow_right"
+                    android:contentDescription="@string/show_predicted_scorers" />
+
+                <TextView
+                    android:id="@+id/predicted_scorers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="16sp"
+                    android:text="@string/show_predicted_scorers"
+                    android:fontFamily="sans-serif-black"
+                    android:textStyle="italic|bold"
+                    android:layout_toEndOf="@+id/open_predicted_scorers" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/actual_user_predicted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@id/predicted_scorers_info">
+
+                <TextView
+                    android:id="@+id/actual_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/number"
+                    android:textStyle="bold|italic"
+                    android:layout_marginBottom="5sp"
+                    android:gravity="center" />
+
+                <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                    android:id="@+id/actual_user_recycler_view_predicted_home_scorers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/home_scorer_info"
+                    android:layout_marginBottom="10sp"
+                    android:layout_below="@id/actual_user_nickname"/>
+
+                <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                    android:id="@+id/actual_user_recycler_view_predicted_guest_scorers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/guest_scorer_info"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="10sp"
+                    android:layout_below="@id/actual_user_nickname" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/vs_user_predicted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@id/actual_user_predicted">
+
+                <TextView
+                    android:id="@+id/vs_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/role"
+                    android:textStyle="bold|italic"
+                    android:layout_marginBottom="5sp"
+                    android:gravity="center"/>
+
+                <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                    android:id="@+id/vs_user_recycler_view_predicted_home_scorers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/home_scorer_info"
+                    android:layout_marginBottom="5sp"
+                    android:layout_below="@id/vs_user_nickname"/>
+
+                <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                    android:id="@+id/vs_user_recycler_view_predicted_guest_scorers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/guest_scorer_info"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="5sp"
+                    android:layout_below="@id/vs_user_nickname" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/official_scorers_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginHorizontal="10sp"
+            android:layout_marginBottom="5sp"
+            android:layout_below="@id/predicted">
+
+            <ImageView
+                android:id="@+id/open_official_scorers"
+                android:layout_width="23sp"
+                android:layout_height="23sp"
+                android:src="@drawable/arrow_right"
+                android:contentDescription="@string/show_official_scorers" />
+
+            <TextView
+                android:id="@+id/official_scorers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="16sp"
+                android:text="@string/show_official_scorers"
+                android:fontFamily="sans-serif-black"
+                android:textStyle="italic|bold"
+                android:layout_toEndOf="@+id/open_official_scorers" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/official_scorers_recyclers_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/official_scorers_info">
+
+            <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                android:id="@+id/recycler_view_official_home_scorers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25sp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/home_scorer_info"
+                android:visibility="gone"
+                android:layout_marginBottom="5sp" />
+
+            <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                android:id="@+id/recycler_view_official_guest_scorers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25sp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/guest_scorer_info"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="5sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/mvp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/official_scorers_recyclers_view">
+
+            <RelativeLayout
+                android:id="@+id/mvp_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginHorizontal="10sp"
+                android:layout_marginBottom="5sp">
+
+                <ImageView
+                    android:id="@+id/open_mvp"
+                    android:layout_width="23sp"
+                    android:layout_height="23sp"
+                    android:src="@drawable/arrow_right"
+                    android:contentDescription="@string/mvp" />
+
+                <TextView
+                    android:id="@+id/mvp_info_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="16sp"
+                    android:text="@string/mvp"
+                    android:fontFamily="sans-serif-black"
+                    android:textStyle="italic|bold"
+                    android:layout_toEndOf="@+id/open_mvp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/predicted_mvp_opened"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@id/mvp_info">
+
+                <TextView
+                    android:id="@+id/predicted_mvp_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold|italic"
+                    android:gravity="center"
+                    android:text="@string/predicted_mvp"
+                    android:layout_marginBottom="5sp" />
+
+                <RelativeLayout
+                    android:id="@+id/actual_user_mvp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_below="@id/predicted_mvp_info">
+
+                    <RelativeLayout
+                        android:id="@+id/actual_user_prediction_guessed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/actual_user_predicted_mvp_nickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/number"
+                            android:textStyle="bold|italic"
+                            android:layout_marginBottom="5sp" />
+
+                        <ImageView
+                            android:id="@+id/actual_user_mvp_guessed"
+                            android:layout_width="15sp"
+                            android:layout_height="15sp"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginStart="3sp"
+                            android:contentDescription="@string/objective_completed"
+                            android:layout_toEndOf="@id/actual_user_predicted_mvp_nickname" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/actual_user_predicted_mvp_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="5sp"
+                        android:gravity="center"
+                        android:layout_below="@+id/actual_user_prediction_guessed" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/vs_user_mvp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_below="@id/actual_user_mvp">
+
+                    <RelativeLayout
+                        android:id="@+id/vs_user_prediction_guessed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/vs_user_predicted_mvp_nickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/role"
+                            android:textStyle="bold|italic"
+                            android:layout_marginBottom="5sp" />
+
+                        <ImageView
+                            android:id="@+id/vs_user_mvp_guessed"
+                            android:layout_width="15sp"
+                            android:layout_height="15sp"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginStart="3sp"
+                            android:contentDescription="@string/objective_completed"
+                            android:layout_toEndOf="@id/vs_user_predicted_mvp_nickname" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/vs_user_predicted_mvp_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="5sp"
+                        android:gravity="center"
+                        android:layout_below="@+id/vs_user_prediction_guessed" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/official_mvp_opened"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_below="@id/predicted_mvp_opened">
+
+                <TextView
+                    android:id="@+id/official_mvp_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold|italic"
+                    android:text="@string/official_mvp"
+                    android:layout_marginBottom="5sp"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/official_mvp_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="5sp"
+                    android:gravity="center"
+                    android:layout_below="@+id/official_mvp_info" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/total_points_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10sp"
+            android:layout_marginBottom="5sp"
+            android:layout_below="@id/mvp">
+
+            <ImageView
+                android:id="@+id/open_total_points"
+                android:layout_width="23sp"
+                android:layout_height="23sp"
+                android:src="@drawable/arrow_right"
+                android:contentDescription="@string/total_points" />
+
+            <TextView
+                android:id="@+id/total_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="16sp"
+                android:text="@string/total_points"
+                android:fontFamily="sans-serif-black"
+                android:textStyle="italic|bold"
+                android:layout_toEndOf="@+id/open_total_points" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/users_total_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_below="@id/total_points_info">
+
+            <TextView
+                android:id="@+id/actual_user_points_nickname"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25sp"
+                android:textColor="@color/number"
+                android:textStyle="bold|italic"
+                android:gravity="start" />
+
+            <TextView
+                android:id="@+id/actual_user_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_below="@id/actual_user_points_nickname" />
+
+            <ImageView
+                android:id="@+id/actual_user_match_points_image"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:src="@drawable/points"
+                android:layout_marginStart="2sp"
+                android:layout_toEndOf="@id/actual_user_points"
+                android:contentDescription="@string/points"
+                android:layout_below="@id/actual_user_points_nickname" />
+
+            <TextView
+                android:id="@+id/vs_user_points_nickname"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25sp"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/role"
+                android:textStyle="bold|italic"
+                android:gravity="end" />
+
+            <TextView
+                android:id="@+id/vs_user_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_alignEnd="@+id/vs_user_match_points_image"
+                android:layout_marginEnd="22sp"
+                android:textStyle="bold"
+                android:gravity="end"
+                android:layout_below="@id/vs_user_points_nickname" />
+
+            <ImageView
+                android:id="@+id/vs_user_match_points_image"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:src="@drawable/points"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25sp"
+                android:contentDescription="@string/points"
+                android:layout_below="@id/vs_user_points_nickname" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

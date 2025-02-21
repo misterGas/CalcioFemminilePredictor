@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250sp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10sp"
+    android:background="@drawable/special_event_border">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10sp"
+        android:layout_marginHorizontal="10sp"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold|italic"
+            android:gravity="center"
+            android:layout_marginBottom="10sp"
+            android:textColor="@color/module_select" />
+
+        <ImageView
+            android:id="@+id/event_image"
+            android:layout_width="120sp"
+            android:layout_height="120sp"
+            android:contentDescription="@string/special_events"
+            android:layout_marginBottom="10sp"
+            android:layout_below="@id/info" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/event_image"
+            android:layout_below="@id/info"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/event_image"
+            android:layout_below="@id/date"
+            tools:ignore="SmallSp" />
+
+        <ImageView
+            android:id="@+id/team1_image"
+            android:layout_width="28sp"
+            android:layout_height="28sp"
+            android:layout_marginStart="10sp"
+            android:contentDescription="@string/home_team"
+            android:layout_marginTop="5sp"
+            android:layout_toEndOf="@id/event_image"
+            android:layout_below="@id/time" />
+
+        <TextView
+            android:id="@+id/vs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/event_image"
+            android:text="@string/long_vs"
+            android:layout_below="@id/time" />
+
+        <ImageView
+            android:id="@+id/team2_image"
+            android:layout_width="28sp"
+            android:layout_height="28sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10sp"
+            android:contentDescription="@string/guest_team"
+            android:layout_marginTop="5sp"
+            android:layout_below="@id/time" />
+
+        <Button
+            android:id="@+id/join_special_event"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:layout_marginHorizontal="10sp"
+            android:layout_marginTop="8sp"
+            android:textSize="11sp"
+            android:background="@color/objective"
+            android:layout_toEndOf="@id/event_image"
+            android:layout_alignBottom="@id/event_image"
+            android:text="@string/join_special_event" />
+    </RelativeLayout>
+</RelativeLayout>

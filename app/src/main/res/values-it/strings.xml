@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calcio Femminile Predictor</string>
+
+    <string name="intro_text">Benvenuto/benvenuta su Calcio Femminile Predictor! Qui puoi pronosticare molte partite di calcio femminile ed ottenere molti punti che ti permetteranno di scalare le classifiche. Ma, ricorda, gioca solo per divertirti!</string>
+    <string name="lets_start">Inizia</string>
+
+    <string name="select_championship">Seleziona il campionato</string>
+    <string name="predictions_rules">Regole riguardanti i pronostici</string>
+    <string name="championship">Campionato</string>
+    <string name="not_predicted">Non pronosticata</string>
+    <string name="double_points">x2</string>
+    <string name="activate_double_points">Attiva x2</string>
+    <string name="match_not_predicted">Pronostico per la partita non effettuato</string>
+    <string name="to_be_defined">Da definire</string>
+
+    <string name="back_to_championship_prediction">Ritorna a pronostici del campionato</string>
+    <string name="standings">Classifica</string>
+    <string name="result">Risultato</string>
+    <string name="prediction_target">Obiettivo</string>
+    <string name="prediction_target_prediction">Pronostico</string>
+    <string name="prediction_target_real">Effettivo</string>
+    <string name="prediction_target_points">Punti</string>
+    <string name="match_result">V/P/S</string>
+    <string name="goals">Reti</string>
+    <string name="goal_difference">Differenza reti</string>
+    <string name="total_points">Punti totali</string>
+
+    <string name="show_result_details">Visualizza dettagli risultato</string>
+
+    <string name="yes">SÌ</string>
+    <string name="no">NO</string>
+
+    <string name="user">Nickname utente</string>
+    <string name="position">Posizione</string>
+    <string name="ranking">Posizione nel ranking</string>
+    <string name="zero">0</string>
+
+    <string name="login">Login</string>
+    <string name="registration">Registrati</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgotten_password">Password dimenticata</string>
+    <string name="first_name">Nome</string>
+    <string name="last_name">Cognome</string>
+    <string name="nickname">Nickname</string>
+    <string name="nickname_info">Questo nickname sarà visibile nelle classifiche dei pronostici. Potrai modificarlo una volta al mese</string>
+    <string name="avatar">Avatar</string>
+    <string name="avatar_info">Questo avatar sarà visibile nelle classifiche dei pronostici. Potrai modificarlo quando vuoi</string>
+    <string name="secure_code_header">Codice di sicurezza</string>
+    <string name="secure_code_info_sum">Scrivi l\'ultima cifra della somma delle cifre del codice di sicurezza (esempio: 1269 -> 1 + 2 + 6 + 9 = 18 -> 8)</string>
+    <string name="secure_code_info_mul">Scrivi l\'ultima cifra della moltiplicazione delle cifre del codice di sicurezza (esempio: 1743 -> 1 * 7 * 4 * 3 = 84 -> 4)</string>
+    <string name="all_fields_required">Tutti i campi sono obbligatori</string>
+    <string name="email_unmarked">Email non accettabile</string>
+    <string name="incorrect">Email o password incorretti</string>
+    <string name="login_completed">Login effettuato correttamente</string>
+    <string name="secure_code_incorrect">Calcolo del codice di sicurezza incorretto</string>
+    <string name="nickname_already_used">Nickname già utilizzato</string>
+    <string name="email_already_used">Email già utilizzata da un altro account</string>
+    <string name="password_too_short">La password deve avere almeno 6 caratteri</string>
+    <string name="registration_completed">Effettua il login per verificare la tua identità</string>
+
+    <string name="back_to_login">Torna indietro al login</string>
+    <string name="modify_password">Recupera password</string>
+    <string name="watch_emails">Visualizza la tua posta in arrivo</string>
+    <string name="email_not_found">Email non trovata</string>
+
+    <string name="logout">Effettua il logout</string>
+    <string name="are_you_sure_logout">Effettuare il logout?</string>
+    <string name="logout_completed">Logout effettuato correttamente</string>
+    <string name="back_to_select_championship">Ritorna a scegli il campionato</string>
+    <string name="back_to_user_info">Ritorna a informazioni utente</string>
+
+    <string name="day">Giornata</string>
+    <string name="regular_season">Stagione regolare</string>
+    <string name="preliminary">Fase preliminare</string>
+    <string name="round_32">Sedidecisimi di finale</string>
+    <string name="round_16">Ottavi di finale</string>
+    <string name="quarterfinals">Quarti di finale</string>
+    <string name="semifinals">Semifinali</string>
+    <string name="final_">Finale</string>
+    <string name="shield_group">Poule scudetto</string>
+    <string name="salvation_group">Poule salvezza</string>
+    <string name="qualifications">Qualificazioni</string>
+    <string name="points">Punti</string>
+    <string name="date">Data</string>
+    <string name="time">Orario</string>
+    <string name="home_team">Squadra di casa</string>
+    <string name="guest_team">Squadra ospite</string>
+    <string name="vs">-</string>
+    <string name="programmed">Programmata</string>
+    <string name="live">In diretta</string>
+    <string name="finished">Terminata</string>
+    <string name="predict_scorers">Le tue marcatrici</string>
+
+    <string name="update_data">Aggiorna risultati partite</string>
+    <string name="data_updated">Risultati delle partite aggiornati correttamente</string>
+    <string name="turn_up_volume">Alza il volume</string>
+    <string name="no_connection">Nessuna connessione</string>
+    <string name="connection_activated">Connessione attivata</string>
+    <string name="retry">Riprova</string>
+
+    <string name="hi">Ciao</string>
+    <string name="match_predicted">Partite pronosticate</string>
+
+    <string name="january">Gennaio</string>
+    <string name="february">Febbraio</string>
+    <string name="march">Marzo</string>
+    <string name="april">Aprile</string>
+    <string name="may">Maggio</string>
+    <string name="june">Giugno</string>
+    <string name="july">Luglio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Settembre</string>
+    <string name="october">Ottobre</string>
+    <string name="november">Novembre</string>
+    <string name="december">Dicembre</string>
+
+    <string name="monday">Lunedì</string>
+    <string name="tuesday">Martedì</string>
+    <string name="wednesday">Mercoledì</string>
+    <string name="thursday">Giovedì</string>
+    <string name="friday">Venerdì</string>
+    <string name="saturday">Sabato</string>
+    <string name="sunday">Domenica</string>
+
+    <string name="italy_serie_a_women">Serie A Femminile</string>
+    <string name="uefa_womens_euro">UEFA Women\'s Euro</string>
+    <string name="english_womens_super_league">Women\'s Super League</string>
+    <string name="uefa_womens_champions_league">UEFA Women\'s Champions League</string>
+
+    <string name="hear_rules">Ascolta regole</string>
+    <string name="profile">Profilo</string>
+
+    <string name="rules_1">
+        Sei pronto/pronta a cimentarti nel mondo dei pronostici riguardanti il calcio femminile? Questa applicazione fa proprio al caso tuo!
+        Pronostica il risultato di ciascuna partita dei più importanti campionati nazionali ed internazionali e quando l\'incontro sarà terminato, verranno tirate le somme su quali risultati hai indovinato e su quali invece hai sbagliato.
+        Ma non preoccuparti: avrai molte occasioni per racimolare punti!\nPer ogni partita, potrai ottenere punti con:\n
+        - il risultato: se indovini vittoria/pareggio/sconfitta: +3 punti;\n
+        - reti squadra di casa: se indovini il numero di reti della squadra di casa: +3 punti;\n
+        - reti squadra ospite: se indovini il numero di reti della squadra ospite: +3 punti;\n
+        - differenza reti: se indovini la differenza reti tra le due squadre: +2 punti;\n
+        - marcatrici reti partita: se indovini una marcatrice che segna almeno una rete nella partita: +6 punti per giocatrice. In caso di più di una rete per la stessa giocatrice, il punteggio per quella giocatrice per questo obiettivo resta di 6;\n
+        - marcatrici autoreti partita: se indovini una marcatrice che segna almeno un\'autorete nella partita: +8 punti per giocatrice. In caso di più di un\'autorete per la stessa giocatrice, il punteggio per quella giocatrice per questo obiettivo resta di 8;\n
+        - bonus marcatrice più di una rete: se indovini una marcatrice che segna più di una rete nella partita: +2 punti per rete;\n
+        - bonus marcatrice più di un\'autorete: se indovini una marcatrice che segna più di un\'autorete nella partita: +4 punti per autorete;\n
+        - l\'MVP pronosticata correttamente: se indovini l\'MVP (Most Valuable Player) della partita: +10 punti.\n
+        \nPer una partita a giornata, potrai inoltre attivare i punti doppi: tutti i punti accumulati in quella partita vengono raddoppiati.
+        \n\nPuoi pronosticare il risultato della partita (reti segnate) fino a sei ore dal suo inizio. Da quel momento fino all\'inizio dell\'incontro, potrai pronosticare l\'MVP e le marcatrici di reti ed autoreti della partita in base al numero di reti che hai pronosticato per ciascuna squadra.
+        \n\nTutto chiaro? Se sì, ti auguriamo di divertirti a pronosticare le partite del calcio femminile!
+    </string>
+
+    <string name="search_nickname">Cerca nickname utente</string>
+
+    <string name="objectives">Obiettivi</string>
+    <string name="title_objective">Titolo obiettivo</string>
+    <string name="description_objective">Descrizione obiettivo</string>
+    <string name="objective_completed">Completato</string>
+    <string name="show_objectives">Visualizza obiettivi</string>
+
+    <string name="objectives_matches_predicted">Partite pronosticate</string>
+    <string name="objectives_matches_predicted_description">Pronostica le partite</string>
+    <string name="objectives_matches_predicted_correctly">Partite pronosticate correttamente</string>
+    <string name="objectives_matches_predicted_correctly_description">Pronostica le partite correttamente nel risultato</string>
+    <string name="objectives_points">Punti</string>
+    <string name="objectives_points_description">Guadagna punti pronosticando le partite</string>
+    <string name="objectives_round_points">Punti a giornata</string>
+    <string name="objectives_round_points_description">Guadagna punti in una giornata pronosticando le partite</string>
+    <string name="objectives_scorers_goal">Marcatrici di reti pronosticate correttamente</string>
+    <string name="objectives_scorers_goal_description">Pronostica correttamente marcatrici di reti nelle partite</string>
+    <string name="objectives_scorers_goal_bonus">Bonus più di una rete</string>
+    <string name="objectives_scorers_goal_bonus_description">Pronostica correttamente marcatrici che segnano più di una rete in una partita ed ottieni punti bonus per ogni rete in più segnata</string>
+    <string name="objectives_scorers_own_goal">Marcatrici di autoreti pronosticate correttamente</string>
+    <string name="objectives_scorers_own_goal_description">Pronostica correttamente marcatrici di autoreti nelle partite</string>
+    <string name="objectives_scorers_own_goal_bonus">Bonus più di un\'autorete</string>
+    <string name="objectives_scorers_own_goal_bonus_description">Pronostica correttamente marcatrici che segnano più di un\'autorete in una partita ed ottieni punti bonus per ogni autorete in più segnata</string>
+    <string name="objectives_goals_predicted">Numero di goal pronosticati</string>
+    <string name="objectives_goals_predicted_description">Pronostica il numero di goal segnati</string>
+    <string name="objectives_mvp_predicted_correctly">MVP pronosticate correttamente</string>
+    <string name="objectives_mvp_predicted_correctly_description">Pronostica correttamente l\'MVP (Most Valuable Player) delle partite</string>
+    <string name="objectives_match_points">Punti a partita</string>
+    <string name="objectives_match_points_description">Guadagna punti in una partita pronosticando le partite</string>
+
+    <string name="edit">Modifica</string>
+    <string name="edit_nickname">Modifica nickname</string>
+    <string name="edit_first_name">Modifica nome</string>
+    <string name="edit_last_name">Modifica cognome</string>
+    <string name="edit_email">Modifica email</string>
+
+    <string name="match_about_to_start">inizierà tra poche ore</string>
+    <string name="assign_scorers_notification">Assegna adesso i tuoi pronostici per le marcatrici della partita</string>
+
+    <string name="role">Ruolo</string>
+    <string name="goalkeeper">POR</string>
+    <string name="defender">DIF</string>
+    <string name="midfielder">CEN</string>
+    <string name="forward">ATT</string>
+    <string name="goalkeeper_info">Portiere</string>
+    <string name="defender_info">Difensore</string>
+    <string name="midfielder_info">Centrocampista</string>
+    <string name="forward_info">Attaccante</string>
+
+    <string name="add_net">Aggiungi rete</string>
+    <string name="remove_net">Rimuovi rete</string>
+    <string name="assign_match_scorers">Pronostica marcatrici partita</string>
+    <string name="assign_scorers">Pronostica marcatrici</string>
+    <string name="slot">Slot</string>
+    <string name="assign">Assegna rete</string>
+    <string name="assigned">Assegnato</string>
+    <string name="assign_scorers_description">Seleziona uno slot (ognuno corrisponde ad una rete che hai pronosticato) e poi scegli una marcatrice per quello slot. La scelta dello slot non influirà sull\'assegnazione dei punti</string>
+    <string name="reset_assignments">Resetta pronostici marcatrici</string>
+
+    <string name="add_officials_scorers">Aggiungi marcatrici ufficiali</string>
+    <string name="scorer">Marcatrice</string>
+    <string name="timeline">Minuto</string>
+
+    <string name="player_number">Numero maglia</string>
+
+    <string name="add_players">Aggiungi giocatrici</string>
+    <string name="add_player">Aggiungi giocatrice</string>
+    <string name="team">Squadra</string>
+    <string name="search_team_name">Cerca squadra</string>
+    <string name="select_team">Seleziona squadra</string>
+    <string name="added_players">Giocatrici aggiunte</string>
+    <string name="player_added">Giocatrice aggiunta correttamente alla squadra</string>
+    <string name="player_already_added">Giocatrice con un questo numero di maglia già presente in questa squadra</string>
+    <string name="role_required">Il ruolo della giocatrice è richiesto</string>
+    <string name="import_players">Importa giocatrici (File JSON)</string>
+    <string name="search_in_file_system">Scegli il file JSON dal tuo file system</string>
+    <string name="players_imported_correctly">Giocatrici importate correttamente</string>
+    <string name="problems_during_importing">Problemi durante l\'importazione</string>
+    <string name="players_not_imported">giocatrici non importate</string>
+
+    <string name="own_goal">(A)</string>
+
+    <string name="match_day_ongoing">Giornata in corso: assegnazione dei punti doppi non modificabile</string>
+
+    <string name="today">Oggi</string>
+    <string name="yesterday">Ieri</string>
+    <string name="tomorrow">Domani</string>
+
+    <string name="show_predicted_scorers">Marcatrici pronosticate</string>
+    <string name="show_official_scorers">Marcatrici ufficiali</string>
+
+    <string name="goal_predicted_number">Marcatrici di reti pronosticate correttamente</string>
+    <string name="own_goal_predicted_number">Marcatrici di autoreti pronosticate correttamente</string>
+
+    <string name="match_finished">Assegna partita terminata</string>
+    <string name="confirmation_finished">Assegnare</string>
+    <string name="as_finished">come terminata?</string>
+    <string name="confirm">Conferma</string>
+    <string name="cancel">Annulla</string>
+    <string name="match_finished_assigned">assegnata come terminata</string>
+
+    <string name="duel_comparison">Confronta pronostici</string>
+    <string name="comparison">Confronto pronostici</string>
+    <string name="back_to_standings">Ritorna a classifica del campionato</string>
+
+    <string name="prediction">Pronostico</string>
+
+    <string name="comparison_info">Informazioni confronto</string>
+    <string name="comparison_details">
+        Il confronto pronostici si riferisce solamente alle partite terminate pronosticate almeno nel risultato da entrambi gli utenti.\n
+        - risultato (V/P/S): +3 punti\n
+        - reti squadra di casa: +3 punti\n
+        - reti squadra ospite: +3 punti\n
+        - differenza reti: +2 punti\n
+        - marcatrici reti partita: +6 punti per giocatrice\n
+        - marcatrici autoreti partita: +8 punti per giocatrice\n
+        - bonus marcatrice più di una rete: +2 punti per rete\n
+        - bonus marcatrice più di un\'autorete: +4 punti per autorete\n
+        - MVP pronosticata correttamente: +10 punti
+    </string>
+    <string name="ok">OK</string>
+
+    <string name="more_goals_bonus">Bonus più di una rete</string>
+    <string name="more_goals_bonus_failed">Bonus più di una rete non ottenuto</string>
+    <string name="more_own_goals_bonus">Bonus più di un\'autorete</string>
+    <string name="more_own_goals_bonus_failed">Bonus più di un\'autorete non ottenuto</string>
+
+    <string name="predict_mvp">Pronostica MVP</string>
+    <string name="mvp">MVP</string>
+    <string name="add_official_mvp">Aggiungi MVP ufficiale</string>
+    <string name="predicted_mvp">MVP pronosticata</string>
+    <string name="official_mvp">MVP ufficiale</string>
+    <string name="mvp_predicted_correctly">MVP pronosticata correttamente</string>
+
+    <string name="select_season">Seleziona stagione</string>
+    <string name="season">Stagione</string>
+
+    <string name="manager">Gestore</string>
+    <string name="switch_to_manager">Passa alla modalità gestore</string>
+    <string name="switch_to_normal_user">Passa alla modalità utente normale</string>
+    <string name="manager_mode_info">Sei sicuro/a di voler passare alla modalità gestore? Passare alla modalità gestore significa che puoi aggiungere nuove giocatrici ed assegnare le marcatrici ed MVP ufficiali di ogni partita.</string>
+    <string name="normal_user_mode_info">Sei sicuro/a di voler passare alla modalità utente normale? Passare alla modalità utente normale significa che non potrai più aggiungere nuove giocatrici ed assegnare le marcatrici ed MVP ufficiali di ogni partita.</string>
+    <string name="manager_mode_activated">Modalità gestore attivata</string>
+    <string name="manager_mode_deactivated">Modalità gestore disattivata</string>
+
+    <string name="privacy_policy"><u>Informativa sulla privacy</u></string>
+    <string name="accept_privacy_policy">Accetto l\'informativa sulla privacy</string>
+    <string name="you_need_to_accept_privacy_policy">Devi accettare l\'informativa sulla privacy per continuare con la registrazione</string>
+
+    <string name="nickname_cannot_be_updated">Non modificabile più di una volta al mese</string>
+
+    <string name="back_to_result_details">Torna a dettagli risultato</string>
+
+    <string name="result_histograms">Istogrammi del risultato</string>
+    <string name="scores_histogram">Pronostici reti segnate</string>
+    <string name="scorers_histogram">Pronostici marcatrici di reti ed autoreti</string>
+    <string name="mvp_histogram">Pronostici MVP</string>
+
+    <string name="histograms_info">Informazioni istogrammi del risultato</string>
+    <string name="histograms_details">Gli istogrammi del risultato offrono una panoramica anonima dei pronostici della partita di tutti gli utenti, utilizzando degli istogrammi che rappresentano le frequenze dei pronostici per il risultato, le marcatrici della squadra di casa e della squadra ospite e l\'MVP della partita.</string>
+
+    <string name="best11">Best 11</string>
+    <string name="add_best11_player">Aggiungi una giocatrice della Best 11</string>
+    <string name="predict_best11">Crea la tua Best 11</string>
+    <string name="show_best11">Visualizza la tua Best 11</string>
+
+    <string name="change_module">Cambia modulo squadra</string>
+    <string name="select_module">Seleziona modulo squadra</string>
+    <string name="module">Modulo</string>
+    <string name="module_description">Cambiando modulo, le ultime giocatrici più in basso a destra in ogni ruolo attualmente salvate verranno eliminate ogni volta che cambi modulo se il nuovo modulo ha meno slot corrispondenti al ruolo rispetto al modulo attuale. Questo significa che dovrai riassegnarle nuovamente. Ti consigliamo quindi di decidere bene dapprima il modulo, visualizzando il ruolo che è assegnato a ciascuno slot della formazione.</string>
+
+    <string name="select_goalkeeper">Seleziona portiere</string>
+    <string name="select_defender">Seleziona difensore</string>
+    <string name="select_midfielder">Seleziona centrocampista</string>
+    <string name="select_forward">Seleziona attaccante</string>
+
+    <string name="locked">Bloccato</string>
+    <string name="unlock_from">Sbloccabile da</string>
+
+    <string name="join_a_team">Unisciti ad una squadra</string>
+    <string name="join_team_info">Unisciti ad una squadra con i tuoi amici o altre persone della community e competi in eventi speciali dove i componenti della squadra saranno messi di fronte a diverse sfide</string>
+    <string name="search_team">Cerca squadra</string>
+    <string name="create_team">Crea squadra</string>
+    <string name="team_name">Nome squadra</string>
+    <string name="team_info">Informazioni squadra</string>
+    <string name="join_team">Unisciti alla squadra</string>
+    <string name="private_team">Squadra privata</string>
+    <string name="team_name_required">Nome squadra richiesto</string>
+    <string name="team_password_required">Password squadra richiesta</string>
+    <string name="team_created_correctly">Squadra creata correttamente</string>
+    <string name="team_captain">Capitano</string>
+    <string name="c">C</string>
+    <string name="your_team">La tua squadra</string>
+    <string name="incorrect_password">Password squadra non corretta</string>
+    <string name="team_joined_correctly">Unito correttamente alla squadra</string>
+    <string name="team_name_already_used">Nome squadra già utilizzato</string>
+
+    <string name="special_events">Eventi Speciali</string>
+    <string name="coming_soon">In arrivo!</string>
+
+    <string name="long_vs">vs</string>
+    <string name="join_special_event">Partecipa</string>
+
+    <string name="match_outcome">Esito partita</string>
+    <string name="match_outcome_info">Come terminerà la partita?</string>
+    <string name="normal_time">Tempi regolamentari</string>
+    <string name="extra_time">Tempi supplementari</string>
+    <string name="penalty_shootout">Tiri di rigore</string>
+    <string name="votes">Voti:</string>
+
+    <string name="official_outcome_info1">Al termine del sondaggio dell\'esito della partita, con</string>
+    <string name="official_outcome_info2">voti, questa è la situazione:</string>
+
+    <string name="decision_by_votes">La decisione definitiva è stata effettuata utilizzando il criterio dei voti</string>
+    <string name="decision_by_random">La decisione definitiva è stata effettuata utilizzando il criterio random tra le opzioni con più voti</string>
+    <string name="decision_by_captain_privilege">La decisione definitiva è stata presa utilizzando il criterio privilegio capitano tra le opzioni con più voti</string>
+
+    <string name="outcome_official_decision">Esito partita: decisione definitiva</string>
+
+    <string name="season_recap">Riassunto della stagione</string>
+
+    <string name="played">PG</string>
+    <string name="points_info">PT</string>
+    <string name="wins">V</string>
+    <string name="nulls">P</string>
+    <string name="lost">S</string>
+    <string name="scored">R+</string>
+    <string name="suffered">R-</string>
+    <string name="difference">DR</string>
+
+    <string name="played_long">Partite giocate</string>
+    <string name="points_info_long">Punti totali</string>
+    <string name="wins_long">Vittorie</string>
+    <string name="nulls_long">Pareggi</string>
+    <string name="lost_long">Sconfitte</string>
+    <string name="scored_long">Reti segnate</string>
+    <string name="suffered_long">Reti subite</string>
+    <string name="difference_long">Differenza reti</string>
+
+    <string name="results_recap">Riassunto risultati</string>
+    <string name="full_team">Squadra al completo, riprova con un\'altra squadra</string>
+
+    <string name="HOME">Casa</string>
+    <string name="AWAY">Trasferta</string>
+    <string name="WIN">Vittoria</string>
+    <string name="NULL">Pareggio</string>
+    <string name="LOST">Sconfitta</string>
+
+    <string name="result_prediction">Pronostico risultato</string>
+    <string name="predict_match">Pronostica il risultato della partita</string>
+    <string name="add_prediction">Aggiungi il tuo pronostico del risultato</string>
+    <string name="remove_prediction">Rimuovi il tuo pronostico del risultato</string>
+    <string name="result_prediction_official_decision">Pronostico risultato: decisione definitiva</string>
+    <string name="remove_prediction_confirm">Rimuovere il tuo pronostico del risultato?</string>
+    <string name="official_result_info1">Al termine del sondaggio del pronostico del risultato della partita, con</string>
+
+    <!--States names translated-->
+    <string name="albania">Albania</string>
+    <string name="andorra">Andorra</string>
+    <string name="armenia">Armenia</string>
+    <string name="austria">Austria</string>
+    <string name="azerbaijan">Azerbaigian</string>
+    <string name="belarus">Bielorussia</string>
+    <string name="belgium">Belgio</string>
+    <string name="bosnia_herzegovina">Bosnia Erzegovina</string>
+    <string name="bulgaria">Bulgaria</string>
+    <string name="croatia">Croazia</string>
+    <string name="cyprus">Cipro</string>
+    <string name="czech_republic">Repubblica Ceca</string>
+    <string name="england">Inghilterra</string>
+    <string name="denmark">Danimarca</string>
+    <string name="estonia">Estonia</string>
+    <string name="faroe_islands">Isole Faroe</string>
+    <string name="finland">Finlandia</string>
+    <string name="france">Francia</string>
+    <string name="georgia">Georgia</string>
+    <string name="germany">Germania</string>
+    <string name="greece">Grecia</string>
+    <string name="hungary">Ungheria</string>
+    <string name="iceland">Islanda</string>
+    <string name="ireland">Irlanda</string>
+    <string name="israel">Israele</string>
+    <string name="italy">Italia</string>
+    <string name="kazakhstan">Kazakistan</string>
+    <string name="kosovo">Kosovo</string>
+    <string name="latvia">Lettonia</string>
+    <string name="lithuania">Lituania</string>
+    <string name="luxembourg">Lussemburgo</string>
+    <string name="malta">Malta</string>
+    <string name="moldova">Moldova</string>
+    <string name="montenegro">Montenegro</string>
+    <string name="netherlands">Paesi Bassi</string>
+    <string name="north_macedonia">Macedonia del Nord</string>
+    <string name="northern_ireland">Irlanda del Nord</string>
+    <string name="norway">Norvegia</string>
+    <string name="poland">Polonia</string>
+    <string name="portugal">Portogallo</string>
+    <string name="romania">Romania</string>
+    <string name="scotland">Scozia</string>
+    <string name="serbia">Serbia</string>
+    <string name="slovakia">Slovacchia</string>
+    <string name="slovenia">Slovenia</string>
+    <string name="spain">Spagna</string>
+    <string name="sweden">Svezia</string>
+    <string name="switzerland">Svizzera</string>
+    <string name="turkey">Turchia</string>
+    <string name="ukraine">Ucraina</string>
+    <string name="wales">Galles</string>
+</resources>

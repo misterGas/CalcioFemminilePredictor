@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10sp"
+    android:layout_marginVertical="10sp"
+    android:gravity="center"
+    android:background="@color/objective">
+
+    <TextView
+        android:id="@+id/objective_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:id="@+id/objective_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15sp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_below="@id/objective_title" />
+
+    <TextView
+        android:id="@+id/objective_progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/objective_progress"
+        android:textSize="12sp"
+        android:layout_alignStart="@id/objective_progress"
+        android:textColor="@android:color/black" />
+
+    <RelativeLayout
+        android:id="@+id/completed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@color/registration_submit"
+        android:layout_below="@id/objective_progress_text">
+
+        <ImageView
+            android:id="@+id/image_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="30sp"
+            android:src="@drawable/completed"
+            android:contentDescription="@string/objective_completed" />
+
+        <TextView
+            android:id="@+id/objective_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5sp"
+            android:layout_marginStart="5sp"
+            android:textSize="14sp"
+            android:layout_toEndOf="@id/image_completed"
+            android:text="@string/objective_completed"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/team_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="text"
+        android:importantForAutofill="no"
+        android:hint="@string/team_name"
+        android:autofillHints="@string/team_name"
+        android:paddingTop="10sp"
+        android:layout_marginHorizontal="20sp"/>
+
+    <CheckBox
+        android:id="@+id/private_team_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/private_team"
+        android:buttonTint="@color/above_toolbar"
+        android:layout_below="@id/team_name"
+        android:layout_marginHorizontal="20sp" />
+
+    <EditText
+        android:id="@+id/team_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="textPassword"
+        android:hint="@string/password"
+        android:autofillHints="@string/password"
+        android:visibility="gone"
+        android:paddingTop="10sp"
+        android:layout_below="@id/private_team_checkbox"
+        android:layout_marginHorizontal="20sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/team_password"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginBottom="10sp">
+
+        <Button
+            android:id="@+id/create_team_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/module_select"
+            android:text="@string/create_team"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

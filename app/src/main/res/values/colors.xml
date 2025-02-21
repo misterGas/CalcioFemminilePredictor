@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="teal_toolbar">#159FDB</color>
+    <color name="above_toolbar">#06478E</color>
+    <color name="day_selected">#50C878</color>
+    <color name="prediction_background">#42F7CB</color>
+    <color name="registration_submit">#B6DE99</color>
+    <color name="table_result_values">#B0F0EE</color>
+    <color name="background_icon">#609596</color>
+    <color name="objective">#87CEFA</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="number">#EE5DDC</color>
+    <color name="role">#FFAE00</color>
+    <color name="championship_season">#E7A0DE</color>
+    <color name="adding_player">#960A0A</color>
+    <color name="module">#9A155E</color>
+    <color name="module_select">#C74284</color>
+    <color name="special_event_background">#FFEEA1</color>
+    <color name="background">#FFCCAA</color>
+</resources>

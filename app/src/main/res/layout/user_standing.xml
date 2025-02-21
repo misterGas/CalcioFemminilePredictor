@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/user_item_standing"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5sp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/standing_position"
+        android:layout_width="50sp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/zero"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/user_points"
+        android:layout_width="50sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:textColor="@color/black"
+        android:text="@string/zero"
+        android:gravity="center"
+        android:layout_toEndOf="@id/standing_position" />
+
+    <TextView
+        android:id="@+id/user_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:textColor="@color/black"
+        android:text="@string/user"
+        android:gravity="center"
+        android:layout_toStartOf="@id/compare_predictions"
+        android:layout_toEndOf="@id/user_points" />
+
+    <ImageView
+        android:id="@+id/compare_predictions"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="5sp"
+        android:src="@drawable/duel"
+        android:visibility="invisible"
+        android:contentDescription="@string/duel_comparison"
+        android:tooltipText="@string/duel_comparison"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

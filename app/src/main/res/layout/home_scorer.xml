@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10sp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/role"
+        android:layout_width="25sp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/role"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textStyle="italic|bold"
+        android:layout_marginStart="3sp" />
+
+    <TextView
+        android:id="@+id/shirt_number"
+        android:layout_width="25sp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/number"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="italic|bold"
+        android:layout_marginStart="3sp"
+        android:layout_below="@id/role" />
+
+    <ImageView
+        android:id="@+id/team_image"
+        android:layout_width="20sp"
+        android:layout_height="20sp"
+        android:layout_marginStart="6sp"
+        android:layout_marginBottom="3sp"
+        android:contentDescription="@string/home_team"
+        android:background="@color/objective"
+        android:layout_below="@id/shirt_number" />
+
+    <TextView
+        android:id="@+id/scorer_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginTop="6sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="@string/first_name"
+        android:layout_toEndOf="@id/role" />
+
+    <TextView
+        android:id="@+id/scorer_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textSize="16sp"
+        android:layout_marginBottom="4sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="@string/last_name"
+        android:layout_toEndOf="@id/role"
+        android:layout_below="@id/scorer_first_name" />
+
+</RelativeLayout>

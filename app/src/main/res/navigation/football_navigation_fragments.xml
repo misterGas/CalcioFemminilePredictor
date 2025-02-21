@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/opening">
+
+    <fragment
+        android:id="@+id/matchesPredictions"
+        android:name="com.embeddedproject.calciofemminileitaliano.MatchesPredictions"
+        tools:layout="@layout/fragment_matches_predictions">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_selectChampionship"
+            app:destination="@id/selectChampionship" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_matchesPredictions_self"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_standings"
+            app:destination="@id/standings" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_matchResultDetails"
+            app:destination="@id/matchResultDetails" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_matchScorers"
+            app:destination="@id/matchScorers" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_officialMatchScorers"
+            app:destination="@id/officialMatchScorers" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_predictMVP"
+            app:destination="@id/predictMVP" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_officialMVP"
+            app:destination="@id/officialMVP" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_predictBest11"
+            app:destination="@id/predictBest11" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_showBest11"
+            app:destination="@id/showBest11" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_seasonRecap"
+            app:destination="@id/seasonRecap" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/opening"
+        android:name="com.embeddedproject.calciofemminileitaliano.Opening"
+        tools:layout="@layout/fragment_opening">
+        <action
+            android:id="@+id/action_opening_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_opening_to_selectChampionship"
+            app:destination="@id/selectChampionship" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginRegistration"
+        android:name="com.embeddedproject.calciofemminileitaliano.LoginRegistration"
+        android:label="fragment_login_registration"
+        tools:layout="@layout/fragment_login_registration">
+        <action
+            android:id="@+id/action_loginRegistration_self"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_loginRegistration_to_selectChampionship"
+            app:destination="@id/selectChampionship" />
+        <action
+            android:id="@+id/action_loginRegistration_to_forgottenPassword"
+            app:destination="@id/forgottenPassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectChampionship"
+        android:name="com.embeddedproject.calciofemminileitaliano.SelectChampionship"
+        android:label="fragment_select_championship"
+        tools:layout="@layout/fragment_select_championship">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_selectChampionship_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_selectChampionship_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_selectChampionship_to_predictionsRules"
+            app:destination="@id/predictionsRules" />
+        <action
+            android:id="@+id/action_selectChampionship_to_userInfo"
+            app:destination="@id/userInfo" />
+        <action
+            android:id="@+id/action_selectChampionship_to_addPlayers"
+            app:destination="@id/addPlayers" />
+        <action
+            android:id="@+id/action_selectChampionship_to_specialEvent"
+            app:destination="@id/specialEvent" />
+    </fragment>
+    <fragment
+        android:id="@+id/predictionsRules"
+        android:name="com.embeddedproject.calciofemminileitaliano.PredictionsRules"
+        android:label="fragment_predictions_rules"
+        tools:layout="@layout/fragment_predictions_rules">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_predictionsRules_to_selectChampionship"
+            app:destination="@id/selectChampionship" />
+        <action
+            android:id="@+id/action_predictionsRules_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/standings"
+        android:name="com.embeddedproject.calciofemminileitaliano.Standings"
+        android:label="fragment_standings"
+        tools:layout="@layout/fragment_standings">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_standings_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_standings_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_standings_to_predictionsDuel"
+            app:destination="@id/predictionsDuel" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchResultDetails"
+        android:name="com.embeddedproject.calciofemminileitaliano.MatchResultDetails"
+        android:label="fragment_match_result_details"
+        tools:layout="@layout/fragment_match_result_details">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="home_team"
+            app:argType="string" />
+        <argument
+            android:name="guest_team"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_matchResultDetails_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_matchResultDetails_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_matchResultDetails_to_matchHistograms"
+            app:destination="@id/matchHistograms" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgottenPassword"
+        android:name="com.embeddedproject.calciofemminileitaliano.ForgottenPassword"
+        android:label="fragment_forgotten_password"
+        tools:layout="@layout/fragment_forgotten_password">
+        <action
+            android:id="@+id/action_forgottenPassword_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/predictionsDuel"
+        android:name="com.embeddedproject.calciofemminileitaliano.PredictionsDuel"
+        android:label="fragment_predictions_duel"
+        tools:layout="@layout/fragment_predictions_duel">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="vs_user"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_predictionsDuel_to_standings"
+            app:destination="@id/standings" />
+        <action
+            android:id="@+id/action_predictionsDuel_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfo"
+        android:name="com.embeddedproject.calciofemminileitaliano.UserInfo"
+        android:label="fragment_user_info"
+        tools:layout="@layout/fragment_user_info">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_userInfo_to_selectChampionship"
+            app:destination="@id/selectChampionship" />
+        <action
+            android:id="@+id/action_userInfo_to_objectives"
+            app:destination="@id/objectives" />
+        <action
+            android:id="@+id/action_userInfo_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/objectives"
+        android:name="com.embeddedproject.calciofemminileitaliano.Objectives"
+        android:label="fragment_objectives"
+        tools:layout="@layout/fragment_objectives">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_objectives_to_userInfo"
+            app:destination="@id/userInfo" />
+        <action
+            android:id="@+id/action_objectives_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchScorers"
+        android:name="com.embeddedproject.calciofemminileitaliano.MatchScorers"
+        android:label="fragment_match_scorers"
+        tools:layout="@layout/fragment_match_scorers">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="home_team"
+            app:argType="string" />
+        <argument
+            android:name="guest_team"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_matchScorers_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_matchScorers_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPlayers"
+        android:name="com.embeddedproject.calciofemminileitaliano.AddPlayers"
+        android:label="fragment_add_scorers"
+        tools:layout="@layout/fragment_add_players">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_addPlayers_to_selectChampionship"
+            app:destination="@id/selectChampionship" />
+        <action
+            android:id="@+id/action_addPlayers_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/officialMatchScorers"
+        android:name="com.embeddedproject.calciofemminileitaliano.OfficialMatchScorers"
+        android:label="fragment_official_match_scorers"
+        tools:layout="@layout/fragment_official_match_scorers">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="home_team"
+            app:argType="string" />
+        <argument
+            android:name="guest_team"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_officialMatchScorers_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_officialMatchScorers_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/predictMVP"
+        android:name="com.embeddedproject.calciofemminileitaliano.PredictMVP"
+        android:label="fragment_predict_mvp"
+        tools:layout="@layout/fragment_predict_mvp">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="home_team"
+            app:argType="string" />
+        <argument
+            android:name="guest_team"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_predictMVP_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_predictMVP_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/officialMVP"
+        android:name="com.embeddedproject.calciofemminileitaliano.OfficialMVP"
+        android:label="fragment_official_mvp"
+        tools:layout="@layout/fragment_official_mvp">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="home_team"
+            app:argType="string" />
+        <argument
+            android:name="guest_team"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_officialMVP_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_officialMVP_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchHistograms"
+        android:name="com.embeddedproject.calciofemminileitaliano.MatchHistograms"
+        android:label="fragment_match_histograms"
+        tools:layout="@layout/fragment_match_histograms">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="home_team"
+            app:argType="string" />
+        <argument
+            android:name="guest_team"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_matchHistograms_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_matchHistograms_to_matchResultDetails"
+            app:destination="@id/matchResultDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/predictBest11"
+        android:name="com.embeddedproject.calciofemminileitaliano.PredictBest11"
+        android:label="fragment_predict_best11"
+        tools:layout="@layout/fragment_predict_best11" >
+        <action
+            android:id="@+id/action_predictBest11_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_predictBest11_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/showBest11"
+        android:name="com.embeddedproject.calciofemminileitaliano.ShowBest11"
+        android:label="fragment_show_best11"
+        tools:layout="@layout/fragment_show_best11" >
+        <action
+            android:id="@+id/action_showBest11_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_showBest11_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="module"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/specialEvent"
+        android:name="com.embeddedproject.calciofemminileitaliano.SpecialEvent"
+        android:label="fragment_special_event"
+        tools:layout="@layout/fragment_special_event">
+        <action
+            android:id="@+id/action_specialEvent_to_selectChampionship"
+            app:destination="@id/selectChampionship" />
+        <action
+            android:id="@+id/action_specialEvent_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="team_event"
+            app:argType="string" />
+        <argument
+            android:name="event_name"
+            app:argType="string" />
+        <argument
+            android:name="event_season"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/seasonRecap"
+        android:name="com.embeddedproject.calciofemminileitaliano.SeasonRecap"
+        android:label="fragment_season_recap"
+        tools:layout="@layout/fragment_season_recap">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_seasonRecap_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_seasonRecap_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+</navigation>

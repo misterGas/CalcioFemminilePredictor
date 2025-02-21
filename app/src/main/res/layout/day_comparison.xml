@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/season_day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:text="@string/day" />
+
+    <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+        android:id="@+id/recycler_view_day_comparison"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/match_predictor_comparison"
+        android:layout_below="@id/season_day" />
+
+</RelativeLayout>

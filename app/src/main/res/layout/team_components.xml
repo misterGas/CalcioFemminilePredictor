@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="10sp"
+    android:layout_marginBottom="5sp">
+
+    <RelativeLayout
+        android:id="@+id/open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/open_team_info"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:src="@drawable/arrow_right"
+            android:contentDescription="@string/team_info" />
+
+        <ImageView
+            android:id="@+id/private_team"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginTop="2sp"
+            android:src="@drawable/locked"
+            android:visibility="gone"
+            android:layout_toEndOf="@id/open_team_info"
+            android:tooltipText="@string/private_team"
+            android:contentDescription="@string/private_team" />
+
+
+        <TextView
+            android:id="@+id/team_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/module"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="bold"
+            android:text="@string/team"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/components_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:textSize="16sp"
+            android:textColor="@color/role"
+            android:textStyle="bold|italic"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/show_team_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/open"
+        android:visibility="gone"
+        android:layout_marginHorizontal="10sp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/team_components_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:visibility="gone"
+            tools:listitem="@layout/team_component"
+            android:layout_marginBottom="5sp" />
+
+        <EditText
+            android:id="@+id/write_team_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-medium"
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:autofillHints="@string/password"
+            android:visibility="gone"
+            android:keyboardNavigationCluster="true"
+            android:layout_below="@id/team_components_recycler_view" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/write_team_password">
+
+            <Button
+                android:id="@+id/join_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/objective"
+                android:text="@string/join_team"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

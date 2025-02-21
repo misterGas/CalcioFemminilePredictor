@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "908521204148",
+    "project_id": "calcio-femminile-italiano",
+    "storage_bucket": "calcio-femminile-italiano.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908521204148:android:8ea6e369f69048e489eae1",
+        "android_client_info": {
+          "package_name": "com.embeddedproject.calciofemminileitaliano"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvYHl0ziAwwjmARHTZUCHE_Ss6y1Hdp4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
