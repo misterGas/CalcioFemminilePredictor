@@ -27,4 +27,7 @@ Il calendario e i risultati delle partite utilizzati nell'applicazione sono pres
 # Informativa sulla Privacy
 https://sites.google.com/view/calciofemminilepredictor/home-page
 
+# Stato della pubblicazione
+Attualmente l'applicazione è in una fase di test chiusi in anteprima.
+
 
