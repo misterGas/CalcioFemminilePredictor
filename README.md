@@ -24,4 +24,7 @@ Miglioramenti possibili possono essere:
 # API per i risultati delle partite
 Il calendario e i risultati delle partite utilizzati nell'applicazione sono presi dal sito https://www.thesportsdb.com.
 
+# Informativa sulla Privacy
+https://sites.google.com/view/calciofemminilepredictor/home-page
+
 
