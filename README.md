@@ -6,8 +6,8 @@ L'applicazione è stata sviluppata utilizzando il linguaggio Kotlin e viene fatt
 Un utente può registrarsi nell'applicazione fornendo Nome, Cognome, Email e scegliendo una password. Inoltre, a sua scelta, decide un nickname unico all'interno dell'applicazione che sarà visualizzato nelle classifiche dei pronostici.
 Ogni utente può pronosticare per ogni partita:
 - il risultato (reti segnate per ogni squadra)
-- le marcatrici di ogni partita
-- l'MVP (Most Valuable Player) della partita
+- le marcatrici
+- l'MVP (Most Valuable Player)
 
 e può ottenere punti in base a varie situazioni definite all'interno dell'applicazione.
 Per ogni giornata di campionato, l'utente può stilare una propria Best 11: formazione formata dalle 11 giocatrici che secondo lui/lei hanno giocato meglio nei vari incontri proposti nella giornata.
