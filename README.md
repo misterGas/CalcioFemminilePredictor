@@ -28,6 +28,6 @@ Il calendario e i risultati delle partite utilizzati nell'applicazione sono pres
 https://sites.google.com/view/calciofemminilepredictor/home-page
 
 ## Stato della pubblicazione
-Attualmente l'applicazione è in una fase di test chiusi in anteprima.
+Attualmente l'applicazione è in una fase di test chiusi in anteprima su Google Play Console.
 
 
