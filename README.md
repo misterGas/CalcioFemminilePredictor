@@ -17,9 +17,9 @@ Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una sq
 
 # Miglioramenti
 Miglioramenti possibili possono essere:
-- legati all'efficienza e all'efficacia dell'applicazione.
-- Le giocatrici di ogni squadra sono gestite all'interno dell'applicazione, comprese minime informazioni personali utili per la gestione dei pronostici e assegnazioni manuali delle marcatrici ufficiali tramite UI. Per questo motivo, nell'applicazione è solo presente (per ora) il campionato di Serie A Femminile.
-- Migliore UI.
+- legati all'efficienza e all'efficacia dell'applicazione;
+- le giocatrici di ogni squadra sono gestite all'interno dell'applicazione, comprese minime informazioni personali utili per la gestione dei pronostici e assegnazioni manuali delle marcatrici ufficiali tramite UI. Per questo motivo, nell'applicazione è solo presente (per ora) il campionato di Serie A Femminile;
+- migliore UI.
 
 # API per i risultati delle partite
 Il calendario e i risultati delle partite utilizzati nell'applicazione sono presi dal sito https://www.thesportsdb.com.
