@@ -22,7 +22,7 @@ Miglioramenti possibili possono essere:
 - migliore UI.
 
 # API per i risultati delle partite
-Il calendario e i risultati delle partite utilizzati nell'applicazione sono presi dal sito https://www.thesportsdb.com. I dati per ora vengono reperiti tramite la versione 1 dell'API.
+Il calendario e i risultati delle partite utilizzati nell'applicazione sono presi dal sito https://www.thesportsdb.com/free_sports_api. I dati attualmente vengono reperiti tramite la versione V1 dell'API.
 
 # Informativa sulla Privacy
 https://sites.google.com/view/calciofemminilepredictor/home-page
