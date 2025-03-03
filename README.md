@@ -23,7 +23,7 @@ Miglioramenti possibili possono essere:
 
 ## API per i risultati delle partite
 Il calendario e i risultati delle partite utilizzati nell'applicazione sono presi dal sito https://www.thesportsdb.com/free_sports_api. I dati attualmente vengono reperiti tramite la versione V1 dell'API.
-Per ottenere le partite di ogni giornata si esegue la query <i>https://www.thesportsdb.com/api/v1/json/3/eventsround.php?id=5205&r=201&s=2024-2025</i> (id=5205: id dell'API per il campionato di Serie A Femminile, r=201: un round di campionato, s=2024-2025: stagione). E' necessario eseguire questa query con i round in quanto quella che restituisce tutte le partite di campionato è limitata a 100 partite con richieste gratis (tramite l'API-Key 3).
+Per ottenere le partite di ogni giornata si esegue la query <i>https://www.thesportsdb.com/api/v1/json/3/eventsround.php?id=5205&r=18&s=2024-2025</i> (id=5205: id dell'API per il campionato di Serie A Femminile, r=18: un round di campionato, s=2024-2025: stagione). E' necessario eseguire questa query che contiene il parametro r (round) in quanto quella che restituisce tutte le partite di campionato è limitata a 100 partite con richieste gratis (tramite l'API-Key 3).
 
 ## Informativa sulla Privacy
 https://sites.google.com/view/calciofemminilepredictor/home-page
