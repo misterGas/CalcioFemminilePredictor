@@ -19,6 +19,7 @@ Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una sq
 Miglioramenti possibili possono essere:
 - legati all'efficienza e all'efficacia dell'applicazione;
 - le giocatrici di ogni squadra sono gestite all'interno dell'applicazione (a causa del necessario pagamento di un abbonamento da parte dell'API che gestisce i dati sportivi), comprese minime informazioni personali utili per la gestione dei pronostici e assegnazioni manuali delle marcatrici ufficiali tramite UI. Per questo motivo, nell'applicazione è solo presente (per ora) il campionato di Serie A Femminile. Le giocatrici possono essere aggiunte nell'applicazione, oltre tramite UI, anche creando file JSON che vengono poi elaborati per salvare le informazioni delle giocatrici nel database Firestore;
+- miglioramenti al codice;
 - migliore UI.
 
 ## API per i risultati delle partite
