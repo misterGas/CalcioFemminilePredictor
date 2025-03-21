@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10sp">
+
+    <ImageView
+        android:id="@+id/team_image"
+        android:layout_width="22sp"
+        android:layout_height="22sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="5sp"
+        android:contentDescription="@string/home_team"
+        android:background="@color/objective" />
+
+    <TextView
+        android:id="@+id/scorer_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginTop="6sp"
+        android:layout_marginEnd="3sp"
+        android:textColor="@color/black"
+        android:text="@string/first_name"
+        android:layout_toEndOf="@id/team_image"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/scorer_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textSize="16sp"
+        android:layout_marginTop="5sp"
+        android:textColor="@color/black"
+        android:text="@string/last_name"
+        android:layout_toEndOf="@id/scorer_first_name" />
+
+    <TextView
+        android:id="@+id/goal_scored"
+        android:layout_width="20sp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginEnd="5sp"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/black" />
+</RelativeLayout>

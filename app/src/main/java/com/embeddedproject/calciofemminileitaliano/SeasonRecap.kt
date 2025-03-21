@@ -15,6 +15,9 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.embeddedproject.calciofemminileitaliano.adapters.SeasonResultsAdapter
+import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
+import com.embeddedproject.calciofemminileitaliano.helpers.Scorer
+import com.embeddedproject.calciofemminileitaliano.helpers.ScorerStanding
 import com.embeddedproject.calciofemminileitaliano.helpers.TeamMatch
 import com.embeddedproject.calciofemminileitaliano.helpers.TeamResults
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
@@ -80,6 +83,7 @@ class SeasonRecap : Fragment() {
             val teamsReference = championshipReference.child("Teams")
             val matchesReference = championshipReference.child("Matches")
             var allTeamsResults = mutableListOf<TeamResults>()
+            val scorersStandings = mutableMapOf<ScorerStanding, Int>()
 
             for (t in teamsReference.children) {
                 val team = t.key.toString()
@@ -137,6 +141,24 @@ class SeasonRecap : Fragment() {
                                 else {
                                     val teamMatch = TeamMatch(vsTeam, outcome, location, suffered, scored)
                                     teamMatches.add(teamMatch)
+                                }
+                            }
+                            if (m.hasChild("OfficialScorers")) {
+                                val findOfficialScorers = m.child("OfficialScorers")
+                                for (teamScorers in findOfficialScorers.children) {
+                                    for (scorer in teamScorers.children) {
+                                        if (scorer.child("goalType").value.toString() == "Goal") {
+                                            val teamName = teamScorers.key.toString()
+                                            val shirt = scorer.child("shirt").value.toString().toInt()
+                                            val scorerInfo = ScorerStanding(teamName, shirt)
+                                            if (scorersStandings.contains(scorerInfo)) {
+                                                scorersStandings[scorerInfo] = scorersStandings[scorerInfo]!! + 1
+                                            }
+                                            else {
+                                                scorersStandings[scorerInfo] = 1
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
