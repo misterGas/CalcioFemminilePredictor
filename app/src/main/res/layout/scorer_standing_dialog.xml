@@ -36,10 +36,11 @@
         android:layout_marginTop="5sp"
         android:textColor="@color/black"
         android:text="@string/last_name"
-        android:layout_toEndOf="@id/scorer_first_name" />
+        android:layout_toEndOf="@id/scorer_first_name"
+        tools:ignore="RelativeOverlap" />
 
     <TextView
-        android:id="@+id/goal_scored"
+        android:id="@+id/goals_scored"
         android:layout_width="20sp"
         android:layout_height="wrap_content"
         android:textSize="15sp"

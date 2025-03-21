@@ -14,9 +14,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.embeddedproject.calciofemminileitaliano.adapters.ScorersStandingsAdapter
 import com.embeddedproject.calciofemminileitaliano.adapters.SeasonResultsAdapter
-import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
-import com.embeddedproject.calciofemminileitaliano.helpers.Scorer
 import com.embeddedproject.calciofemminileitaliano.helpers.ScorerStanding
 import com.embeddedproject.calciofemminileitaliano.helpers.TeamMatch
 import com.embeddedproject.calciofemminileitaliano.helpers.TeamResults
@@ -160,6 +159,22 @@ class SeasonRecap : Fragment() {
                                         }
                                     }
                                 }
+                            }
+                            val sortedScorersStandings = scorersStandings.toList().sortedByDescending { it.second }.toMap()
+                            view.findViewById<ImageView>(R.id.scorers_standings).setOnClickListener {
+                                val dialogView = layoutInflater.inflate(R.layout.scorers_standing, null)
+                                val scorersRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recycler_view_scorers_standings)
+                                scorersRecyclerView.adapter = ScorersStandingsAdapter(sortedScorersStandings, databaseReference.result, season)
+
+                                val dialog = AlertDialog.Builder(view.context).setView(dialogView)
+                                    .setTitle(getString(R.string.scorers_standings))
+                                    .setPositiveButton(R.string.ok, null)
+                                    .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                    .create()
+
+                                dialog.show()
                             }
                         }
                     }
