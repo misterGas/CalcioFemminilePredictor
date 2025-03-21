@@ -16,8 +16,8 @@ class ScorersStandingsAdapter(private val scorersGoal: Map<ScorerStanding, Int>,
 
      inner class ScorersStandingsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val teamImage: ImageView = itemView.findViewById(R.id.team_image)
-        private val firstName: TextView = itemView.findViewById(R.id.first_name)
-        private val lastName: TextView = itemView.findViewById(R.id.last_name)
+        private val firstName: TextView = itemView.findViewById(R.id.scorer_first_name)
+        private val lastName: TextView = itemView.findViewById(R.id.scorer_last_name)
         private val goalsScored: TextView = itemView.findViewById(R.id.goals_scored)
 
         fun bind(scorer: ScorerStanding, databaseGet: DataSnapshot, season: String) {
@@ -26,7 +26,7 @@ class ScorersStandingsAdapter(private val scorersGoal: Map<ScorerStanding, Int>,
             val playerLastName = findPlayerInfo.child("lastName").value.toString()
             firstName.text = playerFirstName
             lastName.text = playerLastName
-            val goals = scorersGoal[scorer]!!.toString()
+            val goals = scorersGoal[scorer]!!.toString().substring(0, scorersGoal[scorer]!!.toString().length - 1)
             goalsScored.text = goals
 
             val sqlDB = UserLoggedInHelper(itemView.context)
