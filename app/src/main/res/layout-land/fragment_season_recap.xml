@@ -59,6 +59,16 @@
                 android:tooltipText="@string/back_to_championship_prediction"
                 android:contentDescription="@string/back_to_championship_prediction"/>
 
+            <ImageView
+                android:id="@+id/scorers_standings"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:gravity="center"
+                android:src="@drawable/ball"
+                android:tooltipText="@string/scorers_standings"
+                android:contentDescription="@string/scorers_standings"
+                android:layout_toEndOf="@id/back_to_championship_prediction" />
+
             <TextView
                 android:id="@+id/championship_name_season_recap"
                 android:layout_width="match_parent"
