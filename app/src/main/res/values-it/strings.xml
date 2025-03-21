@@ -407,6 +407,8 @@
     <string name="remove_prediction_confirm">Rimuovere il tuo pronostico del risultato?</string>
     <string name="official_result_info1">Al termine del sondaggio del pronostico del risultato della partita, con</string>
 
+    <string name="scorers_standings">Classifica marcatrici</string>
+
     <!--States names translated-->
     <string name="albania">Albania</string>
     <string name="andorra">Andorra</string>
