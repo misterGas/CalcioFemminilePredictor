@@ -407,6 +407,8 @@
     <string name="remove_prediction_confirm">Do you want to remove your result prediction?</string>
     <string name="official_result_info1">At the end of the match result prediction survey, with</string>
 
+    <string name="scorers_standings">Scorers standings</string>
+
     <!--States names translated-->
     <string name="albania">Albania</string>
     <string name="andorra">Andorra</string>
