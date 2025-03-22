@@ -408,6 +408,7 @@
     <string name="official_result_info1">Al termine del sondaggio del pronostico del risultato della partita, con</string>
 
     <string name="scorers_standings">Classifica marcatrici</string>
+    <string name="mvp_standings">Classifica MVP</string>
 
     <!--States names translated-->
     <string name="albania">Albania</string>

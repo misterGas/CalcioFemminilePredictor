@@ -69,6 +69,16 @@
                 android:contentDescription="@string/scorers_standings"
                 android:layout_toEndOf="@id/back_to_championship_prediction" />
 
+            <ImageView
+                android:id="@+id/mvp_standings"
+                android:layout_width="29sp"
+                android:layout_height="27sp"
+                android:src="@drawable/mvp_standings"
+                android:tooltipText="@string/mvp_standings"
+                android:contentDescription="@string/mvp_standings"
+                android:layout_marginStart="5sp"
+                android:layout_toEndOf="@id/scorers_standings" />
+
             <TextView
                 android:id="@+id/championship_name_season_recap"
                 android:layout_width="match_parent"

@@ -83,6 +83,7 @@ class SeasonRecap : Fragment() {
             val matchesReference = championshipReference.child("Matches")
             var allTeamsResults = mutableListOf<TeamResults>()
             val scorersStandings = mutableMapOf<ScorerStanding, Int>()
+            val mvpStandings = mutableMapOf<ScorerStanding, Int>()
 
             for (t in teamsReference.children) {
                 val team = t.key.toString()
@@ -168,6 +169,34 @@ class SeasonRecap : Fragment() {
 
                                 val dialog = AlertDialog.Builder(view.context).setView(dialogView)
                                     .setTitle(getString(R.string.scorers_standings))
+                                    .setPositiveButton(R.string.ok, null)
+                                    .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                    .create()
+
+                                dialog.show()
+                            }
+                            if (m.hasChild("OfficialMVP")) {
+                                val findOfficialMVP = m.child("OfficialMVP")
+                                val teamName = findOfficialMVP.child("team").value.toString()
+                                val shirt = findOfficialMVP.child("shirt").value.toString().toInt()
+                                val mvpInfo = ScorerStanding(teamName, shirt)
+                                if (mvpStandings.contains(mvpInfo)) {
+                                    mvpStandings[mvpInfo] = mvpStandings[mvpInfo]!! + 1
+                                }
+                                else {
+                                    mvpStandings[mvpInfo] = 1
+                                }
+                            }
+                            val sortedMVPStandings = mvpStandings.toList().sortedByDescending { it.second }.toMap()
+                            view.findViewById<ImageView>(R.id.mvp_standings).setOnClickListener {
+                                val dialogView = layoutInflater.inflate(R.layout.scorers_standing, null)
+                                val scorersRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recycler_view_scorers_standings)
+                                scorersRecyclerView.adapter = ScorersStandingsAdapter(sortedMVPStandings, databaseReference.result, season)
+
+                                val dialog = AlertDialog.Builder(view.context).setView(dialogView)
+                                    .setTitle(getString(R.string.mvp_standings))
                                     .setPositiveButton(R.string.ok, null)
                                     .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                                         dialog.dismiss()
