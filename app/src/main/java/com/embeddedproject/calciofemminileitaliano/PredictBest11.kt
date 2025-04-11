@@ -175,6 +175,7 @@ class PredictBest11 : Fragment() {
             val module352RelativeLayout = view.findViewById<RelativeLayout>(R.id.layout_352)
             val module343RelativeLayout = view.findViewById<RelativeLayout>(R.id.layout_343)
             val module3412RelativeLayout = view.findViewById<RelativeLayout>(R.id.layout_3412)
+            val module4312RelativeLayout = view.findViewById<RelativeLayout>(R.id.layout_4312)
 
             var moduleSelected : String
             var actualModule : String
@@ -202,6 +203,9 @@ class PredictBest11 : Fragment() {
                     "3-4-1-2" -> {
                         module3412RelativeLayout.visibility = VISIBLE
                     }
+                    "4-3-1-2" -> {
+                        module4312RelativeLayout.visibility = VISIBLE
+                    }
                 }
             }
             else {
@@ -220,6 +224,7 @@ class PredictBest11 : Fragment() {
             allModules.add("3-5-2")
             allModules.add("3-4-3")
             allModules.add("3-4-1-2")
+            allModules.add("4-3-1-2")
             val modulesAllocations = mutableMapOf<String, String>()
             modulesAllocations["4-3-3"] = "DDDD-MMM-FFF"
             modulesAllocations["4-4-2"] = "DDDD-MMMM-FF"
@@ -227,6 +232,7 @@ class PredictBest11 : Fragment() {
             modulesAllocations["3-5-2"] = "DDD-FMMMF-FF"
             modulesAllocations["3-4-3"] = "DDD-MMMM-FFF"
             modulesAllocations["3-4-1-2"] = "DDD-DMMD-F-FF"
+            modulesAllocations["4-3-1-2"] = "DDDD-MMM-F-FF"
             val allModulesLayout = mutableMapOf<String, RelativeLayout>()
             allModulesLayout["4-3-3"] = module433RelativeLayout
             allModulesLayout["4-4-2"] = module442RelativeLayout
@@ -234,6 +240,7 @@ class PredictBest11 : Fragment() {
             allModulesLayout["3-5-2"] = module352RelativeLayout
             allModulesLayout["3-4-3"] = module343RelativeLayout
             allModulesLayout["3-4-1-2"] = module3412RelativeLayout
+            allModulesLayout["4-3-1-2"] = module4312RelativeLayout
             val allModulesInclude = mutableMapOf<String, RelativeLayout>()
             allModulesInclude["4-3-3"] = view.findViewById(R.id.module_433)
             allModulesInclude["4-4-2"] = view.findViewById(R.id.module_442)
@@ -241,6 +248,7 @@ class PredictBest11 : Fragment() {
             allModulesInclude["3-5-2"] = view.findViewById(R.id.module_352)
             allModulesInclude["3-4-3"] = view.findViewById(R.id.module_343)
             allModulesInclude["3-4-1-2"] = view.findViewById(R.id.module_3412)
+            allModulesInclude["4-3-1-2"] = view.findViewById(R.id.module_4312)
             val allPlayersModule = mutableMapOf<String, Map<String, View>>()
             val module433 = findModuleViews("4-3-3", allModulesInclude)
             allPlayersModule["4-3-3"] = module433
@@ -254,6 +262,8 @@ class PredictBest11 : Fragment() {
             allPlayersModule["3-4-3"] = module343
             val module3412 = findModuleViews("3-4-1-2", allModulesInclude)
             allPlayersModule["3-4-1-2"] = module3412
+            val module4312 = findModuleViews("4-3-1-2", allModulesInclude)
+            allPlayersModule["4-3-1-2"] = module4312
             val modulesAdapter = SeasonsAdapter(view.context, R.layout.season_dialog, allModules, R.color.module_select)
 
             val selectRole = view.findViewById<TextView>(R.id.select_role)
@@ -678,6 +688,19 @@ class PredictBest11 : Fragment() {
                 modulePlayers["F1"] = allModulesInclude[module]!!.findViewById(R.id.forward1_3412)
                 modulePlayers["F2"] = allModulesInclude[module]!!.findViewById(R.id.forward2_3412)
                 modulePlayers["F3"] = allModulesInclude[module]!!.findViewById(R.id.forward3_3412)
+            }
+            "4-3-1-2" -> {
+                modulePlayers["GK"] = allModulesInclude[module]!!.findViewById(R.id.goalkeeper_4312)
+                modulePlayers["D1"] = allModulesInclude[module]!!.findViewById(R.id.defender1_4312)
+                modulePlayers["D2"] = allModulesInclude[module]!!.findViewById(R.id.defender2_4312)
+                modulePlayers["D3"] = allModulesInclude[module]!!.findViewById(R.id.defender3_4312)
+                modulePlayers["D4"] = allModulesInclude[module]!!.findViewById(R.id.defender4_4312)
+                modulePlayers["M1"] = allModulesInclude[module]!!.findViewById(R.id.midfielder1_4312)
+                modulePlayers["M2"] = allModulesInclude[module]!!.findViewById(R.id.midfielder2_4312)
+                modulePlayers["M3"] = allModulesInclude[module]!!.findViewById(R.id.midfielder3_4312)
+                modulePlayers["F1"] = allModulesInclude[module]!!.findViewById(R.id.forward1_4312)
+                modulePlayers["F2"] = allModulesInclude[module]!!.findViewById(R.id.forward2_4312)
+                modulePlayers["F3"] = allModulesInclude[module]!!.findViewById(R.id.forward3_4312)
             }
             else -> {
                 return emptyMap()

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="270sp">
+
+    <RelativeLayout
+        android:id="@+id/pitch_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.55"
+        android:background="@drawable/soccer_pitch" />
+
+    <RelativeLayout
+        android:id="@+id/goalkeeper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18sp">
+
+        <include android:id="@+id/goalkeeper_4312" layout="@layout/player_module"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/defenders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="6sp"
+        android:layout_below="@id/goalkeeper">
+
+        <RelativeLayout
+            android:id="@+id/defender1"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content">
+
+            <include android:id="@+id/defender1_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/defender2"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/defender1">
+
+            <include android:id="@+id/defender2_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/defender3"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/defender2">
+
+            <include android:id="@+id/defender3_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/defender4"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/defender3">
+
+            <include android:id="@+id/defender4_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/midfielders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="6sp"
+        android:layout_below="@id/defenders">
+
+        <RelativeLayout
+            android:id="@+id/midfielder1"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content">
+
+            <include android:id="@+id/midfielder1_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/midfielder2"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/midfielder1">
+
+            <include android:id="@+id/midfielder2_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/midfielder3"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/midfielder2">
+
+            <include android:id="@+id/midfielder3_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/forwards_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="6sp"
+        android:layout_below="@id/midfielders">
+
+        <include android:id="@+id/forward1_4312" layout="@layout/player_module"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/forwards_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="7sp"
+        android:layout_below="@id/forwards_1">
+
+        <RelativeLayout
+            android:id="@+id/forward2"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content">
+
+            <include android:id="@+id/forward2_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/forward3"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/forward2">
+
+            <include android:id="@+id/forward3_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

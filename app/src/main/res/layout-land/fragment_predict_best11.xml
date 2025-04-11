@@ -191,6 +191,18 @@
                 <include android:id="@+id/module_3412" layout="@layout/module_3412" />
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_4312"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10sp"
+                android:layout_marginHorizontal="10sp"
+                android:visibility="gone">
+
+                <include android:id="@+id/module_4312" layout="@layout/module_4312" />
+
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 
