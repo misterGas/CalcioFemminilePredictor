@@ -368,7 +368,7 @@
                             android:text="@string/scores_histogram"
                             android:gravity="center" />
 
-                        <com.github.mikephil.charting.charts.BarChart
+                        <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/scores_histogram"
                             android:layout_width="match_parent"
                             android:layout_marginBottom="20sp"

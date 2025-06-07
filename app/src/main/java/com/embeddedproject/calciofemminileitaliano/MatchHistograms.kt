@@ -26,10 +26,14 @@ import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.embeddedproject.calciofemminileitaliano.helpers.PointsGoalOrOwnGoal
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.database.DataSnapshot
@@ -112,7 +116,7 @@ class MatchHistograms : Fragment() {
         val openOfficialScorers = view.findViewById<RelativeLayout>(R.id.official_scorers_info)
         val officialHomeScorers = view.findViewById<RecyclerView>(R.id.recycler_view_official_home_scorers)
         val officialGuestScorers = view.findViewById<RecyclerView>(R.id.recycler_view_official_guest_scorers)
-        val scoresBarChart = view.findViewById<BarChart>(R.id.scores_histogram)
+        val scoresPieChart = view.findViewById<PieChart>(R.id.scores_histogram)
         val homeScorersBarChart = view.findViewById<BarChart>(R.id.home_scorers_histogram)
         val guestScorersBarChart = view.findViewById<BarChart>(R.id.guest_scorers_histogram)
         val mvpBarChart = view.findViewById<BarChart>(R.id.mvp_histogram)
@@ -473,19 +477,15 @@ class MatchHistograms : Fragment() {
                 }
             }
 
-            val scoresEntries = ArrayList<BarEntry>()
+            val scoresEntries = ArrayList<PieEntry>()
             val scoresXValues = mutableListOf<String>()
             var scoresI = 0
-            var scoresMaxValue = 0
             for (scP in allScores) {
-                scoresEntries.add(BarEntry(scoresI.toFloat(), scP.value.toFloat()))
+                scoresEntries.add(PieEntry(scoresI.toFloat(), scP.value.toFloat()))
                 scoresI++
-                if (scP.value > scoresMaxValue) {
-                    scoresMaxValue = scP.value
-                }
                 scoresXValues.add(scP.key)
             }
-            createBarChart(scoresBarChart, scoresEntries, scoresXValues, scoresMaxValue, "Scores", ColorTemplate.COLORFUL_COLORS.toList())
+            createPieChart(scoresPieChart, scoresEntries, scoresXValues, "Scores", ColorTemplate.COLORFUL_COLORS.toList())
 
             val homeScorersEntries = ArrayList<BarEntry>()
             val homeScorersXValues = mutableListOf<String>()
@@ -621,6 +621,17 @@ class MatchHistograms : Fragment() {
         barChart.axisLeft.textSize = 12f
         barChart.axisRight.textSize = 12f
         barChart.invalidate()
+    }
+
+    private fun createPieChart(pieChart: PieChart, entries: List<PieEntry>, values: List<String>, info: String, colors: List<Int>) {
+        val dataSet = PieDataSet(entries, info)
+        dataSet.colors = colors
+        dataSet.valueTextSize = 14f
+
+        val pieData = PieData(dataSet)
+        pieChart.data = pieData
+
+        pieChart.description.isEnabled = false
     }
 
     private fun showHistogramsInfo(context: Context) {
