@@ -392,13 +392,13 @@ class SelectChampionship : Fragment() {
                     }
                     championshipSeasons.add(SeasonPoints(c, s, seasonTotalPoints))
                 }
-                allChampionships.add(championshipSeasons)
+                allChampionships.add(championshipSeasons.sortedByDescending { cs -> cs.season })
             }
             view.findViewById<ProgressBar>(R.id.progress_updating_total_points).visibility = INVISIBLE
             view.findViewById<RelativeLayout>(R.id.show_selection).visibility = VISIBLE
             val selectChampionship = SelectChampionshipAdapter(championshipsList, allChampionships, user)
             view.findViewById<RecyclerView>(R.id.recycler_view_championships_buttons).adapter = selectChampionship
-            val seasonsAdapter = SeasonsAdapter(view.context, R.layout.season_dialog, allSeasons)
+            val seasonsAdapter = SeasonsAdapter(view.context, R.layout.season_dialog, allSeasons.sortedByDescending { s -> s })
 
             addNewPlayers.setOnClickListener {
                 val dialogView = layoutInflater.inflate(R.layout.select_season_dialog, null)

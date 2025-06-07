@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/season_info"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
         android:layout_marginBottom="10sp"
@@ -31,16 +31,17 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:textSize="15sp"
         android:gravity="center"
-        android:layout_toEndOf="@id/season_info" />
+        android:layout_toStartOf="@id/match_points_image" />
 
     <ImageView
         android:id="@+id/match_points_image"
         android:layout_width="20sp"
         android:layout_height="20sp"
         android:src="@drawable/points"
-        android:layout_toEndOf="@id/season_points"
         android:layout_marginTop="10sp"
         android:layout_marginBottom="10sp"
-        android:contentDescription="@string/points" />
+        android:contentDescription="@string/points"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40sp" />
 
 </RelativeLayout>
