@@ -632,6 +632,7 @@ class MatchHistograms : Fragment() {
         pieChart.data = pieData
 
         pieChart.description.isEnabled = false
+        pieChart.invalidate()
     }
 
     private fun showHistogramsInfo(context: Context) {
