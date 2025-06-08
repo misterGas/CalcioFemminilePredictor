@@ -18,6 +18,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.indices
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.embeddedproject.calciofemminileitaliano.adapters.OfficialScorersAdapter
@@ -35,6 +36,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
@@ -300,6 +302,7 @@ class MatchHistograms : Fragment() {
             val allMVPStrings = mutableMapOf<String, Int>()
 
             val matchPredictionsGet = matchGet.child("Predictions")
+            var totalScoresVotes = 0
             for (uDB in matchPredictionsGet.children) {
                 val userInDatabaseScores = uDB.child("Scores")
                 val homePrediction = userInDatabaseScores.child(homeTeam).value.toString()
@@ -311,6 +314,7 @@ class MatchHistograms : Fragment() {
                 else {
                     allScores[scoresKey] = 1
                 }
+                totalScoresVotes++
                 if (uDB.hasChild("Scorers")) {
                     val userInDatabaseScorers = uDB.child("Scorers")
                     if (userInDatabaseScorers.hasChild(homeTeam)) {
@@ -478,14 +482,10 @@ class MatchHistograms : Fragment() {
             }
 
             val scoresEntries = ArrayList<PieEntry>()
-            val scoresXValues = mutableListOf<String>()
-            var scoresI = 0
-            for (scP in allScores) {
-                scoresEntries.add(PieEntry(scoresI.toFloat(), scP.value.toFloat()))
-                scoresI++
-                scoresXValues.add(scP.key)
+            for ((result, count) in allScores) {
+                scoresEntries.add(PieEntry(count.toFloat(), result))
             }
-            createPieChart(scoresPieChart, scoresEntries, scoresXValues, "Scores", ColorTemplate.COLORFUL_COLORS.toList())
+            createPieChart(scoresPieChart, scoresEntries, ColorTemplate.MATERIAL_COLORS.toList(), totalScoresVotes)
 
             val homeScorersEntries = ArrayList<BarEntry>()
             val homeScorersXValues = mutableListOf<String>()
@@ -499,7 +499,7 @@ class MatchHistograms : Fragment() {
                 }
                 homeScorersXValues.add(scH.key)
             }
-            createBarChart(homeScorersBarChart, homeScorersEntries, homeScorersXValues, homeScorersMaxValue, "Home Scorers", ColorTemplate.PASTEL_COLORS.toList())
+            createBarChart(homeScorersBarChart, homeScorersEntries, homeScorersXValues, homeScorersMaxValue, "Home Scorers", ColorTemplate.COLORFUL_COLORS.toList())
 
             val guestScorersEntries = ArrayList<BarEntry>()
             val guestScorersXValues = mutableListOf<String>()
@@ -513,7 +513,7 @@ class MatchHistograms : Fragment() {
                 }
                 guestScorersXValues.add(scG.key)
             }
-            createBarChart(guestScorersBarChart, guestScorersEntries, guestScorersXValues, guestScorersMaxValue, "Guest Scorers", ColorTemplate.VORDIPLOM_COLORS.toList())
+            createBarChart(guestScorersBarChart, guestScorersEntries, guestScorersXValues, guestScorersMaxValue, "Guest Scorers", ColorTemplate.COLORFUL_COLORS.toList())
 
             val mvpEntries = ArrayList<BarEntry>()
             val mvpXValues = mutableListOf<String>()
@@ -527,7 +527,7 @@ class MatchHistograms : Fragment() {
                 }
                 mvpXValues.add(mvp.key)
             }
-            createBarChart(mvpBarChart, mvpEntries, mvpXValues, mvpMaxValue, "MVP", ColorTemplate.LIBERTY_COLORS.toList())
+            createBarChart(mvpBarChart, mvpEntries, mvpXValues, mvpMaxValue, "MVP", ColorTemplate.PASTEL_COLORS.toList())
             view.findViewById<ProgressBar>(R.id.progress_updating_histograms).visibility = GONE
             view.findViewById<RelativeLayout>(R.id.histograms).visibility = VISIBLE
         }
@@ -603,8 +603,13 @@ class MatchHistograms : Fragment() {
         dataSet.valueTextSize = 14f
 
         val barData = BarData(dataSet)
-        barChart.data = barData
+        barData.setValueFormatter(object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return value.toInt().toString()
+            }
+        })
 
+        barChart.data = barData
         barChart.description.isEnabled = false
         barChart.xAxis.setDrawGridLines(false)
         barChart.axisLeft.setDrawGridLines(false)
@@ -620,18 +625,33 @@ class MatchHistograms : Fragment() {
         barChart.xAxis.textSize = 12f
         barChart.axisLeft.textSize = 12f
         barChart.axisRight.textSize = 12f
+        barChart.setExtraOffsets(0f, 0f, 0f, 10f)
         barChart.invalidate()
     }
 
-    private fun createPieChart(pieChart: PieChart, entries: List<PieEntry>, values: List<String>, info: String, colors: List<Int>) {
-        val dataSet = PieDataSet(entries, info)
+    private fun createPieChart(pieChart: PieChart, entries: List<PieEntry>, colors: List<Int>, totalVotes: Int) {
+        val dataSet = PieDataSet(entries, "Scores")
         dataSet.colors = colors
-        dataSet.valueTextSize = 14f
+        dataSet.valueTextSize = 12f
+        dataSet.setDrawValues(true)
+        dataSet.valueTextColor = Color.WHITE
+        dataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+        dataSet.xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
 
         val pieData = PieData(dataSet)
-        pieChart.data = pieData
+        pieData.setValueFormatter(object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return "${value.toInt()*100/totalVotes}%"
+            }
+        })
 
+        pieChart.data = pieData
+        pieChart.setUsePercentValues(false)
+        pieChart.setEntryLabelColor(Color.WHITE)
+        pieChart.setEntryLabelTextSize(14f)
+        pieChart.setTransparentCircleAlpha(0)
         pieChart.description.isEnabled = false
+        pieChart.legend.isEnabled = false
         pieChart.invalidate()
     }
 
