@@ -25,10 +25,9 @@ Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una sq
 
 ### Alcune immagini delle funzionalità
 <img src="https://github.com/user-attachments/assets/31f48d65-2d9d-4a9b-bf05-2ecb95f45dd8" width="200" height="500"/>
-<img src="https://github.com/user-attachments/assets/af7774f0-e6c0-4407-878b-a460f2e0088d" width="200" height="600"/>
 <img src="https://github.com/user-attachments/assets/ca3f1504-83be-4dac-900a-a9192e7f705e" width="200" height="500"/>
+<img src="https://github.com/user-attachments/assets/ecd700c0-df32-4f07-b40a-1ab6fa6326b3" width="200" height="500"/>
 <img src="https://github.com/user-attachments/assets/2b12023a-5cc4-4e55-bac1-36e04fff9e5e" width="200" height="500"/>
-
 
 ## Miglioramenti
 Miglioramenti possibili possono essere:
