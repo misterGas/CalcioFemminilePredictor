@@ -20,8 +20,7 @@ Per ogni Best 11, sarà possibile assegnare un capitano tra le giocatrici attual
 
 Al termine della giornata di campionato verrà stilata una classifica con tutti i punti ottenuti da ciascun utente che ha creato la Best 11 e sarà possibile confrontarsi con la Best 11 creata dall'utente selezionato nella classifica.
 
-![1759572474650](https://github.com/user-attachments/assets/2b12023a-5cc4-4e55-bac1-36e04fff9e5e)
-
+<img src="https://example.com/logo.png](https://github.com/user-attachments/assets/2b12023a-5cc4-4e55-bac1-36e04fff9e5e" width="200" height="100">
 
 ### Eventi speciali
 Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una squadra insieme ai suoi amici o altri utenti della community e pronosticare partite speciali. Fase di sviluppo ancora primaria.
