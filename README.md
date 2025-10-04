@@ -9,7 +9,7 @@ Un utente può registrarsi nell'applicazione fornendo nome, cognome, e-mail e sc
 Ogni utente può pronosticare per ogni partita:
 - il risultato (reti segnate per ogni squadra)
 - le marcatrici
-- i cartellini disciplinari (ammonizioni ed espulsioni): per ogni squadra coinvolta nell'incontro saraà possibile assegnare fino ad un massimo di 3 slot per le ammonizioni e 1 slot per le espulsioni
+- i cartellini disciplinari (ammonizioni ed espulsioni): per ogni squadra coinvolta nell'incontro sarà possibile assegnare fino ad un massimo di 3 slot per le ammonizioni e 1 slot per le espulsioni
 - l'MVP (Most Valuable Player)
 
 e può ottenere punti in base a varie situazioni definite all'interno dell'applicazione.
@@ -23,7 +23,7 @@ Al termine della giornata di campionato verrà stilata una classifica con tutti 
 ### Eventi speciali
 Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una squadra insieme ai suoi amici o altri utenti della community e pronosticare partite speciali. Fase di sviluppo ancora primaria.
 
-### Alcune immagini delle funzionalità
+### Alcune immagini dell'applicazione
 <img src="https://github.com/user-attachments/assets/31f48d65-2d9d-4a9b-bf05-2ecb95f45dd8" width="200" height="500"/>
 <img src="https://github.com/user-attachments/assets/ca3f1504-83be-4dac-900a-a9192e7f705e" width="200" height="500"/>
 <img src="https://github.com/user-attachments/assets/ecd700c0-df32-4f07-b40a-1ab6fa6326b3" width="200" height="500"/>
@@ -45,7 +45,7 @@ Per ottenere le partite di ogni giornata si esegue una query del tipo https://ww
 
 E' necessario eseguire questa query (eventsround.php) che contiene il parametro r (round) in quanto quella che restituisce tutte le partite di campionato è limitata a 100 partite con richieste gratis effettuate con API-Key "3" (https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=5205&s=2025-2026).
 
-E' inoltre prevista l'aggiunta di un campionato, la stagione e le partite associate direttamente da database, ma i risultati ufficiali di ogni incontro ad ora devono essere fatti direttamente da database. In futuro, si può prevedere l'automazione di tali attività direttamente tramite interfaccia grafica.
+E' inoltre prevista l'aggiunta di un campionato, la stagione e le partite associate direttamente da database, ma i risultati ufficiali di ogni incontro ad ora devono essere inseriti direttamente da database. In futuro, si può prevedere l'automazione di tali attività direttamente tramite interfaccia grafica.
 
 ## Informativa sulla Privacy
 https://sites.google.com/view/calciofemminilepredictor/home-page
