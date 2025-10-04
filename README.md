@@ -45,7 +45,7 @@ Per ottenere le partite di ogni giornata si esegue una query del tipo https://ww
 
 E' necessario eseguire questa query (eventsround.php) che contiene il parametro r (round) in quanto quella che restituisce tutte le partite di campionato è limitata a 100 partite con richieste gratis effettuate con API-Key "3" (https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=5205&s=2025-2026).
 
-E' inoltre prevista l'aggiunta di un campionato, la stagione e le partite associate direttamente da database, ma i risultati ufficiali di ogni incontro ad ora devono essere inseriti direttamente da database. In futuro, si può prevedere l'automazione di tali attività direttamente tramite interfaccia grafica.
+E' inoltre prevista l'aggiunta di un campionato, la stagione e le partite associate da database, ma i risultati ufficiali di ogni incontro ad ora devono essere inseriti a mano nella base di dati. In futuro, si può prevedere l'automazione di tali attività direttamente tramite interfaccia grafica.
 
 ## Informativa sulla Privacy
 https://sites.google.com/view/calciofemminilepredictor/home-page
