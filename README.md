@@ -24,8 +24,8 @@ Al termine della giornata di campionato verrà stilata una classifica con tutti 
 Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una squadra insieme ai suoi amici o altri utenti della community e pronosticare partite speciali. Fase di sviluppo ancora primaria.
 
 ### Alcune immagini delle funzionalità
-<img src="https://github.com/user-attachments/assets/2b12023a-5cc4-4e55-bac1-36e04fff9e5e" width="200" height="500">
-![1759572474681](https://github.com/user-attachments/assets/31f48d65-2d9d-4a9b-bf05-2ecb95f45dd8)
+<img src="https://github.com/user-attachments/assets/2b12023a-5cc4-4e55-bac1-36e04fff9e5e" width="200" height="500"/>
+<img src="https://github.com/user-attachments/assets/31f48d65-2d9d-4a9b-bf05-2ecb95f45dd8" width="200" height="500"/>
 
 ## Miglioramenti
 Miglioramenti possibili possono essere:
