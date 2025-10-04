@@ -49,4 +49,7 @@ https://sites.google.com/view/calciofemminilepredictor/home-page
 Attualmente l'applicazione è in una fase di test chiusi in anteprima su Google Play Console. Per poter provare l'applicazione in anteprima, scrivere un'e-mail a antonio.gastaldi02@gmail.com specificando l'indirizzo di posta elettronica con cui si vuole testare il prodotto.
 
 
-Creata da Antonio Gastaldi, Ingegnere Informatico laureato all'Università degli Studi di Padova. Database & AVEVA System Platform Software Developer presso D4I SRL
+Creata da Antonio Gastaldi, Ingegnere Informatico laureato all'Università degli Studi di Padova.
+Database & AVEVA System Platform Software Developer presso D4I SRL
+
+©Year()
