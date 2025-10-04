@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3sp">
+
+    <ImageView
+        android:id="@+id/card_type"
+        android:layout_width="10sp"
+        android:layout_height="15sp"
+        android:layout_marginTop="1sp"
+        android:contentDescription="@string/predict_discipline" />
+
+    <RelativeLayout
+        android:id="@+id/two_yellows_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3sp"
+        android:visibility="gone"
+        android:layout_toEndOf="@id/card_type">
+
+        <TextView
+            android:id="@+id/two_yellows_bonus_info_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="("
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/bonus_red_card_type_2yellows_1"
+            android:layout_width="10sp"
+            android:layout_height="15sp"
+            android:src="@drawable/yellow_card"
+            android:layout_marginTop="1sp"
+            android:contentDescription="@string/more_goals_bonus"
+            android:layout_toEndOf="@+id/two_yellows_bonus_info_start"/>
+
+        <ImageView
+            android:id="@+id/bonus_red_card_type_2yellows_2"
+            android:layout_width="10sp"
+            android:layout_height="15sp"
+            android:src="@drawable/yellow_card"
+            android:layout_marginTop="1sp"
+            android:layout_marginStart="8sp"
+            android:contentDescription="@string/more_goals_bonus"
+            android:layout_toEndOf="@+id/two_yellows_bonus_info_start"/>
+
+        <ImageView
+            android:id="@+id/two_yellows_guessed"
+            android:layout_width="15sp"
+            android:layout_height="15sp"
+            android:layout_marginTop="1sp"
+            android:visibility="gone"
+            android:contentDescription="@string/objective_completed"
+            android:layout_toEndOf="@id/bonus_red_card_type_2yellows_2" />
+
+        <TextView
+            android:id="@+id/two_yellows_bonus_info_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text=")"
+            android:layout_toEndOf="@id/two_yellows_guessed"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/player_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="120sp"
+        android:textSize="12sp"
+        android:layout_marginStart="3sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="@string/scorer"
+        android:layout_toEndOf="@id/two_yellows_info" />
+
+    <ImageView
+        android:id="@+id/card_guessed"
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:visibility="gone"
+        android:layout_marginTop="1sp"
+        android:layout_marginStart="3sp"
+        android:contentDescription="@string/objective_completed"
+        android:layout_toEndOf="@id/player_name" />
+</RelativeLayout>

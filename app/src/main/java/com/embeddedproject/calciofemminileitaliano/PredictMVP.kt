@@ -19,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.embeddedproject.calciofemminileitaliano.adapters.PlayerMVPAdapter
+import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
 import com.google.firebase.database.DatabaseReference
@@ -60,6 +61,15 @@ class PredictMVP : Fragment() {
         val round = arguments.round
         val homeTeam = arguments.homeTeam
         val guestTeam = arguments.guestTeam
+        val disqualifiedPlayers = arguments.disqualifiedPlayersRoundList.replace("[", "").split("]")
+        val disqualifiedPlayersList = mutableListOf<MVPPlayer>()
+        for (dp in disqualifiedPlayers) {
+            if (dp.isNotEmpty()) {
+                val dpTeam = dp.split(",")[0]
+                val dpShirt = dp.split(",")[1]
+                disqualifiedPlayersList.add(MVPPlayer(dpTeam, dpShirt.toInt()))
+            }
+        }
 
         view.findViewById<ImageView>(R.id.back_to_championship_prediction).setOnClickListener {
             val navigateToMatchesPredictions = PredictMVPDirections.actionPredictMVPToMatchesPredictions(user, championship, season)
@@ -110,11 +120,29 @@ class PredictMVP : Fragment() {
             120 -> { //round of 16
                 getString(R.string.round_16)
             }
+            121 -> {
+                getString(R.string.round_16_first_leg)
+            }
+            122 -> {
+                getString(R.string.round_16_second_leg)
+            }
             125 -> { //quarterfinals
                 getString(R.string.quarterfinals)
             }
+            126 -> {
+                getString(R.string.quarterfinals_first_leg)
+            }
+            127 -> {
+                getString(R.string.quarterfinals_second_leg)
+            }
             150 -> { //semifinals
                 getString(R.string.semifinals)
+            }
+            151 -> {
+                getString(R.string.semifinals_first_leg)
+            }
+            152 -> {
+                getString(R.string.semifinals_second_leg)
             }
             200 -> { //final
                 getString(R.string.final_)
@@ -146,7 +174,7 @@ class PredictMVP : Fragment() {
             view.findViewById<TextView>(R.id.assign_mvp).text = resultDetails
         }
         else if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))}\n$dayDescription)\n${getString(R.string.predict_mvp)}"
+            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))} - $dayDescription)\n${getString(R.string.predict_mvp)}"
             if (!dayDescription.contains(getString(R.string.day))) {
                 resultDetails = resultDetails.replace(")", "")
             }
@@ -225,7 +253,9 @@ class PredictMVP : Fragment() {
                         val lastName = player.child("lastName").value.toString()
                         val role = player.child("role").value.toString()
                         val shirt = player.key.toString().toInt()
-                        playersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                        if (!disqualifiedPlayersList.contains(MVPPlayer(homeTeam, shirt))) {
+                            playersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                        }
                     }
                     val guestPlayers = players.result.child(guestTeam)
                     for (player in guestPlayers.children) {
@@ -233,7 +263,9 @@ class PredictMVP : Fragment() {
                         val lastName = player.child("lastName").value.toString()
                         val role = player.child("role").value.toString()
                         val shirt = player.key.toString().toInt()
-                        playersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                        if (!disqualifiedPlayersList.contains(MVPPlayer(guestTeam, shirt))) {
+                            playersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                        }
                     }
                     playersList = playersList.sortedWith(compareBy({ sc -> if (sc.team == homeTeam) 0 else 1 }, { sc -> if (sc.role == "Goalkeeper") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
 

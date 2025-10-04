@@ -39,7 +39,7 @@
         android:layout_width="45sp"
         android:layout_height="45sp"
         android:layout_toEndOf="@id/home_result_prediction"
-        android:paddingBottom="5dp"
+        android:background="@color/objective"
         android:layout_marginTop="95sp"
         android:contentDescription="@string/home_team" />
 
@@ -48,7 +48,7 @@
         android:layout_width="45sp"
         android:layout_height="45sp"
         android:layout_toStartOf="@id/guest_result_prediction"
-        android:paddingBottom="5dp"
+        android:background="@color/objective"
         android:layout_marginTop="95sp"
         android:contentDescription="@string/guest_team" />
 

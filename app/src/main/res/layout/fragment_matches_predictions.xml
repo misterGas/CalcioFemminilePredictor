@@ -21,22 +21,12 @@
             android:paddingBottom="10sp">
 
             <ImageView
-                android:id="@+id/logout"
-                android:layout_width="25sp"
-                android:layout_height="25sp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/logout"
-                android:tooltipText="@string/logout"
-                android:contentDescription="@string/logout" />
-
-            <ImageView
                 android:id="@+id/season"
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/season"
-                android:contentDescription="@string/season"
-                android:layout_marginEnd="30sp" />
+                android:contentDescription="@string/season" />
 
             <TextView
                 android:id="@+id/season_info"
@@ -46,8 +36,19 @@
                 android:textSize="11sp"
                 android:textColor="@color/black"
                 android:layout_marginTop="6sp"
-                android:layout_marginEnd="58sp"
+                android:src="@drawable/season"
+                android:layout_marginEnd="28sp"
                 tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:visibility="gone"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout" />
 
             <ImageView
                 android:id="@+id/back_to_select_championship"
@@ -77,6 +78,16 @@
                 android:layout_marginStart="8sp"
                 android:layout_toEndOf="@id/standings"/>
 
+            <ImageView
+                android:id="@+id/best11_statistics"
+                android:layout_width="28sp"
+                android:layout_height="28sp"
+                android:src="@drawable/best11_statistics"
+                android:tooltipText="@string/best11_statistics"
+                android:contentDescription="@string/best11_statistics"
+                android:layout_marginStart="10sp"
+                android:layout_toEndOf="@id/championship_recap"/>
+
             <TextView
                 android:id="@+id/championship_name"
                 android:layout_width="match_parent"
@@ -86,7 +97,7 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:layout_below="@+id/logout"/>
+                android:layout_below="@+id/season"/>
 
             <RelativeLayout
                 android:id="@+id/total_points"

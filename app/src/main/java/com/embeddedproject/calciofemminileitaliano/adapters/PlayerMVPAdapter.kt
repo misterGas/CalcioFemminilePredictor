@@ -14,7 +14,7 @@ import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.google.firebase.database.DatabaseReference
 
-class PlayerMVPAdapter(context: Context, playersList: List<Player>, private val mvpReference: DatabaseReference, private val homeBitmap: Bitmap, private val guestBitmap: Bitmap, private val homeTeam: String) : ArrayAdapter<Player>(context, R.layout.home_scorer, playersList) {
+class PlayerMVPAdapter(context: Context, playersList: List<Player>, private val mvpReference: DatabaseReference, private val homeBitmap: Bitmap, private val guestBitmap: Bitmap, private val homeTeam: String, private val insertNeedsConfirmation: Boolean = false) : ArrayAdapter<Player>(context, R.layout.home_scorer, playersList) {
 
     private val resourceLayout = R.layout.home_scorer
     private var selectedPosition = -1
@@ -48,7 +48,9 @@ class PlayerMVPAdapter(context: Context, playersList: List<Player>, private val 
 
             if (position == selectedPosition) {
                 view.setBackgroundColor(selectedColor)
-                mvpReference.setValue(MVPPlayer(player.team, player.shirtNumber)).addOnCompleteListener {}
+                if (!insertNeedsConfirmation) {
+                    mvpReference.setValue(MVPPlayer(player.team, player.shirtNumber)).addOnCompleteListener {}
+                }
             }
             else {
                 view.setBackgroundColor(transparentColor)

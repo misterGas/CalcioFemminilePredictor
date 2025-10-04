@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.NumberPicker
 import android.widget.ProgressBar
+import android.widget.RadioButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -22,7 +23,9 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.embeddedproject.calciofemminileitaliano.adapters.AssignSlotsAdapter
+import com.embeddedproject.calciofemminileitaliano.adapters.PlayerMVPAdapter
 import com.embeddedproject.calciofemminileitaliano.adapters.ScorerAdapter
+import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.embeddedproject.calciofemminileitaliano.helpers.Slot
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
@@ -73,6 +76,15 @@ class MatchScorers : Fragment() {
         val round = arguments.round
         val homeTeam = arguments.homeTeam
         val guestTeam = arguments.guestTeam
+        val disqualifiedPlayers = arguments.disqualifiedPlayersRoundList.replace("[", "").split("]")
+        val disqualifiedPlayersList = mutableListOf<MVPPlayer>()
+        for (dp in disqualifiedPlayers) {
+            if (dp.isNotEmpty()) {
+                val dpTeam = dp.split(",")[0]
+                val dpShirt = dp.split(",")[1]
+                disqualifiedPlayersList.add(MVPPlayer(dpTeam, dpShirt.toInt()))
+            }
+        }
 
         view.findViewById<ImageView>(R.id.back_to_championship_prediction).setOnClickListener {
             val navigateToMatchesPredictions = MatchScorersDirections.actionMatchScorersToMatchesPredictions(user, championship, season)
@@ -122,11 +134,29 @@ class MatchScorers : Fragment() {
             120 -> { //round of 16
                 getString(R.string.round_16)
             }
+            121 -> {
+                getString(R.string.round_16_first_leg)
+            }
+            122 -> {
+                getString(R.string.round_16_second_leg)
+            }
             125 -> { //quarterfinals
                 getString(R.string.quarterfinals)
             }
+            126 -> {
+                getString(R.string.quarterfinals_first_leg)
+            }
+            127 -> {
+                getString(R.string.quarterfinals_second_leg)
+            }
             150 -> { //semifinals
                 getString(R.string.semifinals)
+            }
+            151 -> {
+                getString(R.string.semifinals_first_leg)
+            }
+            152 -> {
+                getString(R.string.semifinals_second_leg)
             }
             200 -> { //final
                 getString(R.string.final_)
@@ -158,7 +188,7 @@ class MatchScorers : Fragment() {
             view.findViewById<TextView>(R.id.assign_scorers).text = resultDetails
         }
         else if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))}\n$dayDescription)\n${getString(R.string.assign_scorers)}"
+            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))} - $dayDescription)\n${getString(R.string.assign_scorers)}"
             if (!dayDescription.contains(getString(R.string.day))) {
                 resultDetails = resultDetails.replace(")", "")
             }
@@ -266,7 +296,9 @@ class MatchScorers : Fragment() {
                         val lastName = player.child("lastName").value.toString()
                         val role = player.child("role").value.toString()
                         val shirt = player.key.toString().toInt()
-                        homeScorersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                        if (!disqualifiedPlayersList.contains(MVPPlayer(homeTeam, shirt))) {
+                            homeScorersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                        }
                     }
                     val guestPlayers = players.result.child(guestTeam)
                     for (player in guestPlayers.children) {
@@ -274,7 +306,9 @@ class MatchScorers : Fragment() {
                         val lastName = player.child("lastName").value.toString()
                         val role = player.child("role").value.toString()
                         val shirt = player.key.toString().toInt()
-                        homeScorersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                        if (!disqualifiedPlayersList.contains(MVPPlayer(guestTeam, shirt))) {
+                            homeScorersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                        }
                     }
                     homeScorersList = homeScorersList.sortedWith(compareBy({ sc -> if (sc.team == homeTeam) 0 else 1 }, { sc -> if (sc.role == "Forward") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
                     if (homePrediction > 0) {
@@ -333,6 +367,7 @@ class MatchScorers : Fragment() {
                                                 findHomeSlotsSelected.add(slot + 1)
                                                 homeScorersAdapter.setSelectedPosition(position)
                                                 slotView.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+                                                slotView.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
                                             }
                                         }
                                         else {
@@ -356,6 +391,7 @@ class MatchScorers : Fragment() {
                                                 findHomeSlotsSelected.add(slot + 1)
                                                 homeScorersAdapter.setSelectedPosition(position)
                                                 slotView.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+                                                slotView.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
                                             }
                                         }
                                     }
@@ -373,7 +409,9 @@ class MatchScorers : Fragment() {
                         val lastName = player.child("lastName").value.toString()
                         val role = player.child("role").value.toString()
                         val shirt = player.key.toString().toInt()
-                        guestScorersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                        if (!disqualifiedPlayersList.contains(MVPPlayer(guestTeam, shirt))) {
+                            guestScorersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                        }
                     }
                     val homePlayers = players.result.child(homeTeam)
                     for (player in homePlayers.children) {
@@ -381,7 +419,9 @@ class MatchScorers : Fragment() {
                         val lastName = player.child("lastName").value.toString()
                         val role = player.child("role").value.toString()
                         val shirt = player.key.toString().toInt()
-                        guestScorersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                        if (!disqualifiedPlayersList.contains(MVPPlayer(homeTeam, shirt))) {
+                            guestScorersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                        }
                     }
                     guestScorersList = guestScorersList.sortedWith(compareBy({ sc -> if (sc.team == guestTeam) 0 else 1 }, { sc -> if (sc.role == "Forward") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
                     if (guestPrediction > 0) {
@@ -440,6 +480,7 @@ class MatchScorers : Fragment() {
                                                 findGuestSlotsSelected.add(slot + 1)
                                                 guestScorersAdapter.setSelectedPosition(position)
                                                 slotView.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+                                                slotView.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
                                             }
                                         }
                                         else {
@@ -464,6 +505,7 @@ class MatchScorers : Fragment() {
                                                 findGuestSlotsSelected.add(slot + 1)
                                                 guestScorersAdapter.setSelectedPosition(position)
                                                 slotView.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+                                                slotView.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
                                             }
                                         }
                                     }
@@ -493,4 +535,101 @@ class MatchScorers : Fragment() {
         monthName = getString(resources.getIdentifier(monthName, "string", activity?.packageName))
         return "$weekDay $day $monthName $year"
     }
+
+    /*@SuppressLint("InflateParams")
+    private fun assignMatchScorer(view: View, listViewSlots: ListView, slotsAdapter: AssignSlotsAdapter, goalPlayersList: List<Player>, ownGoalPlayersList: List<Player>, team: String, homeBitmap: Bitmap?, guestBitmap: Bitmap?, databaseScorersPrediction: DatabaseReference, findSlotsSelected: MutableList<Int>, type: String) {
+        listViewSlots.setOnItemClickListener { _, slotView, slot, _ ->
+            slotsAdapter.setSelectedPosition(slot)
+
+            databaseScorersPrediction.child("Slot${slot + 1}").get().addOnCompleteListener { findPlayer ->
+                val selectScorerDialog = layoutInflater.inflate(R.layout.assign_scorer_dialog, null)
+
+                val teamName = selectScorerDialog.findViewById<TextView>(R.id.team)
+                val teamImage = selectScorerDialog.findViewById<ImageView>(R.id.team_image)
+                val playersViewList = selectScorerDialog.findViewById<ListView>(R.id.list_view_team_players)
+                val goalCheck = selectScorerDialog.findViewById<RadioButton>(R.id.goal)
+                val ownGoalCheck = selectScorerDialog.findViewById<RadioButton>(R.id.own_goal)
+
+                val goalType = findPlayer.result.child("type").value.toString()
+                if (goalType == "Own goal") {
+                    ownGoalCheck.isChecked = true
+                }
+                else {
+                    goalCheck.isChecked = true
+                }
+
+                activity?.runOnUiThread {
+                    slotView.setBackgroundColor(view.context.resources.getColor(R.color.objective))
+                }
+
+                teamName.text = team
+                var playersListSelected: List<Player>? = null
+                if (type == "Home") {
+                    teamImage.setImageBitmap(homeBitmap!!)
+                }
+                else {
+                    teamImage.setImageBitmap(guestBitmap!!)
+                }
+                var playersAdapter = if (type == "Home") {
+                    if (goalCheck.isChecked) {
+                        PlayerMVPAdapter(view.context, goalPlayersList, databaseScorersPrediction.child("Slot${slot + 1}"), homeBitmap!!, guestBitmap!!, team, true)
+                    }
+                    else {
+                        PlayerMVPAdapter(view.context, ownGoalPlayersList, databaseScorersPrediction.child("Slot${slot + 1}"), homeBitmap!!, guestBitmap!!, team, true)
+                    }
+                }
+                else {
+                    if (goalCheck.isChecked) {
+                        PlayerMVPAdapter(view.context, goalPlayersList, databaseScorersPrediction.child("Slot${slot + 1}"), guestBitmap!!, homeBitmap!!, team, true)
+                    }
+                    else {
+                        PlayerMVPAdapter(view.context, ownGoalPlayersList, databaseScorersPrediction.child("Slot${slot + 1}"), guestBitmap!!, homeBitmap!!, team, true)
+                    }
+                }
+                if (goalCheck.isChecked) {
+                    playersListSelected = goalPlayersList
+                }
+                else {
+                    playersListSelected = ownGoalPlayersList
+                }
+                playersViewList.adapter = playersAdapter
+
+                goalCheck.setOnCheckedChangeListener { _, _ ->
+                    //if (goalCheck.isChecked) {
+                        playersAdapter = if (type == "Home") {
+                            PlayerMVPAdapter(view.context, goalPlayersList, databaseScorersPrediction.child("Slot${slot + 1}"), homeBitmap, guestBitmap, team, true)
+                        }
+                        else
+                            PlayerMVPAdapter(view.context, goalPlayersList, databaseScorersPrediction.child("Slot${slot + 1}"), guestBitmap, homeBitmap, team, true)
+                        playersViewList.adapter = playersAdapter
+                        playersListSelected = goalPlayersList
+                    //}
+                }
+
+                ownGoalCheck.setOnCheckedChangeListener { _, _ ->
+                    //if (ownGoalCheck.isChecked) {
+                        playersAdapter = if (type == "Home") {
+                            PlayerMVPAdapter(view.context, ownGoalPlayersList, databaseScorersPrediction.child("Slot${slot + 1}"), homeBitmap, guestBitmap, team, true)
+                        }
+                        else
+                            PlayerMVPAdapter(view.context, ownGoalPlayersList, databaseScorersPrediction.child("Slot${slot + 1}"), guestBitmap, homeBitmap, team, true)
+                        playersViewList.adapter = playersAdapter
+                        playersListSelected = ownGoalPlayersList
+                    //}
+                }
+
+                val dialog = AlertDialog.Builder(view.context).setView(selectScorerDialog)
+                    .setPositiveButton(R.string.confirm, null)
+                    .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .setNeutralButton(R.string.reset, null)
+                    .create()
+
+                dialog.window?.setBackgroundDrawableResource(R.drawable.assign_scorer_border)
+
+                dialog.show()
+            }
+        }
+    }*/
 }

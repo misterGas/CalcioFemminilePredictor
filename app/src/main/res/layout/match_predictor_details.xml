@@ -107,13 +107,24 @@
                     android:tooltipText="@string/assign_scorers"
                     android:contentDescription="@string/assign_scorers" />
 
+                <ImageView
+                    android:id="@+id/predict_match_discipline"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:src="@drawable/yellow_and_red_cards"
+                    android:visibility="gone"
+                    android:layout_marginStart="3sp"
+                    android:layout_toEndOf="@id/assign_match_scorers"
+                    android:tooltipText="@string/predict_discipline"
+                    android:contentDescription="@string/predict_discipline" />
+
                 <RelativeLayout
                     android:id="@+id/predict_mvp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:tooltipText="@string/predict_mvp"
                     android:visibility="gone"
-                    android:layout_toEndOf="@id/assign_match_scorers">
+                    android:layout_toEndOf="@id/predict_match_discipline">
 
                     <ImageView
                         android:id="@+id/assign_mvp"
@@ -148,13 +159,24 @@
                     android:tooltipText="@string/add_officials_scorers"
                     android:contentDescription="@string/add_officials_scorers" />
 
+                <ImageView
+                    android:id="@+id/assign_official_discipline"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:src="@drawable/yellow_and_red_cards_official"
+                    android:visibility="gone"
+                    android:layout_marginStart="3sp"
+                    android:layout_toEndOf="@id/assign_official_scorers"
+                    android:tooltipText="@string/add_official_discipline"
+                    android:contentDescription="@string/add_official_discipline" />
+
                 <RelativeLayout
                     android:id="@+id/official_mvp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:tooltipText="@string/add_official_mvp"
                     android:visibility="gone"
-                    android:layout_toEndOf="@id/assign_official_scorers">
+                    android:layout_toEndOf="@id/assign_official_discipline">
 
                     <ImageView
                         android:id="@+id/assign_official_mvp"
@@ -441,10 +463,126 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/mvp"
+                android:id="@+id/predicted_discipline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/official">
+
+                <RelativeLayout
+                    android:id="@+id/predicted_discipline_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginHorizontal="10sp"
+                    android:layout_marginBottom="5sp">
+
+                    <ImageView
+                        android:id="@+id/open_predicted_discipline"
+                        android:layout_width="23sp"
+                        android:layout_height="23sp"
+                        android:src="@drawable/arrow_right"
+                        android:contentDescription="@string/discipline_cards_predicted" />
+
+                    <TextView
+                        android:id="@+id/predicted_discipline_cards"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:textSize="16sp"
+                        android:text="@string/discipline_cards_predicted"
+                        android:fontFamily="sans-serif-black"
+                        android:textStyle="italic|bold"
+                        android:layout_toEndOf="@+id/open_predicted_discipline" />
+                </RelativeLayout>
+
+                <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                    android:id="@+id/recycler_view_predicted_home_cards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/home_player_card_info"
+                    android:visibility="gone"
+                    android:layout_below="@id/predicted_discipline_info"
+                    android:layout_marginBottom="5sp" />
+
+                <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                    android:id="@+id/recycler_view_predicted_guest_cards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/guest_player_card_info"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/predicted_discipline_info"
+                    android:layout_marginBottom="5sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/official_discipline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/predicted_discipline">
+
+                <RelativeLayout
+                    android:id="@+id/official_discipline_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginHorizontal="10sp"
+                    android:layout_marginBottom="5sp">
+
+                    <ImageView
+                        android:id="@+id/open_official_discipline"
+                        android:layout_width="23sp"
+                        android:layout_height="23sp"
+                        android:src="@drawable/arrow_right"
+                        android:contentDescription="@string/official_discipline" />
+
+                    <TextView
+                        android:id="@+id/official_discipline_cards"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:textSize="16sp"
+                        android:text="@string/official_discipline"
+                        android:fontFamily="sans-serif-black"
+                        android:textStyle="italic|bold"
+                        android:layout_toEndOf="@+id/open_official_discipline" />
+                </RelativeLayout>
+
+                <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                    android:id="@+id/recycler_view_official_home_cards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/home_player_card_info"
+                    android:visibility="gone"
+                    android:layout_below="@id/official_discipline_info"
+                    android:layout_marginBottom="5sp" />
+
+                <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                    android:id="@+id/recycler_view_official_guest_cards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="25sp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/guest_player_card_info"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/official_discipline_info"
+                    android:layout_marginBottom="5sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mvp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/official_discipline">
 
                 <RelativeLayout
                     android:id="@+id/mvp_info"

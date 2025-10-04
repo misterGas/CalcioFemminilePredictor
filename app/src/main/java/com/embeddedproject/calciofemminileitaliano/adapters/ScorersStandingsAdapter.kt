@@ -20,14 +20,13 @@ class ScorersStandingsAdapter(private val scorersGoal: Map<ScorerStanding, Int>,
         private val lastName: TextView = itemView.findViewById(R.id.scorer_last_name)
         private val goalsScored: TextView = itemView.findViewById(R.id.goals_scored)
 
-        fun bind(scorer: ScorerStanding, databaseGet: DataSnapshot, season: String) {
+        fun bind(scorer: ScorerStanding, value: Int, databaseGet: DataSnapshot, season: String) {
             val findPlayerInfo = databaseGet.child("Players").child(season).child(scorer.team).child(scorer.shirt.toString())
             val playerFirstName = findPlayerInfo.child("firstName").value.toString()
             val playerLastName = findPlayerInfo.child("lastName").value.toString()
             firstName.text = playerFirstName
             lastName.text = playerLastName
-            val goals = scorersGoal[scorer]!!.toString().substring(0, scorersGoal[scorer]!!.toString().length - 1)
-            goalsScored.text = goals
+            goalsScored.text = value.toString()
 
             val sqlDB = UserLoggedInHelper(itemView.context)
             val dbReference = sqlDB.writableDatabase
@@ -49,6 +48,6 @@ class ScorersStandingsAdapter(private val scorersGoal: Map<ScorerStanding, Int>,
     }
 
     override fun onBindViewHolder(holder: ScorersStandingsViewHolder, position: Int) {
-        holder.bind(scorersGoal.keys.elementAt(position), databaseGet, season)
+        holder.bind(scorersGoal.keys.elementAt(position), scorersGoal.values.elementAt(position), databaseGet, season)
     }
 }

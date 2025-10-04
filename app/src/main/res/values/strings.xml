@@ -75,9 +75,17 @@
     <string name="regular_season">Regular season</string>
     <string name="preliminary">Preliminary round</string>
     <string name="round_32">Round of 32</string>
+    <string name="round_32_first_leg">Round of 32 - First leg</string>
+    <string name="round_32_second_leg">Round of 32 - Second leg</string>
     <string name="round_16">Round of 16</string>
+    <string name="round_16_first_leg">Round of 16 - First leg</string>
+    <string name="round_16_second_leg">Round of 16 - Second leg</string>
     <string name="quarterfinals">Quarterfinals</string>
+    <string name="quarterfinals_first_leg">Quarterfinals - First leg</string>
+    <string name="quarterfinals_second_leg">Quarterfinals - Second leg</string>
     <string name="semifinals">Semifinals</string>
+    <string name="semifinals_first_leg">Semifinals - First leg</string>
+    <string name="semifinals_second_leg">Semifinals - Second leg</string>
     <string name="final_">Final</string>
     <string name="shield_group">Shield group</string>
     <string name="salvation_group">Salvation group</string>
@@ -124,10 +132,12 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
 
-    <string name="italy_serie_a_women">Serie A Femminile</string>
+    <string name="italy_serie_a_women">Serie A Women</string>
     <string name="uefa_womens_euro">UEFA Women\'s Euro</string>
     <string name="english_womens_super_league">Women\'s Super League</string>
     <string name="uefa_womens_champions_league">UEFA Women\'s Champions League</string>
+    <string name="coppa_italia_women">Coppa Italia Women</string>
+    <string name="serie_a_women_cup">Serie A Women\'s Cup</string>
 
     <string name="hear_rules">Hear rules</string>
     <string name="profile">Profile</string>
@@ -409,6 +419,52 @@
 
     <string name="scorers_standings">Scorers standings</string>
     <string name="mvp_standings">MVP standings</string>
+
+    <string name="predict_discipline">Predict disciplinary cards</string>
+    <string name="add_yellow_cards">Add yellow cards</string>
+    <string name="yellow_card">Yellow card</string>
+    <string name="add_red_cards">Add red cards</string>
+    <string name="red_card">Red card</string>
+    <string name="assign_yellow_card">Assign yellow card to a player</string>
+    <string name="assign_red_card">Assign red card to a player</string>
+    <string name="red_card_type">Red card type</string>
+    <string name="two_yellow_cards">Two yellow cards</string>
+    <string name="direct_red_card">Direct</string>
+    <string name="discipline_cards_predicted">Disciplinary cards predicted</string>
+    <string name="yellow_cards_predicted_correctly">Yellow cards predicted correctly</string>
+    <string name="red_cards_predicted_correctly">Red cards predicted correctly</string>
+    <string name="red_cards_type_predicted_correctly">Red cards type predicted correctly</string>
+
+    <string name="reset">Reset</string>
+
+    <string name="add_official_discipline">Add official disciplinary cards</string>
+    <string name="official_discipline">Official disciplinary cards</string>
+
+    <string name="show_disqualified_players">Show disqualified players</string>
+    <string name="disqualified_players_round">Disqualified players in this round</string>
+
+    <string name="best11_duel">Best 11 comparison</string>
+
+    <string name="assign_scorer">Assign scorer</string>
+    <string name="goal_type_descr">Goal type</string>
+    <string name="goal_descr">Goal</string>
+    <string name="own_goal_descr">Own goal</string>
+
+    <string name="best11_points_info">Show player points</string>
+    <string name="points_info_best11">Player points details</string>
+
+    <string name="back_to_best11">Back to Best 11 prediction</string>
+    <string name="best11_standings">Best 11 standings</string>
+    <string name="back_to_best11_standings">Back to Best 11 standings</string>
+
+    <string name="app_update_failed">App update failed</string>
+
+    <string name="yellow_cards_standings">Yellow cards standings</string>
+    <string name="red_cards_standings">Red cards standings</string>
+    <string name="best11_statistics">Best 11 statistics</string>
+    <string name="best_11_players_chosen_standings">Players frequencies</string>
+    <string name="best_11_captains_chosen_standings">Captains frequencies</string>
+    <string name="best_11_modules_chosen_standings">Modules frequencies</string>
 
     <!--States names translated-->
     <string name="albania">Albania</string>

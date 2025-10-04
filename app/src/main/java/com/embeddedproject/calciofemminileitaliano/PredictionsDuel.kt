@@ -3,6 +3,7 @@ package com.embeddedproject.calciofemminileitaliano
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,9 +55,16 @@ class PredictionsDuel : Fragment() {
         val championship = arguments.championship
         val season = arguments.season
 
+        val configuration = resources.configuration
         val translatedChampionship = getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))
-        val comparison = "$translatedChampionship\n${getString(R.string.comparison)}\n$user vs $vsUser"
-        view.findViewById<TextView>(R.id.predictions_comparison).text = comparison
+        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            val comparison = "$translatedChampionship\n${getString(R.string.comparison)}\n$user vs $vsUser"
+            view.findViewById<TextView>(R.id.predictions_comparison).text = comparison
+        }
+        else if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            val comparison = "$translatedChampionship\n${getString(R.string.comparison)} - $user vs $vsUser"
+            view.findViewById<TextView>(R.id.predictions_comparison).text = comparison
+        }
         view.findViewById<TextView>(R.id.season_info).text = season
 
         view.findViewById<ImageView>(R.id.back_to_standings).setOnClickListener {

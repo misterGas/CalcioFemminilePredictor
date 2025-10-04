@@ -390,6 +390,90 @@ class MatchDayComparisonAdapter(private val actualUser: String, private val vsUs
                 }
             }
 
+            val homeOfficialDiscipline = matchGet.child("OfficialDiscipline").child(homeTeam)
+            val homeActualUserPredictedDiscipline = matchGet.child("Predictions").child(actualUser).child("Discipline").child(homeTeam)
+            val homeVsUserPredictedDiscipline = matchGet.child("Predictions").child(vsUser).child("Discipline").child(homeTeam)
+            val guestOfficialDiscipline = matchGet.child("OfficialDiscipline").child(guestTeam)
+            val guestActualUserPredictedDiscipline = matchGet.child("Predictions").child(actualUser).child("Discipline").child(guestTeam)
+            val guestVsUserPredictedDiscipline = matchGet.child("Predictions").child(vsUser).child("Discipline").child(guestTeam)
+            val allYellowOfficialsDiscipline = mutableListOf<MVPPlayer>()
+            for (hodY in homeOfficialDiscipline.child("YellowCards").children) {
+                val shirt = hodY.child("shirt").value.toString().toInt()
+                allYellowOfficialsDiscipline.add(MVPPlayer(homeTeam, shirt))
+            }
+            for (godY in guestOfficialDiscipline.child("YellowCards").children) {
+                val shirt = godY.child("shirt").value.toString().toInt()
+                allYellowOfficialsDiscipline.add(MVPPlayer(guestTeam, shirt))
+            }
+            val allRedOfficialDiscipline = mutableMapOf<MVPPlayer, String>()
+            for (hodR in homeOfficialDiscipline.child("RedCards").children) {
+                val shirt = hodR.child("shirt").value.toString().toInt()
+                val type = hodR.child("type").value.toString()
+                allRedOfficialDiscipline[MVPPlayer(homeTeam, shirt)] = type
+            }
+            for (godR in guestOfficialDiscipline.child("RedCards").children) {
+                val shirt = godR.child("shirt").value.toString().toInt()
+                val type = godR.child("type").value.toString()
+                allRedOfficialDiscipline[MVPPlayer(guestTeam, shirt)] = type
+            }
+
+            val allYellowActualUserPredictedDiscipline = mutableListOf<MVPPlayer>()
+            for (hpdY in homeActualUserPredictedDiscipline.child("YellowCards").children) {
+                val shirt = hpdY.child("shirt").value.toString().toInt()
+                allYellowActualUserPredictedDiscipline.add(MVPPlayer(homeTeam, shirt))
+            }
+            for (gpdY in guestActualUserPredictedDiscipline.child("YellowCards").children) {
+                val shirt = gpdY.child("shirt").value.toString().toInt()
+                allYellowActualUserPredictedDiscipline.add(MVPPlayer(guestTeam, shirt))
+            }
+            val allRedActualUserPredictedDiscipline = mutableMapOf<MVPPlayer, String>()
+            for (hpdR in homeActualUserPredictedDiscipline.child("RedCards").children) {
+                val shirt = hpdR.child("shirt").value.toString().toInt()
+                val type = hpdR.child("type").value.toString()
+                allRedActualUserPredictedDiscipline[MVPPlayer(homeTeam, shirt)] = type
+            }
+            for (gpdR in guestActualUserPredictedDiscipline.child("RedCards").children) {
+                val shirt = gpdR.child("shirt").value.toString().toInt()
+                val type = gpdR.child("type").value.toString()
+                allRedActualUserPredictedDiscipline[MVPPlayer(guestTeam, shirt)] = type
+            }
+
+            val allYellowVsUserPredictedDiscipline = mutableListOf<MVPPlayer>()
+            for (hpdY in homeVsUserPredictedDiscipline.child("YellowCards").children) {
+                val shirt = hpdY.child("shirt").value.toString().toInt()
+                allYellowVsUserPredictedDiscipline.add(MVPPlayer(homeTeam, shirt))
+            }
+            for (gpdY in guestVsUserPredictedDiscipline.child("YellowCards").children) {
+                val shirt = gpdY.child("shirt").value.toString().toInt()
+                allYellowVsUserPredictedDiscipline.add(MVPPlayer(guestTeam, shirt))
+            }
+            val allRedVsUserPredictedDiscipline = mutableMapOf<MVPPlayer, String>()
+            for (hpdR in homeVsUserPredictedDiscipline.child("RedCards").children) {
+                val shirt = hpdR.child("shirt").value.toString().toInt()
+                val type = hpdR.child("type").value.toString()
+                allRedVsUserPredictedDiscipline[MVPPlayer(homeTeam, shirt)] = type
+            }
+            for (gpdR in guestVsUserPredictedDiscipline.child("RedCards").children) {
+                val shirt = gpdR.child("shirt").value.toString().toInt()
+                val type = gpdR.child("type").value.toString()
+                allRedVsUserPredictedDiscipline[MVPPlayer(guestTeam, shirt)] = type
+            }
+
+            /*for (odY in allYellowOfficialsDiscipline) {
+                if (allYellowPredictedDiscipline.contains(odY)) {
+                    //totalPoints += pointsRules[8]
+                }
+            }
+
+            for (odR in allRedOfficialDiscipline.keys) {
+                if (allRedPredictedDiscipline.containsKey(odR)) {
+                    //totalPoints += pointsRules[9]
+                    if (allRedOfficialDiscipline[odR] == allRedPredictedDiscipline[odR]) {
+                        //totalPoints += pointsRules[10]
+                    }
+                }
+            }*/
+
             val totalPointsGet = databaseGet.child("Championships").child(championship).child(season).child("TotalPoints")
             val actualUserTotalPoints = totalPointsGet.child(actualUser).child(round).child("$homeTeam-$guestTeam").value.toString()
             val hasActualUserDoublePoints = predictionsGet.child(actualUser).hasChild("DoublePointsActivatedInMatch")

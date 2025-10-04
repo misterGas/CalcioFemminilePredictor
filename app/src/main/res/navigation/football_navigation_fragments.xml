@@ -53,6 +53,12 @@
         <action
             android:id="@+id/action_matchesPredictions_to_seasonRecap"
             app:destination="@id/seasonRecap" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_predictDisciplinaryCards"
+            app:destination="@id/predictDisciplinaryCards" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_officialDisciplinaryCards"
+            app:destination="@id/officialDisciplinaryCards" />
     </fragment>
 
     <fragment
@@ -269,6 +275,9 @@
         <argument
             android:name="guest_team"
             app:argType="string" />
+        <argument
+            android:name="disqualified_players_round_list"
+            app:argType="string" />
         <action
             android:id="@+id/action_matchScorers_to_matchesPredictions"
             app:destination="@id/matchesPredictions" />
@@ -317,6 +326,9 @@
         <argument
             android:name="guest_team"
             app:argType="string" />
+        <argument
+            android:name="disqualified_players_round_list"
+            app:argType="string" />
         <action
             android:id="@+id/action_officialMatchScorers_to_matchesPredictions"
             app:destination="@id/matchesPredictions" />
@@ -347,6 +359,9 @@
         <argument
             android:name="guest_team"
             app:argType="string" />
+        <argument
+            android:name="disqualified_players_round_list"
+            app:argType="string" />
         <action
             android:id="@+id/action_predictMVP_to_matchesPredictions"
             app:destination="@id/matchesPredictions" />
@@ -376,6 +391,9 @@
             app:argType="string" />
         <argument
             android:name="guest_team"
+            app:argType="string" />
+        <argument
+            android:name="disqualified_players_round_list"
             app:argType="string" />
         <action
             android:id="@+id/action_officialMVP_to_matchesPredictions"
@@ -437,6 +455,9 @@
         <argument
             android:name="round"
             app:argType="integer" />
+        <argument
+            android:name="disqualified_players_round_list"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/showBest11"
@@ -464,6 +485,12 @@
         <argument
             android:name="module"
             app:argType="string" />
+        <argument
+            android:name="showPoints"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_showBest11_to_best11Standings"
+            app:destination="@id/best11Standings" />
     </fragment>
     <fragment
         android:id="@+id/specialEvent"
@@ -512,5 +539,134 @@
         <action
             android:id="@+id/action_seasonRecap_to_loginRegistration"
             app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/predictDisciplinaryCards"
+        android:name="com.embeddedproject.calciofemminileitaliano.PredictDisciplinaryCards"
+        android:label="fragment_predict_disciplinary_cards"
+        tools:layout="@layout/fragment_predict_disciplinary_cards">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="home_team"
+            app:argType="string" />
+        <argument
+            android:name="guest_team"
+            app:argType="string" />
+        <argument
+            android:name="disqualified_players_round_list"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_predictDisciplinaryCards_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_predictDisciplinaryCards_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/officialDisciplinaryCards"
+        android:name="com.embeddedproject.calciofemminileitaliano.OfficialDisciplinaryCards"
+        android:label="fragment_official_disciplinary_cards"
+        tools:layout="@layout/fragment_official_disciplinary_cards">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="home_team"
+            app:argType="string" />
+        <argument
+            android:name="guest_team"
+            app:argType="string" />
+        <argument
+            android:name="disqualified_players_round_list"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_officialDisciplinaryCards_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_officialDisciplinaryCards_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+    </fragment>
+    <fragment
+        android:id="@+id/best11DayDuel"
+        android:name="com.embeddedproject.calciofemminileitaliano.Best11DayDuel"
+        android:label="fragment_best11_day_duel"
+        tools:layout="@layout/fragment_best11_day_duel">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="vs_user"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="user_nickname_module"
+            app:argType="string" />
+        <argument
+            android:name="vs_user_module"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_best11DayDuel_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_best11DayDuel_to_best11Standings"
+            app:destination="@id/best11Standings" />
+    </fragment>
+    <fragment
+        android:id="@+id/best11Standings"
+        android:name="com.embeddedproject.calciofemminileitaliano.Best11Standings"
+        android:label="fragment_best11_standings"
+        tools:layout="@layout/fragment_best11_standings">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <argument
+            android:name="round"
+            app:argType="integer" />
+        <argument
+            android:name="module"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_best11Standings_to_showBest11"
+            app:destination="@id/showBest11" />
+        <action
+            android:id="@+id/action_best11Standings_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
+        <action
+            android:id="@+id/action_best11Standings_to_best11DayDuel"
+            app:destination="@id/best11DayDuel" />
     </fragment>
 </navigation>

@@ -1,6 +1,9 @@
 [versions]
+activityKtx = "1.11.0"
 agp = "8.3.0"
+appUpdate = "2.1.0"
 bcrypt = "1.0.9"
+core = "1.10.3"
 firebaseAuth = "23.0.0"
 firebaseBom = "33.1.2"
 gson = "2.10.1"
@@ -24,9 +27,13 @@ squareupOkhttp = "5.0.0-alpha.2"
 workRuntimeKtx = "2.9.1"
 
 [libraries]
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
+app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
+app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
 bcrypt = { module = "com.ToxicBakery.library.bcrypt:bcrypt", version.ref = "bcrypt" }
+core = { module = "com.google.android.play:core", version.ref = "core" }
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }

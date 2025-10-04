@@ -7,6 +7,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.BitmapFactory
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -29,6 +30,7 @@ import com.embeddedproject.calciofemminileitaliano.R
 import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.embeddedproject.calciofemminileitaliano.helpers.PointsGoalOrOwnGoal
+import com.embeddedproject.calciofemminileitaliano.helpers.RedCardPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
@@ -41,7 +43,9 @@ import java.time.YearMonth
 import kotlin.math.abs
 
 @Suppress("DEPRECATION")
-class MatchDayPredictorAdapter(private val user: String, private val championship: String, private val season: String, private val daysList: List<MatchPredictor>, private val firstDateRound: String, private val databaseGet: DataSnapshot, private val databaseReference: DatabaseReference) : RecyclerView.Adapter<MatchDayPredictorAdapter.MatchDayPredictorViewHolder>() {
+class MatchDayPredictorAdapter(private val user: String, private val championship: String, private val season: String, private val daysList: List<MatchPredictor>, private val firstDateRound: String, private val databaseGet: DataSnapshot, private val databaseReference: DatabaseReference, private val roundDisqualifiedPlayersListParam: String) : RecyclerView.Adapter<MatchDayPredictorAdapter.MatchDayPredictorViewHolder>() {
+
+    var isProcessingDoublePoints = false
 
     inner class MatchDayPredictorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val matchDateTextView: TextView = itemView.findViewById(R.id.match_date)
@@ -69,10 +73,20 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
         private val openMVP: RelativeLayout = itemView.findViewById(R.id.mvp_info)
         private val showPredictedMVP: RelativeLayout = itemView.findViewById(R.id.predicted_mvp_opened)
         private val showOfficialMVP: RelativeLayout = itemView.findViewById(R.id.official_mvp_opened)
+        private val assignDiscipline: ImageView = itemView.findViewById(R.id.predict_match_discipline)
+        private val openPredictedDiscipline: RelativeLayout = itemView.findViewById(R.id.predicted_discipline_info)
+        private val predictedHomeDiscipline: RecyclerView = itemView.findViewById(R.id.recycler_view_predicted_home_cards)
+        private val predictedGuestDiscipline: RecyclerView = itemView.findViewById(R.id.recycler_view_predicted_guest_cards)
+        private val assignOfficialDiscipline: ImageView = itemView.findViewById(R.id.assign_official_discipline)
+        private val openOfficialDiscipline: RelativeLayout = itemView.findViewById(R.id.official_discipline_info)
+        private val officialHomeDiscipline: RecyclerView = itemView.findViewById(R.id.recycler_view_official_home_cards)
+        private val officialGuestDiscipline: RecyclerView = itemView.findViewById(R.id.recycler_view_official_guest_cards)
 
         private val scorersGuessedWithMoreNets = mutableMapOf<PointsGoalOrOwnGoal, Int>()
+        private val yellowCardsGuessed = mutableListOf<MVPPlayer>()
+        private val redCardsGuessedWith2YellowsTypeGuessed = mutableMapOf<MVPPlayer, Boolean>()
 
-        private val pointsRules = listOf(3, 3, 2, 6, 8, 2, 4, 10)
+        private val pointsRules = listOf(3, 3, 2, 6, 8, 2, 4, 10, 3, 5, 2)
         /*
             pointsRules[0]: win/null/loss
             pointsRules[1]: nets scored for home/guest team
@@ -82,6 +96,9 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
             pointsRules[5]: two or more goals for a scorer (for each score)
             pointsRules[6]: two or more own goals for a scorer (for each score)
             pointsRules[7]: mvp predicted correctly
+            pointsRules[8]: yellow card per player predicted correctly
+            pointsRules[9]: red card per player predicted correctly
+            pointsRules[10]: red card type (two yellow card/direct red card) per player predicted correctly
          */
 
         @SuppressLint("DiscouragedApi", "NotifyDataSetChanged", "UseCompatLoadingForDrawables")
@@ -90,6 +107,7 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
             val dbReference = sqlDB.writableDatabase
             val databaseRound = databaseGet.child("Championships").child(championship).child(season).child("Matches").child(round)
             val matchReference = databaseReference.child("Championships").child(championship).child(season).child("Matches").child(round).child("Matches").child("$homeTeam-$guestTeam")
+            val hasMVPs = databaseGet.child("Championships").child(championship).child(season).child("Info").hasChild("hasMVPs")
             matchTimeTextView.text = if (time == "To be defined") {
                 itemView.resources.getString(R.string.to_be_defined)
             }
@@ -144,7 +162,7 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
 
             val matchInfoImage = itemView.findViewById<ImageView>(R.id.match_result_info)
 
-            val matchGet = databaseGet.child("Championships").child(championship).child(season).child("Matches").child(round).child("Matches").child("$homeTeam-$guestTeam")
+            val matchGet = databaseRound.child("Matches").child("$homeTeam-$guestTeam")
 
             val findOfficialMVP = matchGet.child("OfficialMVP")
             var officialMVP: MVPPlayer? = null
@@ -284,6 +302,72 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                         totalPoints += pointsRules[7]
                     }
 
+                    val homeOfficialDiscipline = matchGet.child("OfficialDiscipline").child(homeTeam)
+                    val homePredictedDiscipline = matchGet.child("Predictions").child(user).child("Discipline").child(homeTeam)
+                    val guestOfficialDiscipline = matchGet.child("OfficialDiscipline").child(guestTeam)
+                    val guestPredictedDiscipline = matchGet.child("Predictions").child(user).child("Discipline").child(guestTeam)
+                    val allYellowOfficialsDiscipline = mutableListOf<MVPPlayer>()
+                    for (hodY in homeOfficialDiscipline.child("YellowCards").children) {
+                        val shirt = hodY.child("shirt").value.toString().toInt()
+                        allYellowOfficialsDiscipline.add(MVPPlayer(homeTeam, shirt))
+                    }
+                    for (godY in guestOfficialDiscipline.child("YellowCards").children) {
+                        val shirt = godY.child("shirt").value.toString().toInt()
+                        allYellowOfficialsDiscipline.add(MVPPlayer(guestTeam, shirt))
+                    }
+                    val allRedOfficialDiscipline = mutableMapOf<MVPPlayer, String>()
+                    for (hodR in homeOfficialDiscipline.child("RedCards").children) {
+                        val shirt = hodR.child("shirt").value.toString().toInt()
+                        val type = hodR.child("type").value.toString()
+                        allRedOfficialDiscipline[MVPPlayer(homeTeam, shirt)] = type
+                    }
+                    for (godR in guestOfficialDiscipline.child("RedCards").children) {
+                        val shirt = godR.child("shirt").value.toString().toInt()
+                        val type = godR.child("type").value.toString()
+                        allRedOfficialDiscipline[MVPPlayer(guestTeam, shirt)] = type
+                    }
+
+                    val allYellowPredictedDiscipline = mutableListOf<MVPPlayer>()
+                    for (hpdY in homePredictedDiscipline.child("YellowCards").children) {
+                        val shirt = hpdY.child("shirt").value.toString().toInt()
+                        allYellowPredictedDiscipline.add(MVPPlayer(homeTeam, shirt))
+                    }
+                    for (gpdY in guestPredictedDiscipline.child("YellowCards").children) {
+                        val shirt = gpdY.child("shirt").value.toString().toInt()
+                        allYellowPredictedDiscipline.add(MVPPlayer(guestTeam, shirt))
+                    }
+                    val allRedPredictedDiscipline = mutableMapOf<MVPPlayer, String>()
+                    for (hpdR in homePredictedDiscipline.child("RedCards").children) {
+                        val shirt = hpdR.child("shirt").value.toString().toInt()
+                        val type = hpdR.child("type").value.toString()
+                        allRedPredictedDiscipline[MVPPlayer(homeTeam, shirt)] = type
+                    }
+                    for (gpdR in guestPredictedDiscipline.child("RedCards").children) {
+                        val shirt = gpdR.child("shirt").value.toString().toInt()
+                        val type = gpdR.child("type").value.toString()
+                        allRedPredictedDiscipline[MVPPlayer(guestTeam, shirt)] = type
+                    }
+
+                    for (odY in allYellowOfficialsDiscipline) {
+                        if (allYellowPredictedDiscipline.contains(odY)) {
+                            totalPoints += pointsRules[8]
+                            yellowCardsGuessed.add(odY)
+                        }
+                    }
+
+                    for (odR in allRedOfficialDiscipline.keys) {
+                        if (allRedPredictedDiscipline.containsKey(odR)) {
+                            totalPoints += pointsRules[9]
+                            if (allRedOfficialDiscipline[odR] == allRedPredictedDiscipline[odR]) {
+                                totalPoints += pointsRules[10]
+                                redCardsGuessedWith2YellowsTypeGuessed[odR] = (allRedOfficialDiscipline[odR] == "2Yellows")
+                            }
+                            else {
+                                redCardsGuessedWith2YellowsTypeGuessed[odR] = false
+                            }
+                        }
+                    }
+
                     if (databaseRound.child("Matches").child("$homeTeam-$guestTeam").child("Predictions").child(user).value.toString().contains("DoublePointsActivatedInMatch")) {
                         totalPoints *= 2
                     }
@@ -309,7 +393,9 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                                 if (isManagerActive) {
                                     officialScorers.visibility = VISIBLE
                                 }
-                                openOfficialScorers.visibility = VISIBLE
+                            }
+                            if (isManagerActive) {
+                                assignOfficialDiscipline.visibility = VISIBLE
                             }
                         }
                         else if (actualTime.hour != hourTime) {
@@ -318,7 +404,9 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                                 if (isManagerActive) {
                                     officialScorers.visibility = VISIBLE
                                 }
-                                openOfficialScorers.visibility = VISIBLE
+                            }
+                            if (isManagerActive) {
+                                assignOfficialDiscipline.visibility = VISIBLE
                             }
                         }
                     }
@@ -330,10 +418,12 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                         if (isManagerActive) {
                             officialScorers.visibility = VISIBLE
                         }
-                        openOfficialScorers.visibility = VISIBLE
                     }
                     if (isManagerActive) {
-                        assignOfficialMVP.visibility = VISIBLE
+                        if (hasMVPs) {
+                            assignOfficialMVP.visibility = VISIBLE
+                        }
+                        assignOfficialDiscipline.visibility = VISIBLE
                     }
                 }
             }
@@ -356,8 +446,10 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                                     if (isManagerActive) {
                                         officialScorers.visibility = VISIBLE
                                     }
-                                    openOfficialScorers.visibility = VISIBLE
                                 }
+                            }
+                            if (isManagerActive) {
+                                assignOfficialDiscipline.visibility = VISIBLE
                             }
                         }
                         else if (actualTime.hour != hourTime) {
@@ -367,8 +459,10 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                                     if (isManagerActive) {
                                         officialScorers.visibility = VISIBLE
                                     }
-                                    openOfficialScorers.visibility = VISIBLE
                                 }
+                            }
+                            if (isManagerActive) {
+                                assignOfficialDiscipline.visibility = VISIBLE
                             }
                         }
                     }
@@ -381,7 +475,10 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                             if (homePrediction.toInt() > 0 || guestPrediction.toInt() > 0) {
                                 assignMatchScorers.visibility = VISIBLE
                             }
-                            assignMVP.visibility = VISIBLE
+                            if (hasMVPs) {
+                                assignMVP.visibility = VISIBLE
+                            }
+                            assignDiscipline.visibility = VISIBLE
                         }
                         homeTeamPrediction.minValue = homePrediction.toInt()
                         homeTeamPrediction.maxValue = homePrediction.toInt()
@@ -417,6 +514,18 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
 
             if (homeScorersPredictedCount > 0 || guestScorersPredictedCount > 0) {
                 openPredictedScorers.visibility = VISIBLE
+            }
+
+            if (matchGet.hasChild("OfficialScorers")) {
+                openOfficialScorers.visibility = VISIBLE
+            }
+
+            if (matchGet.child("Predictions").child(user).hasChild("Discipline")) {
+                openPredictedDiscipline.visibility = VISIBLE
+            }
+
+            if (matchGet.hasChild("OfficialDiscipline")) {
+                openOfficialDiscipline.visibility = VISIBLE
             }
 
             matchReference.child("Predictions").child(user).child("Scores").get().addOnCompleteListener { userScoresPredictions ->
@@ -530,34 +639,52 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
 
             assignMatchScorers.setOnClickListener {
                 updateLastRoundToShow(round, matchPosition, dbReference)
-                val navigateToMatchScorers = MatchesPredictionsDirections.actionMatchesPredictionsToMatchScorers(user, championship, season, round.toInt(), homeTeam, guestTeam)
+                val navigateToMatchScorers = MatchesPredictionsDirections.actionMatchesPredictionsToMatchScorers(user, championship, season, round.toInt(), homeTeam, guestTeam, roundDisqualifiedPlayersListParam)
                 itemView.findNavController().navigate(navigateToMatchScorers)
             }
 
             assignMVP.setOnClickListener {
                 updateLastRoundToShow(round, matchPosition, dbReference)
-                val navigateToPredictMVP = MatchesPredictionsDirections.actionMatchesPredictionsToPredictMVP(user, championship, season, round.toInt(), homeTeam, guestTeam)
+                val navigateToPredictMVP = MatchesPredictionsDirections.actionMatchesPredictionsToPredictMVP(user, championship, season, round.toInt(), homeTeam, guestTeam, roundDisqualifiedPlayersListParam)
                 itemView.findNavController().navigate(navigateToPredictMVP)
+            }
+
+            assignDiscipline.setOnClickListener {
+                updateLastRoundToShow(round, matchPosition, dbReference)
+                val navigateToDisciplineCards = MatchesPredictionsDirections.actionMatchesPredictionsToPredictDisciplinaryCards(user, championship, season, round.toInt(), homeTeam, guestTeam, roundDisqualifiedPlayersListParam)
+                itemView.findNavController().navigate(navigateToDisciplineCards)
             }
 
             officialScorers.setOnClickListener {
                 updateLastRoundToShow(round, matchPosition, dbReference)
-                val navigateToOfficialScorers = MatchesPredictionsDirections.actionMatchesPredictionsToOfficialMatchScorers(user, championship, season, round.toInt(), homeTeam, guestTeam)
+                val navigateToOfficialScorers = MatchesPredictionsDirections.actionMatchesPredictionsToOfficialMatchScorers(user, championship, season, round.toInt(), homeTeam, guestTeam, roundDisqualifiedPlayersListParam)
                 itemView.findNavController().navigate(navigateToOfficialScorers)
             }
 
             assignOfficialMVP.setOnClickListener {
                 updateLastRoundToShow(round, matchPosition, dbReference)
-                val navigateToOfficialMVP = MatchesPredictionsDirections.actionMatchesPredictionsToOfficialMVP(user, championship, season, round.toInt(), homeTeam, guestTeam)
+                val navigateToOfficialMVP = MatchesPredictionsDirections.actionMatchesPredictionsToOfficialMVP(user, championship, season, round.toInt(), homeTeam, guestTeam, roundDisqualifiedPlayersListParam)
                 itemView.findNavController().navigate(navigateToOfficialMVP)
             }
 
+            assignOfficialDiscipline.setOnClickListener {
+                updateLastRoundToShow(round, matchPosition, dbReference)
+                val navigateToOfficialDiscipline = MatchesPredictionsDirections.actionMatchesPredictionsToOfficialDisciplinaryCards(user, championship, season, round.toInt(), homeTeam, guestTeam, roundDisqualifiedPlayersListParam)
+                itemView.findNavController().navigate(navigateToOfficialDiscipline)
+            }
+
             doublePointsButton.setOnClickListener {
+                if (isProcessingDoublePoints) {
+                    return@setOnClickListener
+                }
+                isProcessingDoublePoints = true
+
                 val fireworksLottie = itemView.findViewById<LottieAnimationView>(R.id.fireworks_animation)
                 if (actualDate < firstMatchDayDate) {
                     if (!(homeScore != "null" && guestScore != "null" && actualDate >= matchDate)) {
                         if (!(actualTime.hour + 6 >= hourTime && actualDate == matchDate)) {
                             matchReference.child("Predictions").get().addOnCompleteListener {
+                                isProcessingDoublePoints = false
                                 if (it.result.hasChild(user)) {
                                     itemView.findViewById<RelativeLayout>(R.id.double_points_borders).background = itemView.resources.getDrawable(R.drawable.no_double_points)
                                     fireworksLottie.visibility = GONE
@@ -573,13 +700,10 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                                         fireworksLottie.visibility = VISIBLE
                                         fireworksLottie.addAnimatorListener(object : Animator.AnimatorListener {
                                             override fun onAnimationStart(animation: Animator) {}
-
                                             override fun onAnimationEnd(animation: Animator) {
                                                 fireworksLottie.visibility = GONE
                                             }
-
                                             override fun onAnimationCancel(animation: Animator) {}
-
                                             override fun onAnimationRepeat(animation: Animator) {}
                                         })
                                         roundReference.child("ManageMatchDay").child(user).child("DoublePointsActivated").setValue(true).addOnCompleteListener {}
@@ -594,17 +718,22 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                                 }
                             }
                         }
+                        else {
+                            isProcessingDoublePoints = false
+                        }
+                    }
+                    else {
+                        isProcessingDoublePoints = false
                     }
                 }
                 else {
+                    isProcessingDoublePoints = false
                     if (itemView.findViewById<TextView>(R.id.status).text.toString() == itemView.resources.getString(R.string.programmed)) {
                         val builder = AlertDialog.Builder(itemView.context)
                         builder.setMessage(itemView.resources.getString(R.string.match_day_ongoing))
-
                         builder.setPositiveButton(itemView.resources.getString(R.string.ok)) { dialog, _ ->
                             dialog.dismiss()
                         }
-
                         val dialog = builder.create()
                         dialog.show()
                     }
@@ -645,6 +774,36 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                     predictedScorers.setImageResource(R.drawable.arrow_right)
                     predictedHomeScorers.visibility = GONE
                     predictedGuestScorers.visibility = GONE
+                }
+                updateLastRoundToShow(round, matchPosition, dbReference)
+            }
+
+            openPredictedDiscipline.setOnClickListener {
+                val predictedCards = itemView.findViewById<ImageView>(R.id.open_predicted_discipline)
+                if (predictedHomeDiscipline.visibility == GONE && predictedGuestDiscipline.visibility == GONE) {
+                    predictedCards.setImageResource(R.drawable.arrow_down)
+                    predictedCardsAdapter(predictedHomeDiscipline, homeTeam, R.layout.home_player_card_info, matchGet, matchDate, actualDate, hourTime, actualTime)
+                    predictedCardsAdapter(predictedGuestDiscipline, guestTeam, R.layout.guest_player_card_info, matchGet, matchDate, actualDate, hourTime, actualTime)
+                }
+                else {
+                    predictedCards.setImageResource(R.drawable.arrow_right)
+                    predictedHomeDiscipline.visibility = GONE
+                    predictedGuestDiscipline.visibility = GONE
+                }
+                updateLastRoundToShow(round, matchPosition, dbReference)
+            }
+
+            openOfficialDiscipline.setOnClickListener {
+                val officialCards = itemView.findViewById<ImageView>(R.id.open_official_discipline)
+                if (officialHomeDiscipline.visibility == GONE && officialGuestDiscipline.visibility == GONE) {
+                    officialCards.setImageResource(R.drawable.arrow_down)
+                    officialCardsAdapter(officialHomeDiscipline, homeTeam, R.layout.home_player_card_info, matchGet, matchDate, actualDate, hourTime, actualTime)
+                    officialCardsAdapter(officialGuestDiscipline, guestTeam, R.layout.guest_player_card_info, matchGet, matchDate, actualDate, hourTime, actualTime)
+                }
+                else {
+                    officialCards.setImageResource(R.drawable.arrow_right)
+                    officialHomeDiscipline.visibility = GONE
+                    officialGuestDiscipline.visibility = GONE
                 }
                 updateLastRoundToShow(round, matchPosition, dbReference)
             }
@@ -717,7 +876,7 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
 
         private fun updateLastRoundToShow(round: String, matchPosition: Int, dbReference: SQLiteDatabase) {
             val lastRoundToShow = ContentValues()
-            lastRoundToShow.put("LastRound", round.toInt() - 1)
+            lastRoundToShow.put("LastRound", round.toInt())
             lastRoundToShow.put("LastMatchInRound", matchPosition)
             dbReference.update("USER_LAST_ACCESSED", lastRoundToShow, "UserNickname = ? AND Championship = ? AND Season = ?", arrayOf(user, championship, season))
         }
@@ -781,7 +940,7 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                 val role = scorerInfo.child("role").value.toString()
                 val newPlayer = Player(firstName, lastName, shirt.toInt(), role, goalTypeTeam)
                 if (!scorers.contains(newPlayer)) {
-                    scorers.add(Player(firstName, lastName, shirt.toInt(), role, goalTypeTeam))
+                    scorers.add(newPlayer)
                     scorerTypes.add(goalType)
                 }
                 if (scoresPerPlayer.containsKey(newPlayer)) {
@@ -795,6 +954,85 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
                 val scorersAdapter = PredictedScorersAdapter(scorers, scorerTypes, scoresPerPlayer, scorersGuessedWithMoreNets, isMatchStarted, isMatchFinished, resource)
                 scorersRecyclerView.adapter = scorersAdapter
             }
+        }
+
+        private fun officialCardsAdapter(teamCardsRecyclerView: RecyclerView, team: String, resource: Int, matchGet: DataSnapshot, matchDate: LocalDate, actualDate: LocalDate, hourTime: Int, actualTime: LocalDateTime) {
+            teamCardsRecyclerView.visibility = VISIBLE
+            val playersCards = mutableMapOf<Player, String>()
+            val redCardsType = mutableMapOf<Player, String>()
+            val timelines = mutableMapOf<Player, String>()
+            for (yc in matchGet.child("OfficialDiscipline").child(team).child("YellowCards").children) {
+                val shirt = yc.child("shirt").value.toString()
+                val playerInfo = databaseGet.child("Players").child(season).child(team).child(shirt)
+                val firstName = playerInfo.child("firstName").value.toString()
+                val lastName = playerInfo.child("lastName").value.toString()
+                val role = playerInfo.child("role").value.toString()
+                val newPlayer = Player(firstName, lastName, shirt.toInt(), role, team)
+                if (!playersCards.contains(newPlayer)) {
+                    playersCards[newPlayer] = "Yellow"
+                }
+                val timelineGet = matchGet.child("OfficialDisciplineTimeline").child(team).child("YellowCards").child(yc.key.toString())
+                if (timelineGet.value.toString() != "null") {
+                    val minute = timelineGet.value.toString()
+                    timelines[newPlayer] = minute
+                }
+            }
+            for (rc in matchGet.child("OfficialDiscipline").child(team).child("RedCards").children) {
+                val shirt = rc.child("shirt").value.toString()
+                val redCardType = rc.child("type").value.toString()
+                val playerInfo = databaseGet.child("Players").child(season).child(team).child(shirt)
+                val firstName = playerInfo.child("firstName").value.toString()
+                val lastName = playerInfo.child("lastName").value.toString()
+                val role = playerInfo.child("role").value.toString()
+                val newPlayer = Player(firstName, lastName, shirt.toInt(), role, team)
+                if (!playersCards.contains(newPlayer)) {
+                    playersCards[newPlayer] = "Red"
+                }
+                redCardsType[newPlayer] = redCardType
+                val timelineGet = matchGet.child("OfficialDisciplineTimeline").child(team).child("RedCards").child(rc.key.toString())
+                if (timelineGet.value.toString() != "null") {
+                    val minute = timelineGet.value.toString()
+                    timelines[newPlayer] = minute
+                }
+            }
+            val isMatchStarted = actualDate.isEqual(matchDate) && actualTime.hour >= hourTime
+            val isMatchFinished = actualDate.isAfter(matchDate)
+            val cardsAdapter = OfficialCardsAdapter(playersCards, redCardsType, timelines, isMatchStarted, isMatchFinished, resource)
+            teamCardsRecyclerView.adapter = cardsAdapter
+        }
+
+        private fun predictedCardsAdapter(teamCardsRecyclerView: RecyclerView, team: String, resource: Int, matchGet: DataSnapshot, matchDate: LocalDate, actualDate: LocalDate, hourTime: Int, actualTime: LocalDateTime) {
+            teamCardsRecyclerView.visibility = VISIBLE
+            val playersCards = mutableMapOf<Player, String>()
+            val redCardsType = mutableMapOf<Player, String>()
+            for (yc in matchGet.child("Predictions").child(user).child("Discipline").child(team).child("YellowCards").children) {
+                val shirt = yc.child("shirt").value.toString()
+                val playerInfo = databaseGet.child("Players").child(season).child(team).child(shirt)
+                val firstName = playerInfo.child("firstName").value.toString()
+                val lastName = playerInfo.child("lastName").value.toString()
+                val role = playerInfo.child("role").value.toString()
+                val newPlayer = Player(firstName, lastName, shirt.toInt(), role, team)
+                if (!playersCards.contains(newPlayer)) {
+                    playersCards[newPlayer] = "Yellow"
+                }
+            }
+            for (rc in matchGet.child("Predictions").child(user).child("Discipline").child(team).child("RedCards").children) {
+                val shirt = rc.child("shirt").value.toString()
+                val redCardType = rc.child("type").value.toString()
+                val playerInfo = databaseGet.child("Players").child(season).child(team).child(shirt)
+                val firstName = playerInfo.child("firstName").value.toString()
+                val lastName = playerInfo.child("lastName").value.toString()
+                val role = playerInfo.child("role").value.toString()
+                val newPlayer = Player(firstName, lastName, shirt.toInt(), role, team)
+                if (!playersCards.contains(newPlayer)) {
+                    playersCards[newPlayer] = "Red"
+                }
+                redCardsType[newPlayer] = redCardType
+            }
+            val isMatchStarted = actualDate.isEqual(matchDate) && actualTime.hour >= hourTime
+            val isMatchFinished = actualDate.isAfter(matchDate)
+            val cardsAdapter = PredictedCardsAdapter(playersCards, redCardsType, yellowCardsGuessed, redCardsGuessedWith2YellowsTypeGuessed, isMatchStarted, isMatchFinished, resource)
+            teamCardsRecyclerView.adapter = cardsAdapter
         }
 
         @SuppressLint("NotifyDataSetChanged")

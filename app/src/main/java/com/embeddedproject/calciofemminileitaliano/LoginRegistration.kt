@@ -14,6 +14,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.embeddedproject.calciofemminileitaliano.helpers.User
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
@@ -37,6 +38,10 @@ class LoginRegistration : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         db = FirebaseDatabase.getInstance()
         reference = db.reference
+
+        activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.teal_toolbar)
+        activity?.window?.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+
         authentication = FirebaseAuth.getInstance()
         val sqlDB = UserLoggedInHelper(view.context)
         val dbReference = sqlDB.writableDatabase

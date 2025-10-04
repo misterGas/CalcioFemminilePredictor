@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/total_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/total_points_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="@string/total_points"
+            android:textColor="@color/module" />
+
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginStart="10sp"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/total_points_description"/>
+
+        <ImageView
+            android:id="@+id/points_image"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_marginTop="1sp"
+            android:src="@drawable/points"
+            android:layout_toEndOf="@id/points"
+            android:contentDescription="@string/points" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/modules_chosen_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="10sp"
+        android:text="@string/best_11_modules_chosen_standings"
+        android:textColor="@color/module"
+        android:layout_below="@id/total_points"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_modules_chosen_standings"
+        android:layout_width="match_parent"
+        android:layout_height="90sp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/module_standing_dialog"
+        android:scrollbars="vertical"
+        android:layout_marginTop="10sp"
+        android:layout_marginHorizontal="15sp"
+        android:layout_below="@+id/modules_chosen_description"/>
+
+    <TextView
+        android:id="@+id/players_chosen_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="10sp"
+        android:text="@string/best_11_players_chosen_standings"
+        android:textColor="@color/module"
+        android:layout_below="@+id/recycler_view_modules_chosen_standings"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_players_chosen_standings"
+        android:layout_width="match_parent"
+        android:layout_height="220sp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/scorer_standing_dialog"
+        android:scrollbars="vertical"
+        android:layout_marginTop="10sp"
+        android:layout_marginHorizontal="15sp"
+        android:layout_below="@+id/players_chosen_description"/>
+
+    <TextView
+        android:id="@+id/captains_chosen_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="10sp"
+        android:text="@string/best_11_captains_chosen_standings"
+        android:textColor="@color/module"
+        android:layout_below="@id/recycler_view_players_chosen_standings"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_captains_chosen_standings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/scorer_standing_dialog"
+        android:scrollbars="vertical"
+        android:layout_marginTop="10sp"
+        android:layout_marginHorizontal="15sp"
+        android:layout_below="@+id/captains_chosen_description"/>
+
+</RelativeLayout>

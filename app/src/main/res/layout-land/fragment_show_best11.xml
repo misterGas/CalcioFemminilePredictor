@@ -21,22 +21,12 @@
             android:paddingBottom="10sp">
 
             <ImageView
-                android:id="@+id/logout"
-                android:layout_width="25sp"
-                android:layout_height="25sp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/logout"
-                android:tooltipText="@string/logout"
-                android:contentDescription="@string/logout" />
-
-            <ImageView
                 android:id="@+id/season"
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/season"
-                android:contentDescription="@string/season"
-                android:layout_marginEnd="30sp" />
+                android:contentDescription="@string/season" />
 
             <TextView
                 android:id="@+id/season_info"
@@ -47,8 +37,29 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="6sp"
                 android:src="@drawable/season"
-                android:layout_marginEnd="58sp"
+                android:layout_marginEnd="28sp"
                 tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/standings"
+                android:layout_width="28sp"
+                android:layout_height="28sp"
+                android:src="@drawable/standings"
+                android:tooltipText="@string/standings"
+                android:contentDescription="@string/standings"
+                android:layout_marginEnd="5sp"
+                android:visibility="gone"
+                android:layout_toStartOf="@id/season_info" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:visibility="gone"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout" />
 
             <ImageView
                 android:id="@+id/back_to_championship_prediction"
@@ -84,7 +95,32 @@
                     android:layout_marginStart="5sp"
                     android:layout_toEndOf="@id/module_image"
                     tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/best11_points_rel_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="1sp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/best11_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textSize="16.5sp"
+                    android:fontFamily="sans-serif-condensed-medium" />
+
+                <ImageView
+                    android:id="@+id/best11_points_image"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:src="@drawable/points"
+                    android:layout_toEndOf="@id/best11_points"
+                    android:contentDescription="@string/points" />
             </RelativeLayout>
 
             <TextView
@@ -96,7 +132,7 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:layout_below="@+id/logout"/>
+                android:layout_below="@id/module_rel"/>
         </RelativeLayout>
     </Toolbar>
 
@@ -216,7 +252,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_players_best11"
-            android:layout_width="160sp"
+            android:layout_width="180sp"
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

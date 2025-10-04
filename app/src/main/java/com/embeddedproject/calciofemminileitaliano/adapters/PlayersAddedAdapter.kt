@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.embeddedproject.calciofemminileitaliano.R
 import com.embeddedproject.calciofemminileitaliano.helpers.Player
 
-class PlayersAddedAdapter(private val playersAddedList: MutableList<Player>, private val teamBitmap: Bitmap? = null) : RecyclerView.Adapter<PlayersAddedAdapter.PlayersAddedViewHolder>() {
+class PlayersAddedAdapter(private val playersAddedList: MutableList<Player>, private val teamBitmap: Bitmap? = null, private val resource: Int = R.layout.guest_scorer, private val playersTeamsBitmapMap: Map<Player, Bitmap> = emptyMap()) : RecyclerView.Adapter<PlayersAddedAdapter.PlayersAddedViewHolder>() {
 
     class PlayersAddedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val firstNameTextView: TextView = itemView.findViewById(R.id.scorer_first_name)
@@ -21,7 +21,7 @@ class PlayersAddedAdapter(private val playersAddedList: MutableList<Player>, pri
         private val teamImageView: ImageView = itemView.findViewById(R.id.team_image)
 
         @SuppressLint("DiscouragedApi")
-        fun bind(player: Player, teamBitmap: Bitmap?) {
+        fun bind(player: Player, teamBitmap: Bitmap?, playersTeamsBitmapMap: Map<Player, Bitmap>) {
             firstNameTextView.text = player.firstName
             lastNameTextView.text = player.lastName
             numberTextView.text = player.shirtNumber.toString()
@@ -29,11 +29,14 @@ class PlayersAddedAdapter(private val playersAddedList: MutableList<Player>, pri
             if (teamBitmap != null) {
                 teamImageView.setImageBitmap(teamBitmap)
             }
+            if (playersTeamsBitmapMap.isNotEmpty()) {
+                teamImageView.setImageBitmap(playersTeamsBitmapMap[player])
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersAddedViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.guest_scorer, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(resource, parent, false)
         return PlayersAddedViewHolder(view)
     }
 
@@ -42,7 +45,7 @@ class PlayersAddedAdapter(private val playersAddedList: MutableList<Player>, pri
     }
 
     override fun onBindViewHolder(holder: PlayersAddedViewHolder, position: Int) {
-        holder.bind(playersAddedList[position], teamBitmap)
+        holder.bind(playersAddedList[position], teamBitmap, playersTeamsBitmapMap)
     }
 
     @SuppressLint("NotifyDataSetChanged")

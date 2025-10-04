@@ -32,4 +32,33 @@
         android:contentDescription="@string/team"
         android:layout_below="@id/shirt_number" />
 
+    <RelativeLayout
+        android:id="@+id/captain_relative_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tooltipText="@string/team_captain"
+        android:visibility="gone"
+        android:layout_alignTop="@id/shirt_number"
+        android:layout_marginTop="10sp"
+        android:layout_toEndOf="@id/shirt_number">
+
+        <ImageView
+            android:id="@+id/circle_captain"
+            android:layout_width="18sp"
+            android:layout_height="18sp"
+            android:src="@drawable/circle_captain"
+            android:contentDescription="@string/team_captain" />
+
+        <TextView
+            android:id="@+id/captain"
+            android:layout_width="18sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/c"
+            android:gravity="center" />
+
+    </RelativeLayout>
+
 </RelativeLayout>

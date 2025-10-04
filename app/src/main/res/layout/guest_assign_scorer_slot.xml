@@ -15,6 +15,16 @@
         android:tooltipText="@string/assigned"
         android:contentDescription="@string/assigned" />
 
+    <ImageView
+        android:id="@+id/add"
+        android:layout_width="25sp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        android:layout_marginEnd="3sp"
+        android:tooltipText="@string/add_player"
+        android:contentDescription="@string/add_player" />
+
     <TextView
         android:id="@+id/assign_net"
         android:layout_width="match_parent"

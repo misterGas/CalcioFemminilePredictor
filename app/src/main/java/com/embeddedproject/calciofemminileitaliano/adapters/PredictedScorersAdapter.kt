@@ -26,7 +26,7 @@ class PredictedScorersAdapter(private val scorersList: List<Player>, private val
             } else {
                 ""
             }
-            var name = "${scorer.firstName[0]}."
+            var name = ""
             var lastNameReduced = ""
             if (scorer.lastName.contains(" ")) {
                 val lastNames = scorer.lastName.split(" ")
@@ -42,7 +42,7 @@ class PredictedScorersAdapter(private val scorersList: List<Player>, private val
             else {
                 lastNameReduced = scorer.lastName
             }
-            name = "$name $lastNameReduced"
+            name = lastNameReduced
             if (type != "") {
                 name = "$name $type"
             }

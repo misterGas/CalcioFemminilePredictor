@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MatchScorers">
+
+    <Toolbar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_toolbar"
+        android:id="@+id/toolbar">
+
+        <RelativeLayout
+            android:id="@+id/toolbar_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
+
+            <ImageView
+                android:id="@+id/season"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/season"
+                android:contentDescription="@string/season" />
+
+            <TextView
+                android:id="@+id/season_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="6sp"
+                android:src="@drawable/season"
+                android:layout_marginEnd="28sp"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:visibility="gone"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout" />
+
+            <ImageView
+                android:id="@+id/back_to_championship_prediction"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:gravity="center"
+                android:src="@drawable/back"
+                android:tooltipText="@string/back_to_championship_prediction"
+                android:contentDescription="@string/back_to_championship_prediction" />
+
+            <TextView
+                android:id="@+id/assign_discipline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/predict_discipline"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed-medium" />
+
+        </RelativeLayout>
+    </Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="10sp"
+        android:layout_below="@id/toolbar">
+
+        <ScrollView
+            android:id="@+id/match_info_scroll_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/match_info"
+                    android:layout_width="300sp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/prediction_background">
+
+                    <TextView
+                        android:id="@+id/match_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:paddingTop="5sp"
+                        android:gravity="center"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/match_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/black"
+                        android:layout_below="@id/match_date" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5dp"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:text="@string/programmed"
+                        android:textColor="@color/black"
+                        android:layout_below="@id/match_time"/>
+
+                    <NumberPicker
+                        android:id="@+id/home_result_prediction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="90sp"
+                        android:layout_marginHorizontal="25sp"
+                        android:descendantFocusability="blocksDescendants"
+                        android:layout_below="@id/match_date" />
+
+                    <NumberPicker
+                        android:id="@+id/guest_result_prediction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="90sp"
+                        android:layout_marginHorizontal="25sp"
+                        android:layout_alignParentEnd="true"
+                        android:descendantFocusability="blocksDescendants"
+                        android:layout_below="@id/match_date" />
+
+                    <ImageView
+                        android:id="@+id/home_team_image"
+                        android:layout_width="45sp"
+                        android:layout_height="45sp"
+                        android:layout_toEndOf="@id/home_result_prediction"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5dp"
+                        android:contentDescription="@string/home_team"
+                        android:layout_below="@id/status" />
+
+                    <ImageView
+                        android:id="@+id/guest_team_image"
+                        android:layout_width="45sp"
+                        android:layout_height="45sp"
+                        android:layout_toStartOf="@id/guest_result_prediction"
+                        android:paddingTop="5sp"
+                        android:paddingBottom="5dp"
+                        android:contentDescription="@string/guest_team"
+                        android:layout_below="@id/status" />
+
+                    <TextView
+                        android:id="@+id/home_team"
+                        android:layout_width="120sp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/home_result_prediction"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:text="@string/home_team"
+                        android:layout_below="@id/home_team_image" />
+
+                    <TextView
+                        android:id="@+id/guest_team"
+                        android:layout_width="120sp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/guest_result_prediction"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:gravity="end"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:text="@string/guest_team"
+                        android:layout_below="@id/guest_team_image" />
+                </RelativeLayout>
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress_updating_slots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10sp"
+            android:layout_marginStart="10sp"
+            android:indeterminate="true"
+            android:layout_toEndOf="@id/match_info_scroll_view" />
+
+        <RelativeLayout
+            android:id="@+id/yellow_cards_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:layout_marginStart="10sp"
+            android:layout_toEndOf="@id/match_info_scroll_view">
+
+            <TextView
+                android:id="@+id/yellow_cards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:textStyle="italic"
+                android:paddingTop="5sp"
+                android:text="@string/add_yellow_cards"
+                android:textColor="@color/yellow" />
+
+            <ImageView
+                android:id="@+id/yellow_card_image"
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_toEndOf="@id/yellow_cards"
+                android:paddingTop="5sp"
+                android:contentDescription="@string/yellow_card"
+                android:src="@drawable/yellow_card" />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/assign_home_yellow_cards"
+            android:layout_width="140sp"
+            android:layout_height="70sp"
+            android:layout_marginTop="5sp"
+            tools:listitem="@layout/home_assign_scorer_slot"
+            android:layout_marginStart="10sp"
+            android:layout_below="@id/yellow_cards_info"
+            android:layout_toEndOf="@id/match_info_scroll_view" />
+
+        <ListView
+            android:id="@+id/assign_guest_yellow_cards"
+            android:layout_width="140sp"
+            android:layout_height="70sp"
+            android:layout_marginTop="5sp"
+            tools:listitem="@layout/guest_assign_scorer_slot"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/yellow_cards_info" />
+
+        <RelativeLayout
+            android:id="@+id/red_cards_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:layout_marginTop="5sp"
+            android:layout_below="@id/assign_home_yellow_cards"
+            android:layout_toEndOf="@id/match_info_scroll_view">
+
+            <TextView
+                android:id="@+id/red_cards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:textStyle="italic"
+                android:paddingTop="5sp"
+                android:text="@string/add_red_cards"
+                android:textColor="@color/red" />
+
+            <ImageView
+                android:id="@+id/red_card_image"
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_toEndOf="@id/red_cards"
+                android:paddingTop="5sp"
+                android:contentDescription="@string/red_card"
+                android:src="@drawable/red_card" />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/assign_home_red_cards"
+            android:layout_width="140sp"
+            android:layout_height="24sp"
+            android:layout_marginTop="5sp"
+            tools:listitem="@layout/home_assign_scorer_slot"
+            android:layout_marginStart="10sp"
+            android:layout_below="@id/red_cards_info"
+            android:layout_toEndOf="@id/match_info_scroll_view"/>
+
+        <ListView
+            android:id="@+id/assign_guest_red_cards"
+            android:layout_width="140sp"
+            android:layout_height="24sp"
+            android:layout_marginTop="5sp"
+            tools:listitem="@layout/guest_assign_scorer_slot"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/red_cards_info" />
+
+    </RelativeLayout>
+</RelativeLayout>

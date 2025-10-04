@@ -6,8 +6,11 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.View.GONE
 import android.view.View.INVISIBLE
@@ -22,6 +25,7 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import com.embeddedproject.calciofemminileitaliano.adapters.PlayerBest11Adapter
 import com.embeddedproject.calciofemminileitaliano.adapters.SeasonsAdapter
+import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
 import com.google.firebase.database.DatabaseReference
@@ -37,7 +41,7 @@ class PredictBest11 : Fragment() {
         return inflater.inflate(R.layout.fragment_predict_best11, container, false)
     }
 
-    @SuppressLint("DiscouragedApi", "InflateParams", "CutPasteId")
+    @SuppressLint("DiscouragedApi", "InflateParams", "CutPasteId", "ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = FirebaseDatabase.getInstance()
@@ -51,6 +55,15 @@ class PredictBest11 : Fragment() {
         val championship = arguments.championship
         val season = arguments.season
         val round = arguments.round
+        val disqualifiedPlayers = arguments.disqualifiedPlayersRoundList.replace("[", "").split("]")
+        val disqualifiedPlayersList = mutableListOf<MVPPlayer>()
+        for (dp in disqualifiedPlayers) {
+            if (dp.isNotEmpty()) {
+                val dpTeam = dp.split(",")[0]
+                val dpShirt = dp.split(",")[1]
+                disqualifiedPlayersList.add(MVPPlayer(dpTeam, dpShirt.toInt()))
+            }
+        }
 
         view.findViewById<ImageView>(R.id.back_to_championship_prediction).setOnClickListener {
             val navigateToMatchesPredictions = PredictBest11Directions.actionPredictBest11ToMatchesPredictions(user, championship, season)
@@ -84,11 +97,29 @@ class PredictBest11 : Fragment() {
             120 -> { //round of 16
                 getString(R.string.round_16)
             }
+            121 -> {
+                getString(R.string.round_16_first_leg)
+            }
+            122 -> {
+                getString(R.string.round_16_second_leg)
+            }
             125 -> { //quarterfinals
                 getString(R.string.quarterfinals)
             }
+            126 -> {
+                getString(R.string.quarterfinals_first_leg)
+            }
+            127 -> {
+                getString(R.string.quarterfinals_second_leg)
+            }
             150 -> { //semifinals
                 getString(R.string.semifinals)
+            }
+            151 -> {
+                getString(R.string.semifinals_first_leg)
+            }
+            152 -> {
+                getString(R.string.semifinals_second_leg)
             }
             200 -> { //final
                 getString(R.string.final_)
@@ -120,7 +151,7 @@ class PredictBest11 : Fragment() {
             view.findViewById<TextView>(R.id.championship_name).text = resultDetails
         }
         else if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))}\n$dayDescription)\n${getString(R.string.predict_best11)}"
+            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))} - $dayDescription)\n${getString(R.string.predict_best11)}"
             if (!dayDescription.contains(getString(R.string.day))) {
                 resultDetails = resultDetails.replace(")", "")
             }
@@ -159,12 +190,14 @@ class PredictBest11 : Fragment() {
                     val firstName = player.child("firstName").value.toString()
                     val lastName = player.child("lastName").value.toString()
                     val role = player.child("role").value.toString()
-                    val newPlayer = Player(firstName, lastName, shirt, role, team)
-                    when (role) {
-                        "Goalkeeper" -> allGoalkeepers.add(newPlayer)
-                        "Defender" -> allDefenders.add(newPlayer)
-                        "Midfielder" -> allMidfielders.add(newPlayer)
-                        "Forward" -> allForwards.add(newPlayer)
+                    if (!disqualifiedPlayersList.contains(MVPPlayer(team, shirt))) {
+                        val newPlayer = Player(firstName, lastName, shirt, role, team)
+                        when (role) {
+                            "Goalkeeper" -> allGoalkeepers.add(newPlayer)
+                            "Defender" -> allDefenders.add(newPlayer)
+                            "Midfielder" -> allMidfielders.add(newPlayer)
+                            "Forward" -> allForwards.add(newPlayer)
+                        }
                     }
                 }
             }
@@ -268,6 +301,9 @@ class PredictBest11 : Fragment() {
 
             val selectRole = view.findViewById<TextView>(R.id.select_role)
 
+            val captainHandler = Handler(Looper.getMainLooper())
+            var currentLongPressRunnable: Runnable? = null
+
             for (p in allPlayersModule[actualModule]!!.keys) {
                 val positionView = allPlayersModule[actualModule]!![p]
 
@@ -277,21 +313,18 @@ class PredictBest11 : Fragment() {
                     resetPositionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.above_toolbar))
                 }
 
-                val playerPosition : String
-                var playersRole : MutableList<Player>
+                val playerPosition: String
+                var playersRole: MutableList<Player>
                 if (p.contains("GK")) {
                     playerPosition = "Goalkeeper"
                     playersRole = allGoalkeepers
-                }
-                else if (p.contains("D")) {
+                } else if (p.contains("D")) {
                     playerPosition = "Defender${p.last()}"
                     playersRole = allDefenders
-                }
-                else if (p.contains("M")) {
+                } else if (p.contains("M")) {
                     playerPosition = "Midfielder${p.last()}"
                     playersRole = allMidfielders
-                }
-                else {
+                } else {
                     playerPosition = "Forward${p.last()}"
                     playersRole = allForwards
                 }
@@ -306,6 +339,16 @@ class PredictBest11 : Fragment() {
                             positionView.findViewById<ImageView>(R.id.player_team_image)?.visibility = VISIBLE
                             positionView.findViewById<TextView>(R.id.shirt_number)?.text = shirtPredicted.toString()
                             positionView.findViewById<ImageView>(R.id.player_team_image)?.setImageBitmap(teamsBitmap[teamPredicted])
+
+                            if (playerPredicted.result.hasChild("Captain")) {
+                                val captainPosition = playerPredicted.result.child("Captain").value.toString()
+                                if (captainPosition == playerPosition) {
+                                    positionView.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = VISIBLE
+                                }
+                                else {
+                                    positionView.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = GONE
+                                }
+                            }
                         }
                         else {
                             positionView!!.findViewById<ImageView>(R.id.add_best_player)?.visibility = VISIBLE
@@ -316,80 +359,123 @@ class PredictBest11 : Fragment() {
                     }
                 }
 
-                positionView!!.setOnClickListener {
-                    predictBest11Reference.child("Players").get().addOnCompleteListener { playersAdded ->
-                        val alreadyAddedPlayer = mutableListOf<Player>()
-                        for (pA in playersAdded.result.children) {
-                            if (pA.key.toString()[0] != 'G' && (!(p[0] == pA.key.toString()[0] && p.last() == pA.key.toString().last()))) {
-                                val addedTeam = pA.child("team").value.toString()
-                                val addedShirt = pA.child("shirt").value.toString()
-                                val findPlayer = inDatabase.result.child("Players").child(season).child(addedTeam).child(addedShirt)
-                                val firstName = findPlayer.child("firstName").value.toString()
-                                val lastName = findPlayer.child("lastName").value.toString()
-                                val role = findPlayer.child("role").value.toString()
-                                val addedPlayer = Player(firstName, lastName, addedShirt.toInt(), role, addedTeam)
-                                alreadyAddedPlayer.add(addedPlayer)
-                            }
-                        }
-                        val playersToAddRole = playersRole.subtract(alreadyAddedPlayer.toSet()).toMutableList()
-                        positionView.findViewById<ImageView>(R.id.add_best_player)?.setImageResource(R.drawable.adding_best)
-                        positionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.adding_player))
-                        selectRole.visibility = VISIBLE
-                        val role = if (p.contains("GK")) {
-                            "Goalkeeper"
-                        }
-                        else if (p.contains("D")) {
-                            "Defender"
-                        }
-                        else if (p.contains("M")) {
-                            "Midfielder"
-                        }
-                        else {
-                            "Forward"
-                        }
-                        selectRole.text = getString(view.resources.getIdentifier("select_${role.lowercase()}", "string", view.resources.getResourcePackageName(R.string.app_name)))
-                        listViewRolePlayers?.visibility = VISIBLE
-                        val playersAdapter = PlayerBest11Adapter(view.context, playersToAddRole, teamsBitmap, predictBest11Reference.child("Players").child(playerPosition))
-                        listViewRolePlayers?.adapter = playersAdapter
-                        for (change in allPlayersModule[actualModule]!!.keys) {
-                            if (change != p) {
-                                val changePositionView = allPlayersModule[actualModule]!![change]
-                                changePositionView!!.findViewById<ImageView>(R.id.add_best_player)?.setImageResource(R.drawable.add_best_player)
-                                changePositionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.above_toolbar))
-                            }
-                        }
-
-                        predictBest11Reference.child("Players").child(playerPosition).get().addOnCompleteListener { playerFound ->
-                            var selectedPosition = -1
-                            if (playerFound.result.value.toString() != "null") {
-                                val teamPredicted = playerFound.result.child("team").value.toString()
-                                val shirtPredicted = playerFound.result.child("shirt").value.toString().toInt()
-
-                                selectedPosition = playersToAddRole.indexOfFirst { find ->
-                                    find.team == teamPredicted && find.shirtNumber == shirtPredicted
+                positionView!!.setOnTouchListener { _, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            currentLongPressRunnable?.let { captainHandler.removeCallbacks(it) }
+                            val runnable = Runnable {
+                                val shirtNumberText = positionView.findViewById<TextView>(R.id.shirt_number)?.text?.toString()
+                                if (!shirtNumberText.isNullOrEmpty()) {
+                                    val shirtNum = shirtNumberText.toInt()
+                                    val playerSelected = playersRole.find { it.shirtNumber == shirtNum }
+                                    if (playerSelected != null) {
+                                        predictBest11Reference.child("Players").get().addOnCompleteListener { findPlayersPositionsAdded ->
+                                            if (findPlayersPositionsAdded.result.hasChild(playerPosition)) {
+                                                predictBest11Reference.child("Captain").setValue(playerPosition)
+                                                for (reset in allPlayersModule[actualModule]!!.keys) {
+                                                    val resetPositionView = allPlayersModule[actualModule]!![reset]
+                                                    resetPositionView!!.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = GONE
+                                                }
+                                                positionView.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = VISIBLE
+                                            }
+                                        }
+                                    }
                                 }
                             }
-
-                            listViewRolePlayers.post {
-                                listViewRolePlayers.smoothScrollToPosition(selectedPosition + 1)
-                            }
-
-                            if (selectedPosition != -1) {
-                                playersAdapter.setSelectedPosition(selectedPosition)
-                                val selectedView = listViewRolePlayers.getChildAt(selectedPosition - listViewRolePlayers.firstVisiblePosition)
-                                selectedView?.setBackgroundColor(requireContext().getColor(R.color.table_result_values))
-                            }
-
-                            listViewRolePlayers.setOnItemClickListener  { _, playerView, position, _ ->
-                                playerView.setBackgroundColor(requireContext().getColor(R.color.table_result_values))
-                                playersAdapter.setSelectedPosition(position)
-                                positionView.findViewById<ImageView>(R.id.add_best_player)?.visibility = GONE
-                                positionView.findViewById<TextView>(R.id.shirt_number)?.visibility = VISIBLE
-                                positionView.findViewById<ImageView>(R.id.player_team_image)?.visibility = VISIBLE
-                                positionView.findViewById<TextView>(R.id.shirt_number)?.text = playersToAddRole[position].shirtNumber.toString()
-                                positionView.findViewById<ImageView>(R.id.player_team_image)?.setImageBitmap(teamsBitmap[playersToAddRole[position].team])
-                            }
+                            currentLongPressRunnable = runnable
+                            captainHandler.postDelayed(runnable, 3000)
+                            true
                         }
+
+                        MotionEvent.ACTION_UP -> {
+                            currentLongPressRunnable?.let { captainHandler.removeCallbacks(it) }
+                            predictBest11Reference.child("Players").get().addOnCompleteListener { playersAdded ->
+                                val alreadyAddedPlayer = mutableListOf<Player>()
+                                for (pA in playersAdded.result.children) {
+                                    if (pA.key.toString()[0] != 'G' && (!(p[0] == pA.key.toString()[0] && p.last() == pA.key.toString().last()))) {
+                                        val addedTeam = pA.child("team").value.toString()
+                                        val addedShirt = pA.child("shirt").value.toString()
+                                        val findPlayer = inDatabase.result.child("Players").child(season).child(addedTeam).child(addedShirt)
+                                        val firstName = findPlayer.child("firstName").value.toString()
+                                        val lastName = findPlayer.child("lastName").value.toString()
+                                        val role = findPlayer.child("role").value.toString()
+                                        val addedPlayer = Player(firstName, lastName, addedShirt.toInt(), role, addedTeam)
+                                        alreadyAddedPlayer.add(addedPlayer)
+                                    }
+                                }
+
+                                val playersToAddRole = playersRole.subtract(alreadyAddedPlayer.toSet()).toMutableList()
+                                positionView.findViewById<ImageView>(R.id.add_best_player)?.setImageResource(R.drawable.adding_best)
+                                positionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.adding_player))
+                                selectRole.visibility = VISIBLE
+
+                                val role = when {
+                                    p.contains("GK") -> "Goalkeeper"
+                                    p.contains("D") -> "Defender"
+                                    p.contains("M") -> "Midfielder"
+                                    else -> "Forward"
+                                }
+                                selectRole.text = getString(view.resources.getIdentifier("select_${role.lowercase()}", "string", view.resources.getResourcePackageName(R.string.app_name)))
+
+                                listViewRolePlayers?.visibility = VISIBLE
+                                val playersAdapter = PlayerBest11Adapter(view.context, playersToAddRole, teamsBitmap, predictBest11Reference.child("Players").child(playerPosition))
+                                listViewRolePlayers?.adapter = playersAdapter
+
+                                for (change in allPlayersModule[actualModule]!!.keys) {
+                                    if (change != p) {
+                                        val changePositionView = allPlayersModule[actualModule]!![change]
+                                        changePositionView!!.findViewById<ImageView>(R.id.add_best_player)?.setImageResource(R.drawable.add_best_player)
+                                        changePositionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.above_toolbar))
+                                    }
+                                }
+
+                                predictBest11Reference.child("Players").child(playerPosition).get().addOnCompleteListener { playerFound ->
+                                    var selectedPosition = -1
+                                    if (playerFound.result.value.toString() != "null") {
+                                        val teamPredicted = playerFound.result.child("team").value.toString()
+                                        val shirtPredicted = playerFound.result.child("shirt").value.toString().toInt()
+                                        selectedPosition = playersToAddRole.indexOfFirst { find -> find.team == teamPredicted && find.shirtNumber == shirtPredicted }
+                                    }
+
+                                    listViewRolePlayers.post {
+                                        listViewRolePlayers.smoothScrollToPosition(selectedPosition + 1)
+                                    }
+
+                                    if (selectedPosition != -1) {
+                                        playersAdapter.setSelectedPosition(selectedPosition)
+                                        val selectedView = listViewRolePlayers.getChildAt(selectedPosition - listViewRolePlayers.firstVisiblePosition)
+                                        selectedView?.setBackgroundColor(requireContext().getColor(R.color.table_result_values))
+                                    }
+
+                                    listViewRolePlayers.setOnItemClickListener { _, playerView, position, _ ->
+                                        playerView.setBackgroundColor(requireContext().getColor(R.color.table_result_values))
+                                        playersAdapter.setSelectedPosition(position)
+                                        positionView.findViewById<ImageView>(R.id.add_best_player)?.visibility = GONE
+                                        positionView.findViewById<TextView>(R.id.shirt_number)?.visibility = VISIBLE
+                                        positionView.findViewById<ImageView>(R.id.player_team_image)?.visibility = VISIBLE
+                                        positionView.findViewById<TextView>(R.id.shirt_number)?.text = playersToAddRole[position].shirtNumber.toString()
+                                        positionView.findViewById<ImageView>(R.id.player_team_image)?.setImageBitmap(teamsBitmap[playersToAddRole[position].team])
+
+                                        predictBest11Reference.get().addOnCompleteListener { findCaptain ->
+                                            if (findCaptain.result.hasChild("Captain")) {
+                                                val findCaptainPosition = findCaptain.result.child("Captain").value.toString()
+                                                if (findCaptainPosition == playerPosition) {
+                                                    predictBest11Reference.child("Captain").setValue(playerPosition)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            true
+                        }
+
+                        MotionEvent.ACTION_CANCEL -> {
+                            currentLongPressRunnable?.let { captainHandler.removeCallbacks(it) }
+                            true
+                        }
+
+                        else -> false
                     }
                 }
             }
@@ -485,26 +571,30 @@ class PredictBest11 : Fragment() {
                             resetPositionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.above_toolbar))
                         }
 
-                        val playerPosition : String
-                        var playersRole : MutableList<Player>
+                        val playerPosition: String
+                        var playersRole: MutableList<Player>
                         if (p.contains("GK")) {
                             playerPosition = "Goalkeeper"
                             playersRole = allGoalkeepers
-                        }
-                        else if (p.contains("D")) {
+                        } else if (p.contains("D")) {
                             playerPosition = "Defender${p.last()}"
                             playersRole = allDefenders
-                        }
-                        else if (p.contains("M")) {
+                        } else if (p.contains("M")) {
                             playerPosition = "Midfielder${p.last()}"
                             playersRole = allMidfielders
-                        }
-                        else {
+                        } else {
                             playerPosition = "Forward${p.last()}"
                             playersRole = allForwards
                         }
 
                         predictBest11Reference.get().addOnCompleteListener { playerPredicted ->
+                            if (oldModule != actualModule) {
+                                predictBest11Reference.child("Captain").removeValue()
+                                for (reset in allPlayersModule[actualModule]!!.keys) {
+                                    val resetPositionView = allPlayersModule[actualModule]!![reset]
+                                    resetPositionView!!.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = GONE
+                                }
+                            }
                             if (playerPredicted.result.hasChild("Players")) {
                                 if (playerPredicted.result.child("Players").hasChild(playerPosition)) {
                                     val teamPredicted = playerPredicted.result.child("Players").child(playerPosition).child("team").value.toString()
@@ -514,6 +604,16 @@ class PredictBest11 : Fragment() {
                                     positionView.findViewById<ImageView>(R.id.player_team_image)?.visibility = VISIBLE
                                     positionView.findViewById<TextView>(R.id.shirt_number)?.text = shirtPredicted.toString()
                                     positionView.findViewById<ImageView>(R.id.player_team_image)?.setImageBitmap(teamsBitmap[teamPredicted])
+
+                                    if (playerPredicted.result.hasChild("Captain")) {
+                                        val captainPosition = playerPredicted.result.child("Captain").value.toString()
+                                        if (captainPosition == playerPosition) {
+                                            positionView.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = VISIBLE
+                                        }
+                                        else {
+                                            positionView.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = GONE
+                                        }
+                                    }
                                 }
                                 else {
                                     positionView!!.findViewById<ImageView>(R.id.add_best_player)?.visibility = VISIBLE
@@ -524,80 +624,123 @@ class PredictBest11 : Fragment() {
                             }
                         }
 
-                        positionView!!.setOnClickListener {
-                            predictBest11Reference.child("Players").get().addOnCompleteListener { playersAdded ->
-                                val alreadyAddedPlayer = mutableListOf<Player>()
-                                for (pA in playersAdded.result.children) {
-                                    if (pA.key.toString()[0] != 'G' && (!(p[0] == pA.key.toString()[0] && p.last() == pA.key.toString().last()))) {
-                                        val addedTeam = pA.child("team").value.toString()
-                                        val addedShirt = pA.child("shirt").value.toString()
-                                        val findPlayer = inDatabase.result.child("Players").child(season).child(addedTeam).child(addedShirt)
-                                        val firstName = findPlayer.child("firstName").value.toString()
-                                        val lastName = findPlayer.child("lastName").value.toString()
-                                        val role = findPlayer.child("role").value.toString()
-                                        val addedPlayer = Player(firstName, lastName, addedShirt.toInt(), role, addedTeam)
-                                        alreadyAddedPlayer.add(addedPlayer)
-                                    }
-                                }
-                                val playersToAddRole = playersRole.subtract(alreadyAddedPlayer.toSet()).toMutableList()
-                                positionView.findViewById<ImageView>(R.id.add_best_player)?.setImageResource(R.drawable.adding_best)
-                                positionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.adding_player))
-                                selectRole.visibility = VISIBLE
-                                val role = if (p.contains("GK")) {
-                                    "Goalkeeper"
-                                }
-                                else if (p.contains("D")) {
-                                    "Defender"
-                                }
-                                else if (p.contains("M")) {
-                                    "Midfielder"
-                                }
-                                else {
-                                    "Forward"
-                                }
-                                selectRole.text = getString(view.resources.getIdentifier("select_${role.lowercase()}", "string", view.resources.getResourcePackageName(R.string.app_name)))
-                                listViewRolePlayers?.visibility = VISIBLE
-                                val playersAdapter = PlayerBest11Adapter(view.context, playersToAddRole, teamsBitmap, predictBest11Reference.child("Players").child(playerPosition))
-                                listViewRolePlayers?.adapter = playersAdapter
-                                for (change in allPlayersModule[actualModule]!!.keys) {
-                                    if (change != p) {
-                                        val changePositionView = allPlayersModule[actualModule]!![change]
-                                        changePositionView!!.findViewById<ImageView>(R.id.add_best_player)?.setImageResource(R.drawable.add_best_player)
-                                        changePositionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.above_toolbar))
-                                    }
-                                }
-
-                                predictBest11Reference.child("Players").child(playerPosition).get().addOnCompleteListener { playerFound ->
-                                    var selectedPosition = -1
-                                    if (playerFound.result.value.toString() != "null") {
-                                        val teamPredicted = playerFound.result.child("team").value.toString()
-                                        val shirtPredicted = playerFound.result.child("shirt").value.toString().toInt()
-
-                                        selectedPosition = playersToAddRole.indexOfFirst { find ->
-                                            find.team == teamPredicted && find.shirtNumber == shirtPredicted
+                        positionView!!.setOnTouchListener { _, event ->
+                            when (event.action) {
+                                MotionEvent.ACTION_DOWN -> {
+                                    currentLongPressRunnable?.let { captainHandler.removeCallbacks(it) }
+                                    val runnable = Runnable {
+                                        val shirtNumberText = positionView.findViewById<TextView>(R.id.shirt_number)?.text?.toString()
+                                        if (!shirtNumberText.isNullOrEmpty()) {
+                                            val shirtNum = shirtNumberText.toInt()
+                                            val playerSelected = playersRole.find { it.shirtNumber == shirtNum }
+                                            if (playerSelected != null) {
+                                                predictBest11Reference.child("Players").get().addOnCompleteListener { findPlayersPositionsAdded ->
+                                                    if (findPlayersPositionsAdded.result.hasChild(playerPosition)) {
+                                                        predictBest11Reference.child("Captain").setValue(playerPosition)
+                                                        for (reset in allPlayersModule[actualModule]!!.keys) {
+                                                            val resetPositionView = allPlayersModule[actualModule]!![reset]
+                                                            resetPositionView!!.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = GONE
+                                                        }
+                                                        positionView.findViewById<RelativeLayout>(R.id.captain_relative_layout)?.visibility = VISIBLE
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
-
-                                    listViewRolePlayers.post {
-                                        listViewRolePlayers.smoothScrollToPosition(selectedPosition + 1)
-                                    }
-
-                                    if (selectedPosition != -1) {
-                                        playersAdapter.setSelectedPosition(selectedPosition)
-                                        val selectedView = listViewRolePlayers.getChildAt(selectedPosition - listViewRolePlayers.firstVisiblePosition)
-                                        selectedView?.setBackgroundColor(requireContext().getColor(R.color.table_result_values))
-                                    }
-
-                                    listViewRolePlayers.setOnItemClickListener  { _, playerView, position, _ ->
-                                        playerView.setBackgroundColor(requireContext().getColor(R.color.table_result_values))
-                                        playersAdapter.setSelectedPosition(position)
-                                        positionView.findViewById<ImageView>(R.id.add_best_player)?.visibility = GONE
-                                        positionView.findViewById<TextView>(R.id.shirt_number)?.visibility = VISIBLE
-                                        positionView.findViewById<ImageView>(R.id.player_team_image)?.visibility = VISIBLE
-                                        positionView.findViewById<TextView>(R.id.shirt_number)?.text = playersToAddRole[position].shirtNumber.toString()
-                                        positionView.findViewById<ImageView>(R.id.player_team_image)?.setImageBitmap(teamsBitmap[playersToAddRole[position].team])
-                                    }
+                                    currentLongPressRunnable = runnable
+                                    captainHandler.postDelayed(runnable, 3000)
+                                    true
                                 }
+
+                                MotionEvent.ACTION_UP -> {
+                                    currentLongPressRunnable?.let { captainHandler.removeCallbacks(it) }
+                                    predictBest11Reference.child("Players").get().addOnCompleteListener { playersAdded ->
+                                        val alreadyAddedPlayer = mutableListOf<Player>()
+                                        for (pA in playersAdded.result.children) {
+                                            if (pA.key.toString()[0] != 'G' && (!(p[0] == pA.key.toString()[0] && p.last() == pA.key.toString().last()))) {
+                                                val addedTeam = pA.child("team").value.toString()
+                                                val addedShirt = pA.child("shirt").value.toString()
+                                                val findPlayer = inDatabase.result.child("Players").child(season).child(addedTeam).child(addedShirt)
+                                                val firstName = findPlayer.child("firstName").value.toString()
+                                                val lastName = findPlayer.child("lastName").value.toString()
+                                                val role = findPlayer.child("role").value.toString()
+                                                val addedPlayer = Player(firstName, lastName, addedShirt.toInt(), role, addedTeam)
+                                                alreadyAddedPlayer.add(addedPlayer)
+                                            }
+                                        }
+
+                                        val playersToAddRole = playersRole.subtract(alreadyAddedPlayer.toSet()).toMutableList()
+                                        positionView.findViewById<ImageView>(R.id.add_best_player)?.setImageResource(R.drawable.adding_best)
+                                        positionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.adding_player))
+                                        selectRole.visibility = VISIBLE
+
+                                        val role = when {
+                                            p.contains("GK") -> "Goalkeeper"
+                                            p.contains("D") -> "Defender"
+                                            p.contains("M") -> "Midfielder"
+                                            else -> "Forward"
+                                        }
+                                        selectRole.text = getString(view.resources.getIdentifier("select_${role.lowercase()}", "string", view.resources.getResourcePackageName(R.string.app_name)))
+
+                                        listViewRolePlayers?.visibility = VISIBLE
+                                        val playersAdapter = PlayerBest11Adapter(view.context, playersToAddRole, teamsBitmap, predictBest11Reference.child("Players").child(playerPosition))
+                                        listViewRolePlayers?.adapter = playersAdapter
+
+                                        for (change in allPlayersModule[actualModule]!!.keys) {
+                                            if (change != p) {
+                                                val changePositionView = allPlayersModule[actualModule]!![change]
+                                                changePositionView!!.findViewById<ImageView>(R.id.add_best_player)?.setImageResource(R.drawable.add_best_player)
+                                                changePositionView.findViewById<TextView>(R.id.shirt_number)?.setTextColor(resources.getColor(R.color.above_toolbar))
+                                            }
+                                        }
+
+                                        predictBest11Reference.child("Players").child(playerPosition).get().addOnCompleteListener { playerFound ->
+                                            var selectedPosition = -1
+                                            if (playerFound.result.value.toString() != "null") {
+                                                val teamPredicted = playerFound.result.child("team").value.toString()
+                                                val shirtPredicted = playerFound.result.child("shirt").value.toString().toInt()
+                                                selectedPosition = playersToAddRole.indexOfFirst { find -> find.team == teamPredicted && find.shirtNumber == shirtPredicted }
+                                            }
+
+                                            listViewRolePlayers.post {
+                                                listViewRolePlayers.smoothScrollToPosition(selectedPosition + 1)
+                                            }
+
+                                            if (selectedPosition != -1) {
+                                                playersAdapter.setSelectedPosition(selectedPosition)
+                                                val selectedView = listViewRolePlayers.getChildAt(selectedPosition - listViewRolePlayers.firstVisiblePosition)
+                                                selectedView?.setBackgroundColor(requireContext().getColor(R.color.table_result_values))
+                                            }
+
+                                            listViewRolePlayers.setOnItemClickListener { _, playerView, position, _ ->
+                                                playerView.setBackgroundColor(requireContext().getColor(R.color.table_result_values))
+                                                playersAdapter.setSelectedPosition(position)
+                                                positionView.findViewById<ImageView>(R.id.add_best_player)?.visibility = GONE
+                                                positionView.findViewById<TextView>(R.id.shirt_number)?.visibility = VISIBLE
+                                                positionView.findViewById<ImageView>(R.id.player_team_image)?.visibility = VISIBLE
+                                                positionView.findViewById<TextView>(R.id.shirt_number)?.text = playersToAddRole[position].shirtNumber.toString()
+                                                positionView.findViewById<ImageView>(R.id.player_team_image)?.setImageBitmap(teamsBitmap[playersToAddRole[position].team])
+
+                                                predictBest11Reference.get().addOnCompleteListener { findCaptain ->
+                                                    if (findCaptain.result.hasChild("Captain")) {
+                                                        val findCaptainPosition = findCaptain.result.child("Captain").value.toString()
+                                                        if (findCaptainPosition == playerPosition) {
+                                                            predictBest11Reference.child("Captain").setValue(playerPosition)
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    true
+                                }
+
+                                MotionEvent.ACTION_CANCEL -> {
+                                    currentLongPressRunnable?.let { captainHandler.removeCallbacks(it) }
+                                    true
+                                }
+
+                                else -> false
                             }
                         }
                     }

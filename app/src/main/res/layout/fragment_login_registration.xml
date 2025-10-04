@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LoginRegistration">
 
     <Toolbar
@@ -57,18 +58,25 @@
                 android:paddingTop="10sp"
                 android:layout_below="@id/login" />
 
-            <EditText
-                android:id="@+id/password_login"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_login_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
-                android:fontFamily="sans-serif-medium"
-                android:inputType="textPassword"
-                android:hint="@string/password"
-                android:autofillHints="@string/password"
-                android:paddingTop="10sp"
-                android:layout_below="@id/email_login" />
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/black"
+                app:hintEnabled="false"
+                android:layout_below="@id/email_login">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/forgotten"
@@ -80,7 +88,7 @@
                 android:layout_marginBottom="3sp"
                 android:text="@string/forgotten_password"
                 android:layout_marginStart="3sp"
-                android:layout_below="@id/password_login" />
+                android:layout_below="@id/password_login_layout" />
 
             <RelativeLayout
                 android:id="@+id/login_button"
@@ -133,18 +141,25 @@
                     android:paddingTop="10sp"
                     android:layout_below="@id/registration" />
 
-                <EditText
-                    android:id="@+id/password_registration"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password_registration_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
-                    android:fontFamily="sans-serif-medium"
-                    android:inputType="textPassword"
-                    android:hint="@string/password"
-                    android:autofillHints="@string/password"
-                    android:paddingTop="10sp"
-                    android:layout_below="@id/email_registration" />
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/black"
+                    app:hintEnabled="false"
+                    android:layout_below="@id/email_registration">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password_registration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/password"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <EditText
                     android:id="@+id/first_name"
@@ -157,7 +172,7 @@
                     android:hint="@string/first_name"
                     android:autofillHints="@string/first_name"
                     android:paddingTop="10sp"
-                    android:layout_below="@id/password_registration" />
+                    android:layout_below="@id/password_registration_layout" />
 
                 <EditText
                     android:id="@+id/last_name"

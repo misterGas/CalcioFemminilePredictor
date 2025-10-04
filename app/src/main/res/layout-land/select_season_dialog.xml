@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:id="@+id/module_description_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/module_description"
+            android:layout_width="180sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:layout_marginTop="10sp"
+            android:layout_marginStart="20sp"
+            android:paddingBottom="10sp"
+            android:text="@string/module_description" />
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/seasons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginHorizontal="20sp"
+        tools:listitem="@layout/season_dialog"
+        android:layout_toEndOf="@id/module_description_scroll" />
+
+</RelativeLayout>

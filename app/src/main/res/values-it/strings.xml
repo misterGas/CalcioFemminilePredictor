@@ -60,7 +60,7 @@
     <string name="password_too_short">La password deve avere almeno 6 caratteri</string>
     <string name="registration_completed">Effettua il login per verificare la tua identità</string>
 
-    <string name="back_to_login">Torna indietro al login</string>
+    <string name="back_to_login">Ritorna al login</string>
     <string name="modify_password">Recupera password</string>
     <string name="watch_emails">Visualizza la tua posta in arrivo</string>
     <string name="email_not_found">Email non trovata</string>
@@ -75,9 +75,17 @@
     <string name="regular_season">Stagione regolare</string>
     <string name="preliminary">Fase preliminare</string>
     <string name="round_32">Sedidecisimi di finale</string>
+    <string name="round_32_first_leg">Sedidecisimi di finale - Andata</string>
+    <string name="round_32_second_leg">Sedidecisimi di finale - Ritorno</string>
     <string name="round_16">Ottavi di finale</string>
+    <string name="round_16_first_leg">Ottavi di finale - Andata</string>
+    <string name="round_16_second_leg">Ottavi di finale - Ritorno</string>
     <string name="quarterfinals">Quarti di finale</string>
+    <string name="quarterfinals_first_leg">Quarti di finale - Andata</string>
+    <string name="quarterfinals_second_leg">Quarti di finale - Ritorno</string>
     <string name="semifinals">Semifinali</string>
+    <string name="semifinals_first_leg">Semifinali - Andata</string>
+    <string name="semifinals_second_leg">Semifinali - Ritorno</string>
     <string name="final_">Finale</string>
     <string name="shield_group">Poule scudetto</string>
     <string name="salvation_group">Poule salvezza</string>
@@ -124,30 +132,73 @@
     <string name="saturday">Sabato</string>
     <string name="sunday">Domenica</string>
 
-    <string name="italy_serie_a_women">Serie A Femminile</string>
+    <string name="italy_serie_a_women">Serie A Women</string>
     <string name="uefa_womens_euro">UEFA Women\'s Euro</string>
     <string name="english_womens_super_league">Women\'s Super League</string>
     <string name="uefa_womens_champions_league">UEFA Women\'s Champions League</string>
+    <string name="coppa_italia_women">Coppa Italia Women</string>
+    <string name="serie_a_women_cup">Serie A Women\'s Cup</string>
 
     <string name="hear_rules">Ascolta regole</string>
     <string name="profile">Profilo</string>
 
     <string name="rules_1">
-        Sei pronto/pronta a cimentarti nel mondo dei pronostici riguardanti il calcio femminile? Questa applicazione fa proprio al caso tuo!
-        Pronostica il risultato di ciascuna partita dei più importanti campionati nazionali ed internazionali e quando l\'incontro sarà terminato, verranno tirate le somme su quali risultati hai indovinato e su quali invece hai sbagliato.
-        Ma non preoccuparti: avrai molte occasioni per racimolare punti!\nPer ogni partita, potrai ottenere punti con:\n
-        - il risultato: se indovini vittoria/pareggio/sconfitta: +3 punti;\n
-        - reti squadra di casa: se indovini il numero di reti della squadra di casa: +3 punti;\n
-        - reti squadra ospite: se indovini il numero di reti della squadra ospite: +3 punti;\n
-        - differenza reti: se indovini la differenza reti tra le due squadre: +2 punti;\n
-        - marcatrici reti partita: se indovini una marcatrice che segna almeno una rete nella partita: +6 punti per giocatrice. In caso di più di una rete per la stessa giocatrice, il punteggio per quella giocatrice per questo obiettivo resta di 6;\n
-        - marcatrici autoreti partita: se indovini una marcatrice che segna almeno un\'autorete nella partita: +8 punti per giocatrice. In caso di più di un\'autorete per la stessa giocatrice, il punteggio per quella giocatrice per questo obiettivo resta di 8;\n
-        - bonus marcatrice più di una rete: se indovini una marcatrice che segna più di una rete nella partita: +2 punti per rete;\n
-        - bonus marcatrice più di un\'autorete: se indovini una marcatrice che segna più di un\'autorete nella partita: +4 punti per autorete;\n
-        - l\'MVP pronosticata correttamente: se indovini l\'MVP (Most Valuable Player) della partita: +10 punti.\n
-        \nPer una partita a giornata, potrai inoltre attivare i punti doppi: tutti i punti accumulati in quella partita vengono raddoppiati.
-        \n\nPuoi pronosticare il risultato della partita (reti segnate) fino a sei ore dal suo inizio. Da quel momento fino all\'inizio dell\'incontro, potrai pronosticare l\'MVP e le marcatrici di reti ed autoreti della partita in base al numero di reti che hai pronosticato per ciascuna squadra.
-        \n\nTutto chiaro? Se sì, ti auguriamo di divertirti a pronosticare le partite del calcio femminile!
+        Sei pronto/pronta ad immergerti nel mondo dei pronostici riguardanti le partite di calcio femminile? Questa applicazione è fatta apposta per te!
+        \nPronostica ciascuna partita ed ottieni punti in base a tantissime casistiche. In particolare, per ogni obiettivo pronosticato correttamente:\n
+        - 3 punti: risultato (vittoria/pareggio/sconfitta);\n
+        - 3 punti: reti squadra di casa;\n
+        - 3 punti: reti squadra ospite;\n
+        - 2 punti: differenza reti tra le due squadre;\n
+        - 6 punti per giocatrice: marcatrice di almeno una rete;\n
+        - 8 punti per giocatrice: marcatrice di almeno un\'autorete;\n
+        - 2 punti per rete in più per giocatrice: marcatrice di più di una rete;\n
+        - 4 punti per autorete in più per giocatrice: marcatrice di più di un\'autorete;\n
+        - 3 punti per giocatrice: ammonizione per la giocatrice;\n
+        - 5 punti per giocatrice: espulsione per la giocatrice;\n
+        - 2 punti per giocatrice: tipo espulsione (doppia ammonizione/rosso diretto) per la giocatrice;\n
+        - 10 punti: MVP (Most Valuable Player) della partita.\n
+        \nA partire da una settimana dall\'inizio della giornata di campionato puoi iniziare a pronosticare il risultato di ciascuna partita di quella giornata.
+        Per ogni giornata di campionato potrai attivare i punti doppi per una partita: tutti i punti accumulati in quell\'incontro verranno raddoppiati.
+        L\'assegnazione dei punti doppi sarà possibile fino al giorno prima dell\'inizio della giornata di campionato.\n
+        \nA partire da 6 ore dall\'inizio di ogni incontro fino al fischio iniziale (fissato per l\'orario esatto previsto per l\'inizio della partita) non sarà più possibile modificare il pronostico del risultato, ma potrai pronosticare:\n
+        - le marcatrici di reti ed autoreti per entrambe le squadre in base al numero di goal pronosticati in precedenza;\n
+        - i cartellini disciplinari per entrambe le squadre. Per le ammonizioni sarà possibile assegnare 3 slot per ogni squadra,
+        mentre per le espulsioni 1 slot per ogni squadra. Negli slot dedicati alle ammonizioni vanno pronosticate le giocatrici che nella partita otterranno solamente un cartellino giallo,
+        mentre per l\'espulsione sarà possibile scegliere tra espulsione per doppia ammonizione o per rosso diretto;\n
+        - l\'MVP della partita.\n
+        \nInoltre, a partire da una settimana dall\'inizio di ogni giornata di campionato fino al giorno prima del suo inizio,
+        potrai creare la tua Best 11 della giornata, scegliendo tra diversi moduli di gioco e selezionando la formazione delle 11 giocatrici che secondo te giocheranno meglio.
+        Al termine della giornata di campionato otterrai diversi punti in base al ruolo della giocatrice.
+        \nPer il portiere:\n
+        - +5 punti: MVP partita\n
+        - -2 punti: autorete\n
+        - -1 punto: ammonizione\n
+        - -2 punti: espulsione\n
+        \nPer ogni difensore:\n
+        - +5 punti: almeno una rete segnata\n
+        - +3 punti per rete in più: rete in più segnata\n
+        - +3 punti: MVP partita\n
+        - -1 punto: autorete\n
+        - -1 punto: ammonizione\n
+        - -2 punti: espulsione\n
+        \nPer ogni centrocampista:\n
+        - +4 punti: almeno una rete segnata\n
+        - +2 punti per rete in più: rete in più segnata\n
+        - +3 punti: MVP partita\n
+        - -1 punto: autorete\n
+        - -1 punto: ammonizione\n
+        - -2 punti: espulsione\n
+        \nPer ogni attaccante:\n
+        - +3 punti: almeno una rete segnata\n
+        - +2 punti per rete in più: rete in più segnata\n
+        - +3 punti: MVP partita\n
+        - -1 punto: autorete\n
+        - -1 punto: ammonizione\n
+        - -2 punti: espulsione\n
+        \nPer creare la tua Best 11, scegli un modulo di gioco e per ogni slot della formazione scegli una giocatrice in base al ruolo.
+        Tra le giocatrici già aggiunte alla formazione, puoi scegliere un capitano per la squadra.
+        Per farlo, tieni premuto per 3 secondi sopra la giocatrice che vuoi sia il capitano. I punti ottenuti dal capitano saranno raddoppiati,
+        ma attenzione, in caso di punteggio negativo, i punti negativi verranno anch\'essi raddoppiati! Al termine di ogni giornata di campionato verrà stilata una classifica con i punti ottenuti da ciascun utente che ha creato la Best 11 e sarà possibile confrontarsi con ciascun utente con le formazioni create da entrambi.
     </string>
 
     <string name="search_nickname">Cerca nickname utente</string>
@@ -291,8 +342,8 @@
     <string name="manager">Gestore</string>
     <string name="switch_to_manager">Passa alla modalità gestore</string>
     <string name="switch_to_normal_user">Passa alla modalità utente normale</string>
-    <string name="manager_mode_info">Sei sicuro/a di voler passare alla modalità gestore? Passare alla modalità gestore significa che puoi aggiungere nuove giocatrici ed assegnare le marcatrici ed MVP ufficiali di ogni partita.</string>
-    <string name="normal_user_mode_info">Sei sicuro/a di voler passare alla modalità utente normale? Passare alla modalità utente normale significa che non potrai più aggiungere nuove giocatrici ed assegnare le marcatrici ed MVP ufficiali di ogni partita.</string>
+    <string name="manager_mode_info">Sei sicuro/a di voler passare alla modalità gestore? Passare alla modalità gestore significa che puoi aggiungere nuove giocatrici ed assegnare le marcatrici, i cartellini disciplinari e l\'MVP ufficiali di ogni partita.</string>
+    <string name="normal_user_mode_info">Sei sicuro/a di voler passare alla modalità utente normale? Passare alla modalità utente normale significa che non potrai più aggiungere nuove giocatrici ed assegnare le marcatrici, i cartellini disciplinari e l\'MVP ufficiali di ogni partita.</string>
     <string name="manager_mode_activated">Modalità gestore attivata</string>
     <string name="manager_mode_deactivated">Modalità gestore disattivata</string>
 
@@ -302,7 +353,7 @@
 
     <string name="nickname_cannot_be_updated">Non modificabile più di una volta al mese</string>
 
-    <string name="back_to_result_details">Torna a dettagli risultato</string>
+    <string name="back_to_result_details">Ritorna a dettagli risultato</string>
 
     <string name="result_histograms">Istogrammi del risultato</string>
     <string name="scores_histogram">Pronostici reti segnate</string>
@@ -320,7 +371,7 @@
     <string name="change_module">Cambia modulo squadra</string>
     <string name="select_module">Seleziona modulo squadra</string>
     <string name="module">Modulo</string>
-    <string name="module_description">Cambiando modulo, le ultime giocatrici più in basso a destra in ogni ruolo attualmente salvate verranno eliminate ogni volta che cambi modulo se il nuovo modulo ha meno slot corrispondenti al ruolo rispetto al modulo attuale. Questo significa che dovrai riassegnarle nuovamente. Ti consigliamo quindi di decidere bene dapprima il modulo, visualizzando il ruolo che è assegnato a ciascuno slot della formazione.</string>
+    <string name="module_description">Cambiando modulo, le ultime giocatrici più in basso a destra in ogni ruolo attualmente salvate verranno eliminate se il nuovo modulo ha meno slot corrispondenti al ruolo rispetto al modulo attuale, insieme al capitano attualmente assegnato. Ti consigliamo quindi di decidere bene dapprima il modulo, visualizzando il ruolo che è assegnato a ciascuno slot della formazione.</string>
 
     <string name="select_goalkeeper">Seleziona portiere</string>
     <string name="select_defender">Seleziona difensore</string>
@@ -409,6 +460,52 @@
 
     <string name="scorers_standings">Classifica marcatrici</string>
     <string name="mvp_standings">Classifica MVP</string>
+
+    <string name="predict_discipline">Pronostica cartellini disciplinari</string>
+    <string name="add_yellow_cards">Aggiungi ammonizioni</string>
+    <string name="yellow_card">Cartellino giallo</string>
+    <string name="add_red_cards">Aggiungi espulsioni</string>
+    <string name="red_card">Cartellino rosso</string>
+    <string name="assign_yellow_card">Assegna ammonizione ad una giocatrice</string>
+    <string name="assign_red_card">Assegna espulsione ad una giocatrice</string>
+    <string name="red_card_type">Tipo espulsione</string>
+    <string name="two_yellow_cards">Doppia ammonizione</string>
+    <string name="direct_red_card">Diretta</string>
+    <string name="discipline_cards_predicted">Cartellini disciplinari pronosticati</string>
+    <string name="yellow_cards_predicted_correctly">Cartellini gialli pronosticati correttamente</string>
+    <string name="red_cards_predicted_correctly">Cartellini rossi pronosticati correttamente</string>
+    <string name="red_cards_type_predicted_correctly">Tipo cartellini rossi pronosticati correttamente</string>
+
+    <string name="reset">Resetta</string>
+
+    <string name="add_official_discipline">Aggiungi cartellini disciplinari ufficiali</string>
+    <string name="official_discipline">Cartellini disciplinari ufficiali</string>
+
+    <string name="show_disqualified_players">Visualizza giocatrici squalificate</string>
+    <string name="disqualified_players_round">Giocatrici squalificate in questa giornata</string>
+
+    <string name="best11_duel">Confronto Best 11</string>
+
+    <string name="assign_scorer">Assegna marcatrice</string>
+    <string name="goal_type_descr">Tipo goal</string>
+    <string name="goal_descr">Rete</string>
+    <string name="own_goal_descr">Autorete</string>
+
+    <string name="best11_points_info">Visualizza punti giocatrice</string>
+    <string name="points_info_best11">Dettaglio punti giocatrice</string>
+
+    <string name="back_to_best11">Ritorna a pronostico Best 11</string>
+    <string name="best11_standings">Classifica Best 11</string>
+    <string name="back_to_best11_standings">Ritorna a classifica Best 11</string>
+
+    <string name="app_update_failed">Aggiornamento dell\'applicazione fallito</string>
+
+    <string name="yellow_cards_standings">Classifica ammonizioni</string>
+    <string name="red_cards_standings">Classifica espulsioni</string>
+    <string name="best11_statistics">Statistiche Best 11</string>
+    <string name="best_11_players_chosen_standings">Frequenze giocatrici</string>
+    <string name="best_11_captains_chosen_standings">Frequenze capitani</string>
+    <string name="best_11_modules_chosen_standings">Frequenze moduli</string>
 
     <!--States names translated-->
     <string name="albania">Albania</string>

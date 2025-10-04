@@ -1,6 +1,7 @@
 package com.embeddedproject.calciofemminileitaliano.adapters
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -12,7 +13,7 @@ import android.widget.TextView
 import com.embeddedproject.calciofemminileitaliano.R
 import com.embeddedproject.calciofemminileitaliano.helpers.Slot
 
-class AssignSlotsAdapter(context: Context, resource: Int, slots: List<Slot>, private val slotsAssigned: MutableList<Int>) : ArrayAdapter<Slot>(context, resource, slots) {
+class AssignSlotsAdapter(context: Context, resource: Int, slots: List<Slot>, private val slotsAssigned: MutableList<Int>, private val addResource: Int = R.drawable.add) : ArrayAdapter<Slot>(context, resource, slots) {
 
     private val resourceLayout = resource
     private var selectedPosition = -1
@@ -28,8 +29,12 @@ class AssignSlotsAdapter(context: Context, resource: Int, slots: List<Slot>, pri
 
         if (slotsAssigned.contains(position + 1)) {
             view.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+            view.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
         }
         else {
+            val addSlotImage = view.findViewById<ImageView>(R.id.add)
+            addSlotImage.visibility = VISIBLE
+            addSlotImage.setImageResource(addResource)
             view.findViewById<ImageView>(R.id.assigned).visibility = INVISIBLE
         }
 

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -76,14 +77,21 @@ class SeasonRecap : Fragment() {
         }
 
         val teamsResultsRecyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_results)
+        val mvpStandingsImageView = view.findViewById<ImageView>(R.id.mvp_standings)
 
         reference.get().addOnCompleteListener { databaseReference ->
             val championshipReference = databaseReference.result.child("Championships").child(championship).child(season)
+            val hasMVPs = championshipReference.child("Info").hasChild("hasMVPs")
+            if (hasMVPs) {
+                mvpStandingsImageView.visibility = VISIBLE
+            }
             val teamsReference = championshipReference.child("Teams")
             val matchesReference = championshipReference.child("Matches")
             var allTeamsResults = mutableListOf<TeamResults>()
             val scorersStandings = mutableMapOf<ScorerStanding, Int>()
             val mvpStandings = mutableMapOf<ScorerStanding, Int>()
+            val yellowCardsStandings = mutableMapOf<ScorerStanding, Int>()
+            val redCardsStandings = mutableMapOf<ScorerStanding, Int>()
 
             for (t in teamsReference.children) {
                 val team = t.key.toString()
@@ -115,7 +123,8 @@ class SeasonRecap : Fragment() {
                                         findActualTeamInMatch[0]
                                     )
                                 }
-                                val location = if (findActualTeamInMatch[0] == team) "HOME" else "AWAY"
+                                val location =
+                                    if (findActualTeamInMatch[0] == team) "HOME" else "AWAY"
 
                                 goalsScored += scored
                                 goalsSuffered += suffered
@@ -125,92 +134,170 @@ class SeasonRecap : Fragment() {
                                         wins++
                                         "WIN"
                                     }
+
                                     scored == suffered -> {
                                         nulls++
                                         "NULL"
                                     }
+
                                     else -> {
                                         lost++
                                         "LOST"
                                     }
                                 }
                                 if (location == "HOME") {
-                                    val teamMatch = TeamMatch(vsTeam, outcome, location, scored, suffered)
+                                    val teamMatch =
+                                        TeamMatch(vsTeam, outcome, location, scored, suffered)
+                                    teamMatches.add(teamMatch)
+                                } else {
+                                    val teamMatch =
+                                        TeamMatch(vsTeam, outcome, location, suffered, scored)
                                     teamMatches.add(teamMatch)
                                 }
-                                else {
-                                    val teamMatch = TeamMatch(vsTeam, outcome, location, suffered, scored)
-                                    teamMatches.add(teamMatch)
-                                }
-                            }
-                            if (m.hasChild("OfficialScorers")) {
-                                val findOfficialScorers = m.child("OfficialScorers")
-                                for (teamScorers in findOfficialScorers.children) {
-                                    for (scorer in teamScorers.children) {
-                                        if (scorer.child("goalType").value.toString() == "Goal") {
-                                            val teamName = teamScorers.key.toString()
-                                            val shirt = scorer.child("shirt").value.toString().toInt()
-                                            val scorerInfo = ScorerStanding(teamName, shirt)
-                                            if (scorersStandings.contains(scorerInfo)) {
-                                                scorersStandings[scorerInfo] = scorersStandings[scorerInfo]!! + 1
-                                            }
-                                            else {
-                                                scorersStandings[scorerInfo] = 1
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            val sortedScorersStandings = scorersStandings.toList().sortedByDescending { it.second }.toMap()
-                            view.findViewById<ImageView>(R.id.scorers_standings).setOnClickListener {
-                                val dialogView = layoutInflater.inflate(R.layout.scorers_standing, null)
-                                val scorersRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recycler_view_scorers_standings)
-                                scorersRecyclerView.adapter = ScorersStandingsAdapter(sortedScorersStandings, databaseReference.result, season)
-
-                                val dialog = AlertDialog.Builder(view.context).setView(dialogView)
-                                    .setTitle(getString(R.string.scorers_standings))
-                                    .setPositiveButton(R.string.ok, null)
-                                    .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
-                                        dialog.dismiss()
-                                    }
-                                    .create()
-
-                                dialog.show()
-                            }
-                            if (m.hasChild("OfficialMVP")) {
-                                val findOfficialMVP = m.child("OfficialMVP")
-                                val teamName = findOfficialMVP.child("team").value.toString()
-                                val shirt = findOfficialMVP.child("shirt").value.toString().toInt()
-                                val mvpInfo = ScorerStanding(teamName, shirt)
-                                if (mvpStandings.contains(mvpInfo)) {
-                                    mvpStandings[mvpInfo] = mvpStandings[mvpInfo]!! + 1
-                                }
-                                else {
-                                    mvpStandings[mvpInfo] = 1
-                                }
-                            }
-                            val sortedMVPStandings = mvpStandings.toList().sortedByDescending { it.second }.toMap()
-                            view.findViewById<ImageView>(R.id.mvp_standings).setOnClickListener {
-                                val dialogView = layoutInflater.inflate(R.layout.scorers_standing, null)
-                                val scorersRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recycler_view_scorers_standings)
-                                scorersRecyclerView.adapter = ScorersStandingsAdapter(sortedMVPStandings, databaseReference.result, season)
-
-                                val dialog = AlertDialog.Builder(view.context).setView(dialogView)
-                                    .setTitle(getString(R.string.mvp_standings))
-                                    .setPositiveButton(R.string.ok, null)
-                                    .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
-                                        dialog.dismiss()
-                                    }
-                                    .create()
-
-                                dialog.show()
                             }
                         }
                     }
                 }
-
                 val newTeamResults = TeamResults(team, played, wins * 3 + nulls, wins, nulls, lost, goalsScored, goalsSuffered, teamMatches)
                 allTeamsResults.add(newTeamResults)
+            }
+            for (r in matchesReference.children) {
+                for (m in r.child("Matches").children) {
+                    if (m.hasChild("Finished")) {
+                        if (m.hasChild("OfficialScorers")) {
+                            val findOfficialScorers = m.child("OfficialScorers")
+                            for (teamScorers in findOfficialScorers.children) {
+                                for (scorer in teamScorers.children) {
+                                    if (scorer.child("goalType").value.toString() == "Goal") {
+                                        val teamName = teamScorers.key.toString()
+                                        val shirt = scorer.child("shirt").value.toString().toInt()
+                                        val scorerInfo = ScorerStanding(teamName, shirt)
+                                        if (scorersStandings.contains(scorerInfo)) {
+                                            scorersStandings[scorerInfo] = scorersStandings[scorerInfo]!! + 1
+                                        }
+                                        else {
+                                            scorersStandings[scorerInfo] = 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (m.hasChild("OfficialMVP") && hasMVPs) {
+                            val findOfficialMVP = m.child("OfficialMVP")
+                            val teamName = findOfficialMVP.child("team").value.toString()
+                            val shirt = findOfficialMVP.child("shirt").value.toString().toInt()
+                            val mvpInfo = ScorerStanding(teamName, shirt)
+                            if (mvpStandings.contains(mvpInfo)) {
+                                mvpStandings[mvpInfo] = mvpStandings[mvpInfo]!! + 1
+                            }
+                            else {
+                                mvpStandings[mvpInfo] = 1
+                            }
+                        }
+                        if (m.hasChild("OfficialDiscipline")) {
+                            val matchOfficialDiscipline = m.child("OfficialDiscipline")
+                            for (teamCard in matchOfficialDiscipline.children) {
+                                val teamName = teamCard.key.toString()
+                                if (teamCard.hasChild("YellowCards")) {
+                                    val findMatchOfficialYellowCards = teamCard.child("YellowCards")
+                                    for (oyc in findMatchOfficialYellowCards.children) {
+                                        val shirt = oyc.child("shirt").value.toString().toInt()
+                                        val yellowCardPlayer = ScorerStanding(teamName, shirt)
+                                        if (yellowCardsStandings.contains(yellowCardPlayer)) {
+                                            yellowCardsStandings[yellowCardPlayer] = yellowCardsStandings[yellowCardPlayer]!! + 1
+                                        }
+                                        else {
+                                            yellowCardsStandings[yellowCardPlayer] = 1
+                                        }
+                                    }
+                                }
+                                if (teamCard.hasChild("RedCards")) {
+                                    val findMatchOfficialRedCards = teamCard.child("RedCards")
+                                    for (orc in findMatchOfficialRedCards.children) {
+                                        val shirt = orc.child("shirt").value.toString().toInt()
+                                        val redCardPlayer = ScorerStanding(teamName, shirt)
+                                        if (redCardsStandings.contains(redCardPlayer)) {
+                                            redCardsStandings[redCardPlayer] = redCardsStandings[redCardPlayer]!! + 1
+                                        }
+                                        else {
+                                            redCardsStandings[redCardPlayer] = 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            val sortedScorersStandings = scorersStandings.toList().sortedByDescending { it.second }.toMap()
+            view.findViewById<ImageView>(R.id.scorers_standings).setOnClickListener {
+                val dialogView = layoutInflater.inflate(R.layout.scorers_standing, null)
+                val scorersRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recycler_view_scorers_standings)
+                scorersRecyclerView.adapter = ScorersStandingsAdapter(sortedScorersStandings, databaseReference.result, season)
+
+                val dialog = AlertDialog.Builder(view.context).setView(dialogView)
+                    .setTitle(getString(R.string.scorers_standings))
+                    .setPositiveButton(R.string.ok, null)
+                    .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create()
+
+                dialog.show()
+            }
+
+            if (hasMVPs) {
+                val sortedMVPStandings = mvpStandings.toList().sortedByDescending { it.second }.toMap()
+                mvpStandingsImageView.setOnClickListener {
+                    val dialogView = layoutInflater.inflate(R.layout.scorers_standing, null)
+                    val scorersRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recycler_view_scorers_standings)
+                    scorersRecyclerView.adapter = ScorersStandingsAdapter(sortedMVPStandings, databaseReference.result, season)
+
+                    val dialog = AlertDialog.Builder(view.context).setView(dialogView)
+                        .setTitle(getString(R.string.mvp_standings))
+                        .setPositiveButton(R.string.ok, null)
+                        .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .create()
+
+                    dialog.show()
+                }
+            }
+
+            val sortedYellowCardsStandings = yellowCardsStandings.toList().sortedByDescending { it.second }.toMap()
+            view.findViewById<ImageView>(R.id.yellow_cards_standings).setOnClickListener {
+                val dialogView = layoutInflater.inflate(R.layout.scorers_standing, null)
+                val scorersRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recycler_view_scorers_standings)
+                scorersRecyclerView.adapter = ScorersStandingsAdapter(sortedYellowCardsStandings, databaseReference.result, season)
+
+                val dialog = AlertDialog.Builder(view.context).setView(dialogView)
+                    .setTitle(getString(R.string.yellow_cards_standings))
+                    .setPositiveButton(R.string.ok, null)
+                    .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create()
+
+                dialog.show()
+            }
+
+            val sortedRedCardsStandings = redCardsStandings.toList().sortedByDescending { it.second }.toMap()
+            view.findViewById<ImageView>(R.id.red_cards_standings).setOnClickListener {
+                val dialogView = layoutInflater.inflate(R.layout.scorers_standing, null)
+                val scorersRecyclerView = dialogView.findViewById<RecyclerView>(R.id.recycler_view_scorers_standings)
+                scorersRecyclerView.adapter = ScorersStandingsAdapter(sortedRedCardsStandings, databaseReference.result, season)
+
+                val dialog = AlertDialog.Builder(view.context).setView(dialogView)
+                    .setTitle(getString(R.string.red_cards_standings))
+                    .setPositiveButton(R.string.ok, null)
+                    .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .create()
+
+                dialog.show()
             }
 
             fun TeamResults.getDirectMatchGoalDifference(opponent: String): Int {

@@ -48,6 +48,17 @@
         android:layout_marginEnd="25sp"
         android:contentDescription="@string/best11" />
 
+    <ImageView
+        android:id="@+id/disqualified_players"
+        android:layout_width="25sp"
+        android:layout_height="25sp"
+        android:src="@drawable/yellow_and_red_cards"
+        android:visibility="gone"
+        android:layout_marginStart="25sp"
+        android:layout_marginTop="5sp"
+        android:contentDescription="@string/show_disqualified_players"
+        android:tooltipText="@string/show_disqualified_players"/>
+
     <RelativeLayout
         android:id="@+id/locked"
         android:layout_width="match_parent"

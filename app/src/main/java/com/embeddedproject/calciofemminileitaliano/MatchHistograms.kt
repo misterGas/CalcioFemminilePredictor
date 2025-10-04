@@ -142,11 +142,29 @@ class MatchHistograms : Fragment() {
             120 -> { //round of 16
                 getString(R.string.round_16)
             }
+            121 -> {
+                getString(R.string.round_16_first_leg)
+            }
+            122 -> {
+                getString(R.string.round_16_second_leg)
+            }
             125 -> { //quarterfinals
                 getString(R.string.quarterfinals)
             }
+            126 -> {
+                getString(R.string.quarterfinals_first_leg)
+            }
+            127 -> {
+                getString(R.string.quarterfinals_second_leg)
+            }
             150 -> { //semifinals
                 getString(R.string.semifinals)
+            }
+            151 -> {
+                getString(R.string.semifinals_first_leg)
+            }
+            152 -> {
+                getString(R.string.semifinals_second_leg)
             }
             200 -> { //final
                 getString(R.string.final_)
@@ -178,7 +196,7 @@ class MatchHistograms : Fragment() {
             view.findViewById<TextView>(R.id.championship_name_result).text = resultDetails
         }
         else if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))}\n$dayDescription)\n${getString(R.string.result_histograms)}"
+            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))} - $dayDescription)\n${getString(R.string.result_histograms)}"
             if (!dayDescription.contains(getString(R.string.day))) {
                 resultDetails = resultDetails.replace(")", "")
             }

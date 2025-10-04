@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.embeddedproject.calciofemminileitaliano.adapters.AssignSlotsAdapter
 import com.embeddedproject.calciofemminileitaliano.adapters.ScorerAdapter
+import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.embeddedproject.calciofemminileitaliano.helpers.Slot
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
@@ -71,6 +72,15 @@ class OfficialMatchScorers : Fragment() {
         val round = arguments.round
         val homeTeam = arguments.homeTeam
         val guestTeam = arguments.guestTeam
+        val disqualifiedPlayers = arguments.disqualifiedPlayersRoundList.replace("[", "").split("]")
+        val disqualifiedPlayersList = mutableListOf<MVPPlayer>()
+        for (dp in disqualifiedPlayers) {
+            if (dp.isNotEmpty()) {
+                val dpTeam = dp.split(",")[0]
+                val dpShirt = dp.split(",")[1]
+                disqualifiedPlayersList.add(MVPPlayer(dpTeam, dpShirt.toInt()))
+            }
+        }
 
         view.findViewById<ImageView>(R.id.back_to_championship_prediction).setOnClickListener {
             val navigateToMatchesPredictions = OfficialMatchScorersDirections.actionOfficialMatchScorersToMatchesPredictions(user, championship, season)
@@ -110,10 +120,18 @@ class OfficialMatchScorers : Fragment() {
 
         val homeTimelineNumberPicker = view.findViewById<NumberPicker>(R.id.assign_home_timeline)
         val guestTimelineNumberPicker = view.findViewById<NumberPicker>(R.id.assign_guest_timeline)
-        homeTimelineNumberPicker.minValue = 1
-        homeTimelineNumberPicker.maxValue = 90
-        guestTimelineNumberPicker.minValue = 1
-        guestTimelineNumberPicker.maxValue = 90
+        reference.child("Championships").child(championship).child(season).child("Info").get().addOnCompleteListener {
+            homeTimelineNumberPicker.minValue = 1
+            guestTimelineNumberPicker.minValue = 1
+            if (it.result.hasChild("roundsWithExtraTime") && it.result.child("roundsWithExtraTime").value.toString().split(",").contains(round.toString())) {
+                homeTimelineNumberPicker.maxValue = 120
+                guestTimelineNumberPicker.maxValue = 120
+            }
+            else {
+                homeTimelineNumberPicker.maxValue = 90
+                guestTimelineNumberPicker.maxValue = 90
+            }
+        }
 
         if (championship == "UEFA Womens Euro") {
             home.text = getString(view.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
@@ -131,11 +149,29 @@ class OfficialMatchScorers : Fragment() {
             120 -> { //round of 16
                 getString(R.string.round_16)
             }
+            121 -> {
+                getString(R.string.round_16_first_leg)
+            }
+            122 -> {
+                getString(R.string.round_16_second_leg)
+            }
             125 -> { //quarterfinals
                 getString(R.string.quarterfinals)
             }
+            126 -> {
+                getString(R.string.quarterfinals_first_leg)
+            }
+            127 -> {
+                getString(R.string.quarterfinals_second_leg)
+            }
             150 -> { //semifinals
                 getString(R.string.semifinals)
+            }
+            151 -> {
+                getString(R.string.semifinals_first_leg)
+            }
+            152 -> {
+                getString(R.string.semifinals_second_leg)
             }
             200 -> { //final
                 getString(R.string.final_)
@@ -167,7 +203,7 @@ class OfficialMatchScorers : Fragment() {
             view.findViewById<TextView>(R.id.assign_scorers).text = resultDetails
         }
         else if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))}\n$dayDescription)\n${getString(R.string.add_officials_scorers)}"
+            var resultDetails = "${getString(resources.getIdentifier(championship.lowercase().replace(" ", "_"), "string", activity?.packageName))} - $dayDescription)\n${getString(R.string.add_officials_scorers)}"
             if (!dayDescription.contains(getString(R.string.day))) {
                 resultDetails = resultDetails.replace(")", "")
             }
@@ -263,7 +299,9 @@ class OfficialMatchScorers : Fragment() {
                     val lastName = player.child("lastName").value.toString()
                     val role = player.child("role").value.toString()
                     val shirt = player.key.toString().toInt()
-                    homeScorersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                    if (!disqualifiedPlayersList.contains(MVPPlayer(homeTeam, shirt))) {
+                        homeScorersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                    }
                 }
                 val guestPlayers = players.result.child(guestTeam)
                 for (player in guestPlayers.children) {
@@ -271,7 +309,9 @@ class OfficialMatchScorers : Fragment() {
                     val lastName = player.child("lastName").value.toString()
                     val role = player.child("role").value.toString()
                     val shirt = player.key.toString().toInt()
-                    homeScorersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                    if (!disqualifiedPlayersList.contains(MVPPlayer(guestTeam, shirt))) {
+                        homeScorersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                    }
                 }
                 homeScorersList = homeScorersList.sortedWith(compareBy({ sc -> if (sc.team == homeTeam) 0 else 1 }, { sc -> if (sc.role == "Forward") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
                 if (homeScore.toInt() > 0) {
@@ -342,6 +382,7 @@ class OfficialMatchScorers : Fragment() {
                                             findHomeSlotsSelected.add(slot + 1)
                                             homeScorersAdapter.setSelectedPosition(position)
                                             slotView.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+                                            slotView.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
 
                                             homeTimelineNumberPicker.setOnValueChangedListener { _, _, newVal ->
                                                 databaseOfficialTimelines.child(homeTeam).child("Scorer${slot + 1}").setValue(newVal).addOnCompleteListener {}
@@ -371,6 +412,7 @@ class OfficialMatchScorers : Fragment() {
                                             findHomeSlotsSelected.add(slot + 1)
                                             homeScorersAdapter.setSelectedPosition(position)
                                             slotView.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+                                            slotView.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
 
                                             homeTimelineInfo.visibility = VISIBLE
                                             homeTimelineNumberPicker.visibility = VISIBLE
@@ -395,7 +437,9 @@ class OfficialMatchScorers : Fragment() {
                     val lastName = player.child("lastName").value.toString()
                     val role = player.child("role").value.toString()
                     val shirt = player.key.toString().toInt()
-                    guestScorersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                    if (!disqualifiedPlayersList.contains(MVPPlayer(guestTeam, shirt))) {
+                        guestScorersList.add(Player(firstName, lastName, shirt, role, guestTeam))
+                    }
                 }
                 val homePlayers = players.result.child(homeTeam)
                 for (player in homePlayers.children) {
@@ -403,7 +447,9 @@ class OfficialMatchScorers : Fragment() {
                     val lastName = player.child("lastName").value.toString()
                     val role = player.child("role").value.toString()
                     val shirt = player.key.toString().toInt()
-                    guestScorersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                    if (!disqualifiedPlayersList.contains(MVPPlayer(homeTeam, shirt))) {
+                        guestScorersList.add(Player(firstName, lastName, shirt, role, homeTeam))
+                    }
                 }
                 guestScorersList = guestScorersList.sortedWith(compareBy({ sc -> if (sc.team == guestTeam) 0 else 1 }, { sc -> if (sc.role == "Forward") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
                 if (guestScore.toInt() > 0) {
@@ -474,6 +520,7 @@ class OfficialMatchScorers : Fragment() {
                                             findGuestSlotsSelected.add(slot + 1)
                                             guestScorersAdapter.setSelectedPosition(position)
                                             slotView.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+                                            slotView.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
 
                                             guestTimelineNumberPicker.setOnValueChangedListener { _, _, newVal ->
                                                 databaseOfficialTimelines.child(guestTeam).child("Scorer${slot + 1}").setValue(newVal).addOnCompleteListener {}
@@ -504,6 +551,7 @@ class OfficialMatchScorers : Fragment() {
                                             findGuestSlotsSelected.add(slot + 1)
                                             guestScorersAdapter.setSelectedPosition(position)
                                             slotView.findViewById<ImageView>(R.id.assigned).visibility = VISIBLE
+                                            slotView.findViewById<ImageView>(R.id.add).visibility = INVISIBLE
 
                                             guestTimelineInfo.visibility = VISIBLE
                                             guestTimelineNumberPicker.visibility = VISIBLE

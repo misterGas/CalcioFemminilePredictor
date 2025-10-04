@@ -35,6 +35,7 @@
                 android:layout_height="25sp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/logout"
+                android:visibility="gone"
                 android:tooltipText="@string/logout"
                 android:contentDescription="@string/logout"/>
 
@@ -47,7 +48,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:fontFamily="sans-serif-condensed-medium"
-                android:layout_below="@+id/logout" />
+                android:layout_below="@+id/back_to_user_info" />
 
         </RelativeLayout>
 

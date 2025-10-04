@@ -107,6 +107,7 @@
                         android:layout_height="25sp"
                         android:gravity="center"
                         android:layout_marginHorizontal="5sp"
+                        android:visibility="invisible"
                         android:src="@drawable/edit"
                         android:tooltipText="@string/edit"
                         android:contentDescription="@string/edit" />

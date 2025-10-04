@@ -21,22 +21,12 @@
             android:paddingBottom="10sp">
 
             <ImageView
-                android:id="@+id/logout"
-                android:layout_width="25sp"
-                android:layout_height="25sp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/logout"
-                android:tooltipText="@string/logout"
-                android:contentDescription="@string/logout" />
-
-            <ImageView
                 android:id="@+id/season"
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/season"
-                android:contentDescription="@string/season"
-                android:layout_marginEnd="30sp" />
+                android:contentDescription="@string/season" />
 
             <TextView
                 android:id="@+id/season_info"
@@ -47,8 +37,18 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="6sp"
                 android:src="@drawable/season"
-                android:layout_marginEnd="58sp"
+                android:layout_marginEnd="28sp"
                 tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:visibility="gone"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout" />
 
             <ImageView
                 android:id="@+id/back_to_championship_prediction"
@@ -77,8 +77,7 @@
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:layout_below="@+id/logout" />
+                android:fontFamily="sans-serif-condensed-medium" />
 
         </RelativeLayout>
     </Toolbar>
@@ -386,10 +385,126 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/mvp"
+                    android:id="@+id/predicted_discipline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/scorers">
+
+                    <RelativeLayout
+                        android:id="@+id/predicted_discipline_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginHorizontal="10sp"
+                        android:layout_marginBottom="5sp">
+
+                        <ImageView
+                            android:id="@+id/open_predicted_discipline"
+                            android:layout_width="23sp"
+                            android:layout_height="23sp"
+                            android:src="@drawable/arrow_right"
+                            android:contentDescription="@string/discipline_cards_predicted" />
+
+                        <TextView
+                            android:id="@+id/predicted_discipline_cards"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/holo_blue_dark"
+                            android:textSize="16sp"
+                            android:text="@string/discipline_cards_predicted"
+                            android:fontFamily="sans-serif-black"
+                            android:textStyle="italic|bold"
+                            android:layout_toEndOf="@+id/open_predicted_discipline" />
+                    </RelativeLayout>
+
+                    <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                        android:id="@+id/recycler_view_predicted_home_cards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="25sp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/home_player_card_info"
+                        android:visibility="gone"
+                        android:layout_below="@id/predicted_discipline_info"
+                        android:layout_marginBottom="5sp" />
+
+                    <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                        android:id="@+id/recycler_view_predicted_guest_cards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="25sp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/guest_player_card_info"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@id/predicted_discipline_info"
+                        android:layout_marginBottom="5sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/official_discipline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/predicted_discipline">
+
+                    <RelativeLayout
+                        android:id="@+id/official_discipline_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginHorizontal="10sp"
+                        android:layout_marginBottom="5sp">
+
+                        <ImageView
+                            android:id="@+id/open_official_discipline"
+                            android:layout_width="23sp"
+                            android:layout_height="23sp"
+                            android:src="@drawable/arrow_right"
+                            android:contentDescription="@string/official_discipline" />
+
+                        <TextView
+                            android:id="@+id/official_discipline_cards"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/holo_blue_dark"
+                            android:textSize="16sp"
+                            android:text="@string/official_discipline"
+                            android:fontFamily="sans-serif-black"
+                            android:textStyle="italic|bold"
+                            android:layout_toEndOf="@+id/open_official_discipline" />
+                    </RelativeLayout>
+
+                    <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                        android:id="@+id/recycler_view_official_home_cards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="25sp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/home_player_card_info"
+                        android:visibility="gone"
+                        android:layout_below="@id/official_discipline_info"
+                        android:layout_marginBottom="5sp" />
+
+                    <com.embeddedproject.calciofemminileitaliano.helpers.SlowRecyclerView
+                        android:id="@+id/recycler_view_official_guest_cards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="25sp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/guest_player_card_info"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@id/official_discipline_info"
+                        android:layout_marginBottom="5sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/mvp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/official_discipline">
 
                     <RelativeLayout
                         android:id="@+id/mvp_info"
@@ -812,6 +927,84 @@
 
                         <TextView
                             android:id="@+id/own_goal_bonus_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/black"
+                            android:padding="5sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@color/registration_submit"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/yellow_cards_guessed_correctly"
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="@string/yellow_cards_predicted_correctly"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-black"
+                            android:textColor="@color/black"
+                            android:padding="5sp" />
+
+                        <TextView
+                            android:id="@+id/yellow_cards_guessed_correctly_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/black"
+                            android:padding="5sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@color/registration_submit"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/red_cards_guessed_correctly"
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="@string/red_cards_predicted_correctly"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-black"
+                            android:textColor="@color/black"
+                            android:padding="5sp" />
+
+                        <TextView
+                            android:id="@+id/red_cards_guessed_correctly_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/black"
+                            android:padding="5sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@color/registration_submit"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/red_cards_type_guessed_correctly"
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="@string/red_cards_type_predicted_correctly"
+                            android:gravity="center"
+                            android:fontFamily="sans-serif-black"
+                            android:textColor="@color/black"
+                            android:padding="5sp" />
+
+                        <TextView
+                            android:id="@+id/red_cards_type_guessed_correctly_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

@@ -20,6 +20,7 @@
         android:layout_width="15sp"
         android:layout_height="15sp"
         android:visibility="gone"
+        android:layout_marginTop="1sp"
         android:layout_marginStart="3sp"
         android:contentDescription="@string/objective_completed"
         android:layout_toEndOf="@id/scorer" />

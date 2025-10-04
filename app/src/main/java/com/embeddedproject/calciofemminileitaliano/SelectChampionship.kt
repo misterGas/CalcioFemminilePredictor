@@ -19,13 +19,14 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.embeddedproject.calciofemminileitaliano.adapters.SeasonsAdapter
 import com.embeddedproject.calciofemminileitaliano.adapters.SelectChampionshipAdapter
-import com.embeddedproject.calciofemminileitaliano.adapters.SpecialEventsAdapter
 import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.MatchInfo
+import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.embeddedproject.calciofemminileitaliano.helpers.PointsGoalOrOwnGoal
 import com.embeddedproject.calciofemminileitaliano.helpers.SeasonPoints
 import com.embeddedproject.calciofemminileitaliano.helpers.SpecialEvent
@@ -47,23 +48,25 @@ import java.net.URL
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 class SelectChampionship : Fragment() {
 
-    private val soccerDB = "https://www.thesportsdb.com/api/v1/json/3/"
+    private val soccerDB = "https://www.thesportsdb.com/api/v1/json/123/"
     private lateinit var app: MainApplication
 
     //private val championshipsList = listOf("Italy Serie A Women", "UEFA Womens Euro", "English Womens Super League", "UEFA Womens Champions League")
-    private var championshipsList = listOf("Italy Serie A Women")
+    private var championshipsList = listOf("Italy Serie A Women", "Serie A Women Cup")
 
     private val stringsToExclude = listOf("Women", "Milano", "AC", "WFC", "FC", "W", "Femenino", "Feminino")
 
     private lateinit var db: FirebaseDatabase
     private lateinit var reference: DatabaseReference
 
-    private val pointsRules = listOf(3, 3, 2, 6, 8, 2, 4, 10)
+    private val pointsRules = listOf(3, 3, 2, 6, 8, 2, 4, 10, 3, 5, 2)
     /*
         pointsRules[0]: win/null/loss
         pointsRules[1]: nets scored for home/guest team
@@ -73,6 +76,9 @@ class SelectChampionship : Fragment() {
         pointsRules[5]: two or more goals for a scorer (for each score)
         pointsRules[6]: two or more own goals for a scorer (for each score)
         pointsRules[7]: mvp predicted correctly
+        pointsRules[8]: yellow card per player predicted correctly
+        pointsRules[9]: red card per player predicted correctly
+        pointsRules[10]: red card type (two yellow card/direct red card) per player predicted correctly
      */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -83,6 +89,10 @@ class SelectChampionship : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         db = FirebaseDatabase.getInstance()
         reference = db.reference
+
+        activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.teal_toolbar)
+        activity?.window?.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.white)
+
         val arguments = SelectChampionshipArgs.fromBundle(requireArguments())
         val user = arguments.userNickname
 
@@ -237,10 +247,30 @@ class SelectChampionship : Fragment() {
                         for (season in it.result.children) {
                             val s = season.key.toString()
                             val championshipInfo = season.child("Info")
-                            val leagueName = championshipInfo.child("Name").value.toString()
-                            val leagueId = championshipInfo.child("Id").value.toString()
-                            val allRounds = championshipInfo.child("Rounds").value.toString().split(",")
-                            seasonMatches(leagueName, leagueId, s, view, allRounds)
+                            val leagueName = championshipInfo.child("name").value.toString()
+                            if (championshipInfo.hasChild("championshipFromAPI")) {
+                                val leagueId = championshipInfo.child("id").value.toString()
+                                val allRounds = championshipInfo.child("rounds").value.toString().split(",")
+                                seasonMatches(leagueName, leagueId, s, view, allRounds)
+                            }
+                            else {
+                                Thread {
+                                    for (t in season.child("Teams").children) {
+                                        val teamName = t.key.toString()
+                                        val teamImage = t.child("imageUrl").value.toString()
+                                        val findTeamImageInDB = dbReference.rawQuery("SELECT ImageBitmap FROM TEAM_IMAGE WHERE TeamName = ?", arrayOf(teamName))
+                                        if (findTeamImageInDB.count == 0) {
+                                            val imageBitmapToAdd = ContentValues()
+                                            imageBitmapToAdd.put("TeamName", teamName)
+                                            val stream = ByteArrayOutputStream()
+                                            BitmapFactory.decodeStream(URL(teamImage).openConnection().getInputStream()).compress(Bitmap.CompressFormat.PNG, 80, stream)
+                                            imageBitmapToAdd.put("ImageBitmap", stream.toByteArray())
+                                            dbReference.insert("TEAM_IMAGE", null, imageBitmapToAdd)
+                                        }
+                                        findTeamImageInDB.close()
+                                    }
+                                }.start()
+                            }
                         }
                     }
                 }
@@ -378,6 +408,67 @@ class SelectChampionship : Fragment() {
                                         totalPoints += pointsRules[7]
                                     }
 
+                                    val homeOfficialDiscipline = find.child("OfficialDiscipline").child(homeTeam)
+                                    val homePredictedDiscipline = find.child("Predictions").child(userInDatabase).child("Discipline").child(homeTeam)
+                                    val guestOfficialDiscipline = find.child("OfficialDiscipline").child(guestTeam)
+                                    val guestPredictedDiscipline = find.child("Predictions").child(userInDatabase).child("Discipline").child(guestTeam)
+                                    val allYellowOfficialsDiscipline = mutableListOf<MVPPlayer>()
+                                    for (hodY in homeOfficialDiscipline.child("YellowCards").children) {
+                                        val shirt = hodY.child("shirt").value.toString().toInt()
+                                        allYellowOfficialsDiscipline.add(MVPPlayer(homeTeam, shirt))
+                                    }
+                                    for (godY in guestOfficialDiscipline.child("YellowCards").children) {
+                                        val shirt = godY.child("shirt").value.toString().toInt()
+                                        allYellowOfficialsDiscipline.add(MVPPlayer(guestTeam, shirt))
+                                    }
+                                    val allRedOfficialDiscipline = mutableMapOf<MVPPlayer, String>()
+                                    for (hodR in homeOfficialDiscipline.child("RedCards").children) {
+                                        val shirt = hodR.child("shirt").value.toString().toInt()
+                                        val type = hodR.child("type").value.toString()
+                                        allRedOfficialDiscipline[MVPPlayer(homeTeam, shirt)] = type
+                                    }
+                                    for (godR in guestOfficialDiscipline.child("RedCards").children) {
+                                        val shirt = godR.child("shirt").value.toString().toInt()
+                                        val type = godR.child("type").value.toString()
+                                        allRedOfficialDiscipline[MVPPlayer(guestTeam, shirt)] = type
+                                    }
+
+                                    val allYellowPredictedDiscipline = mutableListOf<MVPPlayer>()
+                                    for (hpdY in homePredictedDiscipline.child("YellowCards").children) {
+                                        val shirt = hpdY.child("shirt").value.toString().toInt()
+                                        allYellowPredictedDiscipline.add(MVPPlayer(homeTeam, shirt))
+                                    }
+                                    for (gpdY in guestPredictedDiscipline.child("YellowCards").children) {
+                                        val shirt = gpdY.child("shirt").value.toString().toInt()
+                                        allYellowPredictedDiscipline.add(MVPPlayer(guestTeam, shirt))
+                                    }
+                                    val allRedPredictedDiscipline = mutableMapOf<MVPPlayer, String>()
+                                    for (hpdR in homePredictedDiscipline.child("RedCards").children) {
+                                        val shirt = hpdR.child("shirt").value.toString().toInt()
+                                        val type = hpdR.child("type").value.toString()
+                                        allRedPredictedDiscipline[MVPPlayer(homeTeam, shirt)] = type
+                                    }
+                                    for (gpdR in guestPredictedDiscipline.child("RedCards").children) {
+                                        val shirt = gpdR.child("shirt").value.toString().toInt()
+                                        val type = gpdR.child("type").value.toString()
+                                        allRedPredictedDiscipline[MVPPlayer(guestTeam, shirt)] = type
+                                    }
+
+                                    for (odY in allYellowOfficialsDiscipline) {
+                                        if (allYellowPredictedDiscipline.contains(odY)) {
+                                            totalPoints += pointsRules[8]
+                                        }
+                                    }
+
+                                    for (odR in allRedOfficialDiscipline.keys) {
+                                        if (allRedPredictedDiscipline.containsKey(odR)) {
+                                            totalPoints += pointsRules[9]
+                                            if (allRedOfficialDiscipline[odR] == allRedPredictedDiscipline[odR]) {
+                                                totalPoints += pointsRules[10]
+                                            }
+                                        }
+                                    }
+
                                     val hasDoublePoints = it.result.child(c).child(s).child("Matches").child(r).child("Matches").child("$homeTeam-$guestTeam").child("Predictions").child(userInDatabase)
                                     if (hasDoublePoints.value.toString().contains("DoublePointsActivatedInMatch")) {
                                         totalPoints *= 2
@@ -436,7 +527,7 @@ class SelectChampionship : Fragment() {
             }
         }
 
-        val specialEventsRecyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_special_events)
+        /*val specialEventsRecyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_special_events)
         var userTeamName: String? = null
 
         var userFoundInTeams = false
@@ -535,6 +626,7 @@ class SelectChampionship : Fragment() {
                                 view.findViewById<ProgressBar>(R.id.progress_updating_special_events).visibility = INVISIBLE
                                 val specialEventsAdapter = SpecialEventsAdapter(specialEvents, user, userTeamName)
                                 specialEventsRecyclerView.adapter = specialEventsAdapter
+                                specialEventsRecyclerView.visibility = GONE
                             }
                         }.start()
 
@@ -543,87 +635,97 @@ class SelectChampionship : Fragment() {
                     }
                 }
             }
-        }
+        }*/
     }
 
     private fun seasonMatches(leagueName: String, leagueId: String, season: String, view: View, allRounds: List<String>) {
+        val teamsList = ConcurrentHashMap<String, String>()
+        val latch = CountDownLatch(allRounds.size)
         for (r in allRounds) {
             app.query = "eventsround.php?id=$leagueId&r=$r&s=$season"
             app.url = "$soccerDB${app.query}"
             app.request = Request.Builder().cacheControl(
                 CacheControl.Builder()
-                .maxAge(5, TimeUnit.MINUTES)
-                .build()).url(app.url).build()
-            app.client.newCall(app.request).enqueue(object: Callback {
-                override fun onFailure(call: Call, e: IOException) {}
+                    .maxAge(5, TimeUnit.MINUTES)
+                    .build()
+            ).url(app.url).build()
+            app.client.newCall(app.request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    latch.countDown()
+                }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val inputStream: BufferedInputStream = if (response.cacheResponse != null) {
-                        BufferedInputStream(response.cacheResponse?.body?.byteStream())
-                    }
-                    else {
-                        BufferedInputStream(response.body?.byteStream())
-                    }
-                    val read = BufferedReader(InputStreamReader(inputStream))
-                    val text = read.readText()
-                    val matches = text.split("\"strEvent\":")
-                    val teamsList = mutableMapOf<String, String>()
-                    for (m in matches) {
-                        if (m.contains(",\"strFilename\":")) {
-                            val teams = m.substring(0, m.indexOf(",")).removePrefix("\"").removeSuffix("\"").split(" vs ")
-                            var homeTeam = teams[0].replace(".", "").replace("-", " ")
-                            var guestTeam = teams[1].replace(".", "").replace("-", " ")
-                            val keys = mutableListOf<String>()
-                            for (e in stringsToExclude) {
-                                keys.add(e.removePrefix("{").removeSuffix("}").removePrefix(", ").removeSuffix(", "))
+                    try {
+                        val inputStream: BufferedInputStream = if (response.cacheResponse != null) {
+                            BufferedInputStream(response.cacheResponse?.body?.byteStream())
+                        }
+                        else {
+                            BufferedInputStream(response.body?.byteStream())
+                        }
+                        val read = BufferedReader(InputStreamReader(inputStream))
+                        val text = read.readText()
+                        val matches = text.split("\"strEvent\":")
+                        for (m in matches) {
+                            if (m.contains(",\"strFilename\":")) {
+                                val teams = m.substring(0, m.indexOf(",")).removePrefix("\"").removeSuffix("\"").split(" vs ")
+                                var homeTeam = teams[0].replace(".", "").replace("-", " ")
+                                var guestTeam = teams[1].replace(".", "").replace("-", " ")
+                                val keys = mutableListOf<String>()
+                                for (e in stringsToExclude) {
+                                    keys.add(e.removePrefix("{").removeSuffix("}").removePrefix(", ").removeSuffix(", "))
+                                }
+                                for (k in keys) {
+                                    homeTeam = homeTeam.removePrefix("$k ").removeSuffix(" $k")
+                                    guestTeam = guestTeam.removePrefix("$k ").removeSuffix(" $k")
+                                }
+                                val homeTeamImage = m.substring(m.indexOf("\"strHomeTeamBadge\":") + "\"strHomeTeamBadge\":".length, m.indexOf(",", m.indexOf("\"strHomeTeamBadge\":"))).removePrefix("\"").removeSuffix("\"").replace("\\", "")
+                                val guestTeamImage = m.substring(m.indexOf("\"strAwayTeamBadge\":") + "\"strAwayTeamBadge\":".length, m.indexOf(",", m.indexOf("\"strAwayTeamBadge\":"))).removePrefix("\"").removeSuffix("\"").replace("\\", "")
+                                if (!teamsList.containsKey(homeTeam)) {
+                                    teamsList[homeTeam] = homeTeamImage
+                                }
+                                if (!teamsList.containsKey(guestTeam)) {
+                                    teamsList[guestTeam] = guestTeamImage
+                                }
+                                val day = m.substring(m.indexOf("\"dateEvent\":") + "\"dateEvent\":".length, m.indexOf(",", m.indexOf("\"dateEvent\":"))).removePrefix("\"").removeSuffix("\"")
+                                var time = m.substring(m.indexOf("\"strTime\":") + "\"strTime\":".length, m.indexOf(",", m.indexOf("\"strTime\""))).removePrefix("\"").removeSuffix("\"")
+                                time = if (time == "00:00:00") {
+                                    "To be defined"
+                                } else {
+                                    time.substring(0, 5)
+                                }
+                                val round = m.substring(m.indexOf("\"intRound\":") + "\"intRound\":".length, m.indexOf(",", m.indexOf("\"intRound\":"))).removePrefix("\"").removeSuffix("\"")
+                                val homeScore = m.substring(m.indexOf("\"intHomeScore\":") + "\"intHomeScore\":".length, m.indexOf(",", m.indexOf("\"intHomeScore\":"))).removePrefix("\"").removeSuffix("\"")
+                                val guestScore = m.substring(m.indexOf("\"intAwayScore\":") + "\"intAwayScore\":".length, m.indexOf(",", m.indexOf("\"intAwayScore\":"))).removePrefix("\"").removeSuffix("\"")
+                                val status = m.substring(m.indexOf("\"strStatus\":") + "\"strStatus\":".length, m.indexOf(",", m.indexOf("\"strStatus\":"))).removePrefix("\"").removeSuffix("\"")
+                                reference.child("Championships").child(leagueName).child(season).child("Matches").child(round).child("Matches").child("$homeTeam-$guestTeam").child("MatchInfo").setValue(MatchInfo(day, time, homeTeam, guestTeam, homeScore, guestScore)).addOnCompleteListener {}
                             }
-                            for (k in keys) {
-                                homeTeam = homeTeam.removePrefix("$k ").removeSuffix(" $k")
-                                guestTeam = guestTeam.removePrefix("$k ").removeSuffix(" $k")
-                            }
-                            val homeTeamImage = m.substring(m.indexOf("\"strHomeTeamBadge\":") + "\"strHomeTeamBadge\":".length, m.indexOf(",", m.indexOf("\"strHomeTeamBadge\":"))).removePrefix("\"").removeSuffix("\"")
-                            val guestTeamImage = m.substring(m.indexOf("\"strAwayTeamBadge\":") + "\"strAwayTeamBadge\":".length, m.indexOf(",", m.indexOf("\"strAwayTeamBadge\":"))).removePrefix("\"").removeSuffix("\"")
-                            if (!teamsList.containsKey(homeTeam)) {
-                                teamsList[homeTeam] = homeTeamImage
-                            }
-                            if (!teamsList.containsKey(guestTeam)) {
-                                teamsList[guestTeam] = guestTeamImage
-                            }
-                            val day = m.substring(m.indexOf("\"dateEvent\":") + "\"dateEvent\":".length, m.indexOf(",", m.indexOf("\"dateEvent\":"))).removePrefix("\"").removeSuffix("\"")
-                            var time = m.substring(m.indexOf("\"strTime\":") + "\"strTime\":".length, m.indexOf(",", m.indexOf("\"strTime\""))).removePrefix("\"").removeSuffix("\"")
-                            time = if (time == "00:00:00") {
-                                "To be defined"
-                            }
-                            else {
-                                time.substring(0, 5)
-                            }
-                            val round = m.substring(m.indexOf("\"intRound\":") + "\"intRound\":".length, m.indexOf(",", m.indexOf("\"intRound\":"))).removePrefix("\"").removeSuffix("\"")
-                            val homeScore = m.substring(m.indexOf("\"intHomeScore\":") + "\"intHomeScore\":".length, m.indexOf(",", m.indexOf("\"intHomeScore\":"))).removePrefix("\"").removeSuffix("\"")
-                            val guestScore = m.substring(m.indexOf("\"intAwayScore\":") + "\"intAwayScore\":".length, m.indexOf(",", m.indexOf("\"intAwayScore\":"))).removePrefix("\"").removeSuffix("\"")
-                            val status = m.substring(m.indexOf("\"strStatus\":") + "\"strStatus\":".length, m.indexOf(",", m.indexOf("\"strStatus\":"))).removePrefix("\"").removeSuffix("\"")
-                            reference.child("Championships").child(leagueName).child(season).child("Matches").child(round).child("Matches").child("$homeTeam-$guestTeam").child("MatchInfo").setValue(MatchInfo(day, time, homeTeam, guestTeam, homeScore, guestScore)).addOnCompleteListener {}
                         }
                     }
-
-                    val sqlDB = UserLoggedInHelper(view.context)
-                    val dbReference = sqlDB.writableDatabase
-                    for (t in teamsList) {
-                        val teamName = t.key
-                        val teamImage = t.value
-                        val findTeamImageInDB = dbReference.rawQuery("SELECT ImageBitmap FROM TEAM_IMAGE WHERE TeamName = ?", arrayOf(teamName))
-                        if (findTeamImageInDB.count == 0) {
-                            val imageBitmapToAdd = ContentValues()
-                            imageBitmapToAdd.put("TeamName", teamName)
-                            val stream = ByteArrayOutputStream()
-                            BitmapFactory.decodeStream(URL(teamImage).openConnection().getInputStream()).compress(Bitmap.CompressFormat.PNG, 80, stream)
-                            imageBitmapToAdd.put("ImageBitmap", stream.toByteArray())
-                            dbReference.insert("TEAM_IMAGE", null, imageBitmapToAdd)
-                        }
-                        findTeamImageInDB.close()
-                        reference.child("Championships").child(leagueName).child(season).child("Teams").child(teamName).setValue(Team(teamName, teamImage)).addOnCompleteListener {}
+                    finally {
+                        latch.countDown()
                     }
                 }
             })
         }
+        Thread {
+            latch.await()
+            val sqlDB = UserLoggedInHelper(view.context)
+            val dbReference = sqlDB.writableDatabase
+            for (t in teamsList) {
+                val teamName = t.key
+                val teamImage = t.value
+                val findTeamImageInDB = dbReference.rawQuery("SELECT ImageBitmap FROM TEAM_IMAGE WHERE TeamName = ?", arrayOf(teamName))
+                if (findTeamImageInDB.count == 0) {
+                    val imageBitmapToAdd = ContentValues()
+                    imageBitmapToAdd.put("TeamName", teamName)
+                    val stream = ByteArrayOutputStream()
+                    BitmapFactory.decodeStream(URL(teamImage).openConnection().getInputStream()).compress(Bitmap.CompressFormat.PNG, 80, stream)
+                    imageBitmapToAdd.put("ImageBitmap", stream.toByteArray())
+                    dbReference.insert("TEAM_IMAGE", null, imageBitmapToAdd)
+                }
+                findTeamImageInDB.close()
+                reference.child("Championships").child(leagueName).child(season).child("Teams").child(teamName).setValue(Team(teamName, teamImage)).addOnCompleteListener {}
+            }
+        }.start()
     }
 }

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ShowBest11">
+
+    <Toolbar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_toolbar"
+        android:id="@+id/toolbar">
+
+        <RelativeLayout
+            android:id="@+id/toolbar_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp">
+
+            <ImageView
+                android:id="@+id/season"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/season"
+                android:contentDescription="@string/season" />
+
+            <TextView
+                android:id="@+id/season_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="6sp"
+                android:src="@drawable/season"
+                android:layout_marginEnd="28sp"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:visibility="gone"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout" />
+
+            <ImageView
+                android:id="@+id/back_to_best11_standings"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:gravity="center"
+                android:src="@drawable/back"
+                android:tooltipText="@string/back_to_best11_standings"
+                android:contentDescription="@string/back_to_best11_standings" />
+
+            <TextView
+                android:id="@+id/championship_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/best11_duel"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:layout_below="@+id/season"/>
+        </RelativeLayout>
+    </Toolbar>
+
+    <ProgressBar
+        android:id="@+id/progress_updating_best11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10sp"
+        android:indeterminate="true"
+        android:layout_below="@id/toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_marginVertical="10sp"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/user_nickname_module_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/module_user_nickname_numbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/number" />
+
+                <TextView
+                    android:id="@+id/module_user_nickname_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/number"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/user_nickname_best11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2sp"
+                android:layout_marginHorizontal="10sp"
+                android:foreground="@drawable/user_nickname_best11_border"
+                android:layout_below="@+id/user_nickname_module_info">
+
+                <RelativeLayout
+                    android:id="@+id/layout_433_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <include android:id="@+id/module_433_user_nickname" layout="@layout/module_433" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_442_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <include android:id="@+id/module_442_user_nickname" layout="@layout/module_442" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_4231_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <include android:id="@+id/module_4231_user_nickname" layout="@layout/module_4231" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_352_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <include android:id="@+id/module_352_user_nickname" layout="@layout/module_352" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_343_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <include android:id="@+id/module_343_user_nickname" layout="@layout/module_343" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_3412_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <include android:id="@+id/module_3412_user_nickname" layout="@layout/module_3412" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_4312_user_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <include android:id="@+id/module_4312_user_nickname" layout="@layout/module_4312" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/vs_user_best11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10sp"
+                android:foreground="@drawable/vs_user_best11_border"
+                android:layout_below="@+id/user_nickname_best11">
+
+                <RelativeLayout
+                    android:id="@+id/layout_433_vs_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:rotation="180">
+
+                    <include android:id="@+id/module_433_vs_user" layout="@layout/module_433_rotated" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_442_vs_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:rotation="180">
+
+                    <include android:id="@+id/module_442_vs_user" layout="@layout/module_442_rotated" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_4231_vs_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:rotation="180">
+
+                    <include android:id="@+id/module_4231_vs_user" layout="@layout/module_4231_rotated" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_352_vs_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:rotation="180">
+
+                    <include android:id="@+id/module_352_vs_user" layout="@layout/module_352_rotated" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_343_vs_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:rotation="180">
+
+                    <include android:id="@+id/module_343_vs_user" layout="@layout/module_343_rotated" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_3412_vs_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:rotation="180">
+
+                    <include android:id="@+id/module_3412_vs_user" layout="@layout/module_3412_rotated" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_4312_vs_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:rotation="180">
+
+                    <include android:id="@+id/module_4312_vs_user" layout="@layout/module_4312_rotated" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/vs_user_module_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vs_user_best11">
+
+                <TextView
+                    android:id="@+id/module_vs_user_numbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2sp"
+                    android:layout_marginEnd="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/role"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="RelativeOverlap" />
+
+                <TextView
+                    android:id="@+id/module_vs_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2sp"
+                    android:layout_marginStart="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/role"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

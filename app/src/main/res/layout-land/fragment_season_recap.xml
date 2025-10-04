@@ -21,22 +21,12 @@
             android:paddingBottom="10sp">
 
             <ImageView
-                android:id="@+id/logout"
-                android:layout_width="25sp"
-                android:layout_height="25sp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/logout"
-                android:tooltipText="@string/logout"
-                android:contentDescription="@string/logout"/>
-
-            <ImageView
                 android:id="@+id/season"
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/season"
-                android:contentDescription="@string/season"
-                android:layout_marginEnd="30sp" />
+                android:contentDescription="@string/season" />
 
             <TextView
                 android:id="@+id/season_info"
@@ -47,8 +37,18 @@
                 android:textColor="@color/black"
                 android:layout_marginTop="6sp"
                 android:src="@drawable/season"
-                android:layout_marginEnd="58sp"
+                android:layout_marginEnd="28sp"
                 tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/logout"
+                android:visibility="gone"
+                android:tooltipText="@string/logout"
+                android:contentDescription="@string/logout" />
 
             <ImageView
                 android:id="@+id/back_to_championship_prediction"
@@ -70,6 +70,26 @@
                 android:layout_toEndOf="@id/back_to_championship_prediction" />
 
             <ImageView
+                android:id="@+id/yellow_cards_standings"
+                android:layout_width="29sp"
+                android:layout_height="27sp"
+                android:src="@drawable/yellow_card"
+                android:tooltipText="@string/yellow_cards_standings"
+                android:contentDescription="@string/yellow_cards_standings"
+                android:layout_marginStart="5sp"
+                android:layout_toEndOf="@id/scorers_standings" />
+
+            <ImageView
+                android:id="@+id/red_cards_standings"
+                android:layout_width="29sp"
+                android:layout_height="27sp"
+                android:src="@drawable/red_card"
+                android:tooltipText="@string/red_cards_standings"
+                android:contentDescription="@string/red_cards_standings"
+                android:layout_marginStart="5sp"
+                android:layout_toEndOf="@id/yellow_cards_standings" />
+
+            <ImageView
                 android:id="@+id/mvp_standings"
                 android:layout_width="29sp"
                 android:layout_height="27sp"
@@ -77,7 +97,8 @@
                 android:tooltipText="@string/mvp_standings"
                 android:contentDescription="@string/mvp_standings"
                 android:layout_marginStart="5sp"
-                android:layout_toEndOf="@id/scorers_standings" />
+                android:visibility="gone"
+                android:layout_toEndOf="@id/red_cards_standings" />
 
             <TextView
                 android:id="@+id/championship_name_season_recap"
@@ -87,8 +108,7 @@
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:layout_below="@+id/logout"/>
+                android:fontFamily="sans-serif-condensed-medium" />
 
         </RelativeLayout>
     </Toolbar>

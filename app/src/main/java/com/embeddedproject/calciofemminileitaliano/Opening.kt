@@ -8,16 +8,19 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.navOptions
 import com.embeddedproject.calciofemminileitaliano.helpers.MatchNotification
 import com.embeddedproject.calciofemminileitaliano.helpers.NotificationReceiver
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
@@ -34,60 +37,109 @@ class Opening : Fragment() {
         return inflater.inflate(R.layout.fragment_opening, container, false)
     }
 
+    private val navigateRunnableToLoginRegistration = Runnable {
+        view?.findNavController()?.navigate(
+            R.id.action_opening_to_loginRegistration,
+            null,
+            navOptions {
+                anim {
+                    enter = R.anim.fade_in
+                    exit = R.anim.fade_out
+                    popEnter = R.anim.fade_in
+                    popExit = R.anim.fade_out
+                }
+            }
+        )
+    }
+
+    private var user: String? = null
+
+    private val navigateRunnableToSelectChampionship = Runnable {
+        val args = Bundle().apply {
+            putString("user_nickname", user)
+        }
+        view?.findNavController()?.navigate(
+            R.id.action_opening_to_selectChampionship,
+            args,
+            navOptions {
+                anim {
+                    enter = R.anim.fade_in
+                    exit = R.anim.fade_out
+                    popEnter = R.anim.fade_in
+                    popExit = R.anim.fade_out
+                }
+            }
+        )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Handler(Looper.getMainLooper()).removeCallbacks(navigateRunnableToLoginRegistration)
+        Handler(Looper.getMainLooper()).removeCallbacks(navigateRunnableToSelectChampionship)
+    }
+
     @SuppressLint("ScheduleExactAlarm")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val letsStartButton = view.findViewById<Button>(R.id.lets_start)
+
+        val sqlDB = UserLoggedInHelper(view.context)
+        val dbReference = sqlDB.writableDatabase
+
+        activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.background_icon)
+        activity?.window?.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.background_icon)
+
+        val retryConnectionTextView = view.findViewById<TextView>(R.id.retry_connection)
+
         var connectivityManager = view.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         var network = connectivityManager.activeNetwork
         var activeNetwork = connectivityManager.getNetworkCapabilities(network)
         if (!(activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true || activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) == true || activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) == true)) {
             Toast.makeText(view.context, getString(R.string.no_connection), Toast.LENGTH_LONG).show()
-            letsStartButton.text = getString(R.string.retry)
-            letsStartButton.visibility = VISIBLE
-            view.findViewById<ProgressBar>(R.id.progress_updating)?.visibility = INVISIBLE
+            retryConnectionTextView.visibility = VISIBLE
         }
         else {
-            letsStartButton.visibility = VISIBLE
-            view.findViewById<ProgressBar>(R.id.progress_updating)?.visibility = INVISIBLE
-        }
-
-        letsStartButton.setOnClickListener {
-            val sqlDB = UserLoggedInHelper(view.context)
-            val dbReference = sqlDB.writableDatabase
-            if (letsStartButton.text == getString(R.string.retry)) {
-                connectivityManager = view.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                network = connectivityManager.activeNetwork
-                activeNetwork = connectivityManager.getNetworkCapabilities(network)
-                if (!(activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true || activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) == true || activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) == true)) {
-                    Toast.makeText(view.context, getString(R.string.no_connection), Toast.LENGTH_LONG).show()
-                    letsStartButton.text = getString(R.string.retry)
-                }
-                else {
-                    Toast.makeText(view.context, getString(R.string.connection_activated), Toast.LENGTH_LONG).show()
-                    letsStartButton.text = getString(R.string.lets_start)
-                }
-            }
-            else {
-                if (view.findViewById<ProgressBar>(R.id.progress_updating)?.visibility == INVISIBLE) {
-                    activity?.runOnUiThread {
-                        val findLoggedInUser = dbReference.rawQuery("SELECT * FROM USER", null)
-                        val userLoggedIn = findLoggedInUser.count
-                        if (userLoggedIn == 1) {
-                            if (findLoggedInUser.moveToFirst()) {
-                                val navigateToSelectChampionship = OpeningDirections.actionOpeningToSelectChampionship(findLoggedInUser.getString(0))
-                                view.findNavController().navigate(navigateToSelectChampionship)
-                            }
-                        }
-                        else {
-                            val navigateToRegistration = OpeningDirections.actionOpeningToLoginRegistration()
-                            view.findNavController().navigate(navigateToRegistration)
-                        }
-                        findLoggedInUser.close()
+            activity?.runOnUiThread {
+                val findLoggedInUser = dbReference.rawQuery("SELECT * FROM USER", null)
+                val userLoggedIn = findLoggedInUser.count
+                if (userLoggedIn == 1) {
+                    if (findLoggedInUser.moveToFirst()) {
+                        user = findLoggedInUser.getString(0)
+                        Handler(Looper.getMainLooper()).postDelayed(navigateRunnableToSelectChampionship, 1500)
                     }
                 }
+                else {
+                    Handler(Looper.getMainLooper()).postDelayed(navigateRunnableToLoginRegistration, 1500)
+                }
+                findLoggedInUser.close()
             }
         }
+
+        retryConnectionTextView.setOnClickListener {
+            connectivityManager = view.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            network = connectivityManager.activeNetwork
+            activeNetwork = connectivityManager.getNetworkCapabilities(network)
+            if (!(activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true || activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) == true || activeNetwork?.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) == true)) {
+                Toast.makeText(view.context, getString(R.string.no_connection), Toast.LENGTH_LONG).show()
+            }
+            else {
+                retryConnectionTextView.visibility = INVISIBLE
+                activity?.runOnUiThread {
+                    val findLoggedInUser = dbReference.rawQuery("SELECT * FROM USER", null)
+                    val userLoggedIn = findLoggedInUser.count
+                    if (userLoggedIn == 1) {
+                        if (findLoggedInUser.moveToFirst()) {
+                            user = findLoggedInUser.getString(0)
+                            Handler(Looper.getMainLooper()).postDelayed(navigateRunnableToSelectChampionship, 1500)
+                        }
+                    }
+                    else {
+                        Handler(Looper.getMainLooper()).postDelayed(navigateRunnableToLoginRegistration, 1500)
+                    }
+                    findLoggedInUser.close()
+                }
+            }
+        }
+
 
         val db = FirebaseDatabase.getInstance()
         val reference = db.reference

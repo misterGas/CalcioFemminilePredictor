@@ -19,4 +19,7 @@
     <color name="module_select">#C74284</color>
     <color name="special_event_background">#FFEEA1</color>
     <color name="background">#FFCCAA</color>
+    <color name="yellow">#FFCC00</color>
+    <color name="yellow_reset">#FFDF11</color>
+    <color name="red_reset">#FF5511</color>
 </resources>

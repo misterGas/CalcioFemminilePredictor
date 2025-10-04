@@ -7,13 +7,13 @@ plugins {
 
 android {
     namespace = "com.embeddedproject.calciofemminileitaliano"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.embeddedproject.calciofemminileitaliano"
         minSdk = 33
-        targetSdk = 34
-        versionCode = 500
+        targetSdk = 35
+        versionCode = 850
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -58,4 +58,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation libs.app.update
+    implementation libs.app.update.ktx
 }

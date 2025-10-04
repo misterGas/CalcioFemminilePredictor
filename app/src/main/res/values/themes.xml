@@ -1,4 +1,9 @@
 <resources>
+    <style name="Theme.CalcioFemminileItaliano_Start" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/teal_toolbar</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowBackground">@drawable/start_background</item>
+    </style>
     <style name="Theme.CalcioFemminileItaliano" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">@color/teal_toolbar</item>
         <item name="android:navigationBarColor">@color/white</item>
