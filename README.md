@@ -3,14 +3,18 @@ Calcio Femminile Predictor è un'applicazione Android riguardante i pronostici d
 L'applicazione è stata sviluppata utilizzando il linguaggio Kotlin e viene fatto utilizzo della piattaforma Firebase di Google che permette l'autenticazione dell'utente (tramite Firebase Authentication) e la gestione del database (tramite Firestore).
 
 ## Funzionalità
-Un utente può registrarsi nell'applicazione fornendo Nome, Cognome, Email e scegliendo una password. Inoltre, a sua scelta, decide un nickname unico all'interno dell'applicazione che sarà visualizzato nelle classifiche dei pronostici.
+Un utente può registrarsi nell'applicazione fornendo nome, cognome, e-mail e scegliendo una password. Inoltre, a sua scelta, decide un nickname unico all'interno dell'applicazione che sarà visualizzato nelle classifiche dei pronostici.
+
+### Pronostico partite
 Ogni utente può pronosticare per ogni partita:
 - il risultato (reti segnate per ogni squadra)
 - le marcatrici
+- i cartellini disciplinari (ammonizioni ed espulsioni): per ogni squadra coinvolta nell'incontro saraà possibile assegnare fino ad un massimo di 3 slot per le ammonizioni e 1 slot per le espulsioni
 - l'MVP (Most Valuable Player)
 
 e può ottenere punti in base a varie situazioni definite all'interno dell'applicazione.
 
+### Best 11
 Per ogni giornata di campionato, l'utente può stilare una propria Best 11: formazione formata dalle 11 giocatrici che secondo lui/lei hanno giocato meglio nei vari incontri proposti nella giornata.
 
 Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una squadra insieme ai suoi amici o altri utenti della community e pronosticare partite speciali. Fase di sviluppo ancora primaria.
