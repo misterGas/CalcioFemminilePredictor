@@ -40,7 +40,7 @@ Miglioramenti possibili possono essere:
 Il calendario e i risultati delle partite utilizzati nell'applicazione sono presi dal sito https://www.thesportsdb.com/free_sports_api. I dati attualmente vengono reperiti tramite la versione V1 dell'API.
 Per ottenere le partite di ogni giornata si esegue una query del tipo https://www.thesportsdb.com/api/v1/json/3/eventsround.php?id=5205&r=1&s=2025-2026 dove:
 - id=5205: id dell'API per il campionato di Serie A Women
-- r=1: 1 è il primo round di stagione regolate del campionato. All'interno dell'applicazione vengono associati delle descrizioni in base al numero del round (ad esempio 1=Stagione regolare (Giornata 1), 150=Semifinali, 200=Finale...)
+- r=1: 1 è il primo round di stagione regolare del campionato. All'interno dell'applicazione vengono associati delle descrizioni in base al numero del round (ad esempio 1=Stagione regolare (Giornata 1), 150=Semifinali, 200=Finale...)
 - s=2024-2025: stagione
 
 E' necessario eseguire questa query (eventsround.php) che contiene il parametro r (round) in quanto quella che restituisce tutte le partite di campionato è limitata a 100 partite con richieste gratis effettuate con API-Key "3" (https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=5205&s=2025-2026).
