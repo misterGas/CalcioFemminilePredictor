@@ -40,7 +40,7 @@ E' inoltre prevista l'aggiunta di un campionato, la stagione e le partite associ
 https://sites.google.com/view/calciofemminilepredictor/home-page
 
 ## Stato della pubblicazione
-Attualmente l'applicazione è in una fase di test chiusi in anteprima su Google Play Console.
+Attualmente l'applicazione è in una fase di test chiusi in anteprima su Google Play Console. Per poter provare l'applicazione in anteprima, scrivere un'e-mail a antonio.gastaldi02@gmail.com specificando l'indirizzo di posta elettronica con cui si vuole testare il prodotto.
 
 
 Creata da Antonio Gastaldi, Ingegnere Informatico laureato all'Università degli Studi di Padova. Software Developer presso D4I SRL
