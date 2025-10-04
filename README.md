@@ -42,4 +42,4 @@ https://sites.google.com/view/calciofemminilepredictor/home-page
 ## Stato della pubblicazione
 Attualmente l'applicazione è in una fase di test chiusi in anteprima su Google Play Console.
 
-
+Creato da Antonio Gastaldi, Ingegnere Informatico Laureato all'Università degli Studi di Padova il 23/07/2025. Software Developer presso D4I SRL
