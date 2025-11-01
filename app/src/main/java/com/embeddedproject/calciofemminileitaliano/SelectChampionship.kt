@@ -675,8 +675,8 @@ class SelectChampionship : Fragment() {
                                     keys.add(e.removePrefix("{").removeSuffix("}").removePrefix(", ").removeSuffix(", "))
                                 }
                                 for (k in keys) {
-                                    homeTeam = homeTeam.removePrefix("$k ").removeSuffix(" $k")
-                                    guestTeam = guestTeam.removePrefix("$k ").removeSuffix(" $k")
+                                    homeTeam = homeTeam.removePrefix("$k ").removeSuffix(" $k").replace(" $k", "").replace("$k ", "")
+                                    guestTeam = guestTeam.removePrefix("$k ").removeSuffix(" $k").replace(" $k", "").replace("$k ", "")
                                 }
                                 val homeTeamImage = m.substring(m.indexOf("\"strHomeTeamBadge\":") + "\"strHomeTeamBadge\":".length, m.indexOf(",", m.indexOf("\"strHomeTeamBadge\":"))).removePrefix("\"").removeSuffix("\"").replace("\\", "")
                                 val guestTeamImage = m.substring(m.indexOf("\"strAwayTeamBadge\":") + "\"strAwayTeamBadge\":".length, m.indexOf(",", m.indexOf("\"strAwayTeamBadge\":"))).removePrefix("\"").removeSuffix("\"").replace("\\", "")
