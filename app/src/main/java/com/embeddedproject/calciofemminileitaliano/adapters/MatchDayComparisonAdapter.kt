@@ -52,7 +52,8 @@ class MatchDayComparisonAdapter(private val actualUser: String, private val vsUs
         @SuppressLint("DiscouragedApi")
         fun bind(actualUser: String, vsUser: String, championship: String, season: String, dateToShow: String, dateNumbered: String, time: String, homeTeam: String, guestTeam: String, round: String, homeScore: String, guestScore: String, databaseGet: DataSnapshot) {
             matchTimeTextView.text = time
-            if (championship == "UEFA Womens Euro") {
+            val hasInternationalTeams = databaseGet.child("Championships").child(championship).child(season).child("Info").hasChild("hasInternationalTeams")
+            if (hasInternationalTeams) {
                 home.text = itemView.resources.getString(itemView.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", itemView.resources.getResourcePackageName(R.string.app_name)))
                 guest.text = itemView.resources.getString(itemView.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", itemView.resources.getResourcePackageName(R.string.app_name)))
             }

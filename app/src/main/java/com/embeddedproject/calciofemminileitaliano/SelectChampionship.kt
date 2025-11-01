@@ -59,9 +59,9 @@ class SelectChampionship : Fragment() {
     private lateinit var app: MainApplication
 
     //private val championshipsList = listOf("Italy Serie A Women", "UEFA Womens Euro", "English Womens Super League", "UEFA Womens Champions League")
-    private var championshipsList = listOf("Italy Serie A Women", "Serie A Women Cup")
+    private var championshipsList = listOf("Italy Serie A Women", "Serie A Women Cup", "FIFA Womens U17 World Cup")
 
-    private val stringsToExclude = listOf("Women", "Milano", "AC", "WFC", "FC", "W", "Femenino", "Feminino")
+    private val stringsToExclude = listOf("Women", "Milano", "AC", "WFC", "FC", "W", "Femenino", "Feminino", "U17")
 
     private lateinit var db: FirebaseDatabase
     private lateinit var reference: DatabaseReference

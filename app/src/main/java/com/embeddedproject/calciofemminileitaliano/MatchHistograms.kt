@@ -123,13 +123,15 @@ class MatchHistograms : Fragment() {
         val guestScorersBarChart = view.findViewById<BarChart>(R.id.guest_scorers_histogram)
         val mvpBarChart = view.findViewById<BarChart>(R.id.mvp_histogram)
 
-        if (championship == "UEFA Womens Euro") {
-            home.text = view.resources.getString(view.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
-            guest.text = view.resources.getString(view.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
-        }
-        else {
-            home.text = homeTeam
-            guest.text = guestTeam
+        reference.child("Championships").child(championship).child(season).child("Info").get().addOnCompleteListener {
+            if (it.result.hasChild("hasInternationalTeams")) {
+                home.text = getString(view.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                guest.text = getString(view.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+            }
+            else {
+                home.text = homeTeam
+                guest.text = guestTeam
+            }
         }
 
         view.findViewById<TextView>(R.id.home_scorers_histogram_info).text = "${getString(R.string.scorers_histogram)}\n$homeTeam"

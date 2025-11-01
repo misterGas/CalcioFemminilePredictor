@@ -108,13 +108,14 @@ class MatchDayPredictorAdapter(private val user: String, private val championshi
             val databaseRound = databaseGet.child("Championships").child(championship).child(season).child("Matches").child(round)
             val matchReference = databaseReference.child("Championships").child(championship).child(season).child("Matches").child(round).child("Matches").child("$homeTeam-$guestTeam")
             val hasMVPs = databaseGet.child("Championships").child(championship).child(season).child("Info").hasChild("hasMVPs")
+            val hasInternationalTeams = databaseGet.child("Championships").child(championship).child(season).child("Info").hasChild("hasInternationalTeams")
             matchTimeTextView.text = if (time == "To be defined") {
                 itemView.resources.getString(R.string.to_be_defined)
             }
             else {
                 time
             }
-            if (championship == "UEFA Womens Euro") {
+            if (hasInternationalTeams) {
                 home.text = itemView.resources.getString(itemView.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", itemView.resources.getResourcePackageName(R.string.app_name)))
                 guest.text = itemView.resources.getString(itemView.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", itemView.resources.getResourcePackageName(R.string.app_name)))
             }

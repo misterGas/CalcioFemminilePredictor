@@ -104,13 +104,15 @@ class PredictMVP : Fragment() {
         val guest: TextView = view.findViewById(R.id.guest_team)
         val listViewPlayers = view.findViewById<ListView>(R.id.list_view_players)
 
-        if (championship == "UEFA Womens Euro") {
-            home.text = getString(view.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
-            guest.text = getString(view.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
-        }
-        else {
-            home.text = homeTeam
-            guest.text = guestTeam
+        reference.child("Championships").child(championship).child(season).child("Info").get().addOnCompleteListener {
+            if (it.result.hasChild("hasInternationalTeams")) {
+                home.text = getString(view.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                guest.text = getString(view.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+            }
+            else {
+                home.text = homeTeam
+                guest.text = guestTeam
+            }
         }
 
         var dayDescription = when (round) {

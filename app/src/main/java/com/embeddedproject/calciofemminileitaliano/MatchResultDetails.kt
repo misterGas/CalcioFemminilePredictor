@@ -135,13 +135,15 @@ class MatchResultDetails : Fragment() {
         val predictedHomeDiscipline = view.findViewById<RecyclerView>(R.id.recycler_view_predicted_home_cards)
         val predictedGuestDiscipline = view.findViewById<RecyclerView>(R.id.recycler_view_predicted_guest_cards)
 
-        if (championship == "UEFA Womens Euro") {
-            home.text = view.resources.getString(view.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
-            guest.text = view.resources.getString(view.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
-        }
-        else {
-            home.text = homeTeam
-            guest.text = guestTeam
+        reference.child("Championships").child(championship).child(season).child("Info").get().addOnCompleteListener {
+            if (it.result.hasChild("hasInternationalTeams")) {
+                home.text = getString(view.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                guest.text = getString(view.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+            }
+            else {
+                home.text = homeTeam
+                guest.text = guestTeam
+            }
         }
 
         var dayDescription = when (round) {

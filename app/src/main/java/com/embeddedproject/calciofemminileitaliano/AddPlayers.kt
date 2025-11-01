@@ -133,7 +133,12 @@ class AddPlayers : Fragment() {
                 for (s in c.children) {
                     if (s.key.toString() == season) {
                         for (t in s.child("Teams").children) {
-                            val team = t.key.toString()
+                            val team = if (s.child("Info").hasChild("hasInternationalTeams")) {
+                                getString(view.resources.getIdentifier(t.key.toString().lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                            }
+                            else {
+                               t.key.toString()
+                            }
                             if (!allTeams.contains(team)) {
                                 allTeams.add(team)
                             }
@@ -209,7 +214,12 @@ class AddPlayers : Fragment() {
                     for (s in c.children) {
                         if (s.key.toString() == season) {
                             for (t in s.child("Teams").children) {
-                                val team = t.key.toString()
+                                val team = if (s.child("Info").hasChild("hasInternationalTeams")) {
+                                    getString(view.resources.getIdentifier(t.key.toString().lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                                }
+                                else {
+                                    t.key.toString()
+                                }
                                 if (teamSearched.toString().isEmpty()) {
                                     if (!allTeams.contains(team)) {
                                         allTeams.add(team)
