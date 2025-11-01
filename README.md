@@ -3,17 +3,31 @@ Calcio Femminile Predictor è un'applicazione Android riguardante i pronostici d
 L'applicazione è stata sviluppata utilizzando il linguaggio Kotlin e viene fatto utilizzo della piattaforma Firebase di Google che permette l'autenticazione dell'utente (tramite Firebase Authentication) e la gestione del database (tramite Firestore).
 
 ## Funzionalità
-Un utente può registrarsi nell'applicazione fornendo Nome, Cognome, Email e scegliendo una password. Inoltre, a sua scelta, decide un nickname unico all'interno dell'applicazione che sarà visualizzato nelle classifiche dei pronostici.
+Un utente può registrarsi nell'applicazione fornendo nome, cognome, e-mail e scegliendo una password. Inoltre, a sua scelta, decide un nickname unico all'interno dell'applicazione che sarà visualizzato nelle classifiche dei pronostici.
+
+### Pronostico partite
 Ogni utente può pronosticare per ogni partita:
 - il risultato (reti segnate per ogni squadra)
 - le marcatrici
+- i cartellini disciplinari (ammonizioni ed espulsioni): per ogni squadra coinvolta nell'incontro sarà possibile assegnare fino ad un massimo di 3 slot per le ammonizioni e 1 slot per le espulsioni
 - l'MVP (Most Valuable Player)
 
 e può ottenere punti in base a varie situazioni definite all'interno dell'applicazione.
 
-Per ogni giornata di campionato, l'utente può stilare una propria Best 11: formazione formata dalle 11 giocatrici che secondo lui/lei hanno giocato meglio nei vari incontri proposti nella giornata.
+### Best 11
+Per ogni giornata di campionato, l'utente può creare una propria Best 11: formazione formata dalle 11 giocatrici che secondo lui/lei hanno giocato meglio nei vari incontri proposti nella giornata.
+Per ogni Best 11, sarà possibile assegnare un capitano tra le giocatrici attualmente aggiunte alla formazione.
 
+Al termine della giornata di campionato verrà stilata una classifica con tutti i punti ottenuti da ciascun utente che ha creato la Best 11 e sarà possibile confrontarsi con la Best 11 creata dall'utente selezionato nella classifica.
+
+### Eventi speciali
 Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una squadra insieme ai suoi amici o altri utenti della community e pronosticare partite speciali. Fase di sviluppo ancora primaria.
+
+### Alcune immagini dell'applicazione
+<img src="https://github.com/user-attachments/assets/31f48d65-2d9d-4a9b-bf05-2ecb95f45dd8" width="200" height="500"/>
+<img src="https://github.com/user-attachments/assets/ca3f1504-83be-4dac-900a-a9192e7f705e" width="200" height="500"/>
+<img src="https://github.com/user-attachments/assets/ecd700c0-df32-4f07-b40a-1ab6fa6326b3" width="200" height="500"/>
+<img src="https://github.com/user-attachments/assets/2b12023a-5cc4-4e55-bac1-36e04fff9e5e" width="200" height="500"/>
 
 ## Miglioramenti
 Miglioramenti possibili possono essere:
@@ -24,12 +38,23 @@ Miglioramenti possibili possono essere:
 
 ## API per i risultati delle partite
 Il calendario e i risultati delle partite utilizzati nell'applicazione sono presi dal sito https://www.thesportsdb.com/free_sports_api. I dati attualmente vengono reperiti tramite la versione V1 dell'API.
-Per ottenere le partite di ogni giornata si esegue una query del tipo https://www.thesportsdb.com/api/v1/json/3/eventsround.php?id=5205&r=260&s=2024-2025 (id=5205: id dell'API per il campionato di Serie A Femminile, r=260: 260 è l'ultimo round di campionato, s=2024-2025: stagione). E' necessario eseguire questa query che contiene il parametro r (round) in quanto quella che restituisce tutte le partite di campionato è limitata a 100 partite con richieste gratis effettuate con API-Key "3" (https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=5205&s=2024-2025).
+Per ottenere le partite di ogni giornata si esegue una query del tipo https://www.thesportsdb.com/api/v1/json/3/eventsround.php?id=5205&r=1&s=2025-2026 dove:
+- id=5205: id dell'API per il campionato di Serie A Women
+- r=1: 1 è il primo round di stagione regolare del campionato. All'interno dell'applicazione vengono associate delle descrizioni in base al numero del round (ad esempio 1=Stagione regolare (Giornata 1), 150=Semifinali, 200=Finale...)
+- s=2025-2026: stagione
+
+E' necessario eseguire questa query (eventsround.php) che contiene il parametro r (round) in quanto quella che restituisce tutte le partite di campionato è limitata a 100 partite con richieste gratis effettuate con API-Key "3" (https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=5205&s=2025-2026).
+
+E' inoltre prevista l'aggiunta di un campionato, la stagione e le partite associate da database, ma i risultati ufficiali di ogni incontro ad ora devono essere inseriti a mano nella base di dati. In futuro, si può prevedere l'automazione di tali attività direttamente tramite interfaccia grafica.
 
 ## Informativa sulla Privacy
 https://sites.google.com/view/calciofemminilepredictor/home-page
 
 ## Stato della pubblicazione
-Attualmente l'applicazione è in una fase di test chiusi in anteprima su Google Play Console.
+Attualmente l'applicazione è in una fase di test chiusi in anteprima su Google Play Console. Per poter provare l'applicazione in anteprima, scrivere un'e-mail a antonio.gastaldi02@gmail.com specificando l'indirizzo di posta elettronica con cui si vuole testare il prodotto.
 
 
+Creata da Antonio Gastaldi, Ingegnere Informatico laureato all'Università degli Studi di Padova.
+Database & AVEVA System Platform Software Developer presso D4I SRL
+
+©2025 Antonio Gastaldi
