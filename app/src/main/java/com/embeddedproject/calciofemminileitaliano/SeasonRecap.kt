@@ -82,6 +82,7 @@ class SeasonRecap : Fragment() {
         reference.get().addOnCompleteListener { databaseReference ->
             val championshipReference = databaseReference.result.child("Championships").child(championship).child(season)
             val hasMVPs = championshipReference.child("Info").hasChild("hasMVPs")
+            val hasInternationalTeams = championshipReference.child("Info").hasChild("hasInternationalTeams")
             if (hasMVPs) {
                 mvpStandingsImageView.visibility = VISIBLE
             }
@@ -146,12 +147,11 @@ class SeasonRecap : Fragment() {
                                     }
                                 }
                                 if (location == "HOME") {
-                                    val teamMatch =
-                                        TeamMatch(vsTeam, outcome, location, scored, suffered)
+                                    val teamMatch = TeamMatch(vsTeam, outcome, location, scored, suffered)
                                     teamMatches.add(teamMatch)
-                                } else {
-                                    val teamMatch =
-                                        TeamMatch(vsTeam, outcome, location, suffered, scored)
+                                }
+                                else {
+                                    val teamMatch = TeamMatch(vsTeam, outcome, location, suffered, scored)
                                     teamMatches.add(teamMatch)
                                 }
                             }
@@ -318,7 +318,7 @@ class SeasonRecap : Fragment() {
             ).toMutableList()
 
             view.findViewById<ProgressBar>(R.id.progress_updating_season_results).visibility = INVISIBLE
-            val seasonRecapAdapter = SeasonResultsAdapter(allTeamsResults)
+            val seasonRecapAdapter = SeasonResultsAdapter(allTeamsResults, hasInternationalTeams)
             teamsResultsRecyclerView.adapter = seasonRecapAdapter
         }
     }

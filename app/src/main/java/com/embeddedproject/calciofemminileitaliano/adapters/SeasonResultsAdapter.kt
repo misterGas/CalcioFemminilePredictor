@@ -11,7 +11,7 @@ import com.embeddedproject.calciofemminileitaliano.R
 import com.embeddedproject.calciofemminileitaliano.helpers.TeamResults
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
 
-class SeasonResultsAdapter(private val teamsResults: List<TeamResults>) : RecyclerView.Adapter<SeasonResultsAdapter.SeasonResultsViewHolder>() {
+class SeasonResultsAdapter(private val teamsResults: List<TeamResults>, private val championshipHasInternationalTeams: Boolean) : RecyclerView.Adapter<SeasonResultsAdapter.SeasonResultsViewHolder>() {
 
     class SeasonResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val teamImageView: ImageView = itemView.findViewById(R.id.team_image)
@@ -25,8 +25,13 @@ class SeasonResultsAdapter(private val teamsResults: List<TeamResults>) : Recycl
         private val differenceTextView: TextView = itemView.findViewById(R.id.difference)
         private val teamMatchesResultsRecyclerView: RecyclerView = itemView.findViewById(R.id.recycler_view_team_results)
 
-        fun bind(teamResults: TeamResults) {
-            teamNameTextView.text = teamResults.team
+        fun bind(teamResults: TeamResults, championshipHasInternationalTeams: Boolean) {
+            if (championshipHasInternationalTeams) {
+                teamNameTextView.text = itemView.resources.getString(itemView.resources.getIdentifier(teamResults.team.lowercase().replace(" ", "_"), "string", itemView.resources.getResourcePackageName(R.string.app_name)))
+            }
+            else {
+                teamNameTextView.text = teamResults.team
+            }
             playedTextView.text = teamResults.played.toString()
             winsTextView.text = teamResults.wins.toString()
             nullsTextView.text = teamResults.nulls.toString()
@@ -59,6 +64,6 @@ class SeasonResultsAdapter(private val teamsResults: List<TeamResults>) : Recycl
     }
 
     override fun onBindViewHolder(holder: SeasonResultsViewHolder, position: Int) {
-        holder.bind(teamsResults[position])
+        holder.bind(teamsResults[position], championshipHasInternationalTeams)
     }
 }
