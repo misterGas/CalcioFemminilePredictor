@@ -148,16 +148,24 @@ class Opening : Fragment() {
             val matchesNotification = mutableListOf<MatchNotification>()
             for (c in championships.result.children) {
                 for (s in c.children) {
+                    val championshipHasInternationalTeams = s.child("Info").hasChild("hasInternationalTeams")
                     for (r in s.child("Matches").children) {
                         for (m in r.child("Matches").children) {
                             val matchInfo = m.child("MatchInfo")
                             val date = matchInfo.child("date").value.toString()
                             val time = matchInfo.child("time").value.toString()
-                            val homeTeam = matchInfo.child("homeTeam").value.toString()
-                            val guestTeam = matchInfo.child("guestTeam").value.toString()
+                            var homeTeam = matchInfo.child("homeTeam").value.toString()
+                            var guestTeam = matchInfo.child("guestTeam").value.toString()
                             val finished = m.hasChild("Finished")
                             if (time != "To be defined" && !finished) {
-                                matchesNotification.add(MatchNotification(date, time, homeTeam, guestTeam, r.key.toString().toInt(), c.key.toString()))
+                                if (championshipHasInternationalTeams) {
+                                    homeTeam = getString(view.resources.getIdentifier(homeTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                                    guestTeam = getString(view.resources.getIdentifier(guestTeam.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                                    matchesNotification.add(MatchNotification(date, time, homeTeam, guestTeam, r.key.toString().toInt(), c.key.toString()))
+                                }
+                                else {
+                                    matchesNotification.add(MatchNotification(date, time, homeTeam, guestTeam, r.key.toString().toInt(), c.key.toString()))
+                                }
                             }
                         }
                     }

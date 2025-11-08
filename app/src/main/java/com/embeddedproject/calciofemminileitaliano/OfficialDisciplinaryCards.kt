@@ -254,6 +254,7 @@ class OfficialDisciplinaryCards : Fragment() {
         val championshipReference = reference.child("Championships").child(championship).child(season)
         championshipReference.get().addOnCompleteListener {
             val isRoundWithExtraTime = it.result.child("Info").hasChild("roundsWithExtraTime") && it.result.child("Info").child("roundsWithExtraTime").value.toString().split(",").contains(round.toString())
+            val hasInternationalTeams = it.result.child("Info").hasChild("hasInternationalTeams")
             val matchesInfo = it.result.child("Matches").child(round.toString()).child("Matches").child("$homeTeam-$guestTeam").child("MatchInfo")
             val date = matchesInfo.child("date").value.toString()
             val time = matchesInfo.child("time").value.toString()
@@ -294,7 +295,7 @@ class OfficialDisciplinaryCards : Fragment() {
             val guestResult = matchesInfo.child("guestScore").value.toString()
             guestTeamResultTextView.text = guestResult
 
-            val finished = it.result.hasChild("Finished")
+            val finished = it.result.child("Matches").child(round.toString()).child("Matches").child("$homeTeam-$guestTeam").hasChild("Finished")
             if (finished) {
                 status.text = getString(R.string.finished)
             }
@@ -349,8 +350,8 @@ class OfficialDisciplinaryCards : Fragment() {
                     }
                 }
                 homePlayersList = homePlayersList.sortedWith(compareBy({ sc -> if (sc.role == "Goalkeeper") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
-                assignCardToPlayer(view, listViewAssignHomeYellowSlots, databaseOfficialHomeDiscipline, assignHomeYellowSlotsAdapter, homePlayersList, homeTeam, homeBitmap, guestBitmap, databaseOfficialHomeYellowCards, databaseOfficialHomeYellowCardsTimeline, R.color.yellow, findHomeYellowSlotsSelected, "Home", isRoundWithExtraTime)
-                assignCardToPlayer(view, listViewAssignHomeRedSlots, databaseOfficialHomeDiscipline, assignHomeRedSlotsAdapter, homePlayersList, homeTeam, homeBitmap, guestBitmap, databaseOfficialHomeRedCards, databaseOfficialHomeRedCardsTimeline, R.color.red, findHomeRedSlotsSelected, "Home", isRoundWithExtraTime)
+                assignCardToPlayer(view, listViewAssignHomeYellowSlots, databaseOfficialHomeDiscipline, assignHomeYellowSlotsAdapter, homePlayersList, homeTeam, homeBitmap, guestBitmap, databaseOfficialHomeYellowCards, databaseOfficialHomeYellowCardsTimeline, R.color.yellow, findHomeYellowSlotsSelected, "Home", isRoundWithExtraTime, hasInternationalTeams)
+                assignCardToPlayer(view, listViewAssignHomeRedSlots, databaseOfficialHomeDiscipline, assignHomeRedSlotsAdapter, homePlayersList, homeTeam, homeBitmap, guestBitmap, databaseOfficialHomeRedCards, databaseOfficialHomeRedCardsTimeline, R.color.red, findHomeRedSlotsSelected, "Home", isRoundWithExtraTime, hasInternationalTeams)
             }
 
             var guestPlayersList = mutableListOf<Player>()
@@ -366,8 +367,8 @@ class OfficialDisciplinaryCards : Fragment() {
                     }
                 }
                 guestPlayersList = guestPlayersList.sortedWith(compareBy({ sc -> if (sc.role == "Goalkeeper") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
-                assignCardToPlayer(view, listViewAssignGuestYellowSlots, databaseOfficialGuestDiscipline, assignGuestYellowSlotsAdapter, guestPlayersList, guestTeam, homeBitmap, guestBitmap, databaseOfficialGuestYellowCards, databaseOfficialGuestYellowCardsTimeline, R.color.yellow, findGuestYellowSlotsSelected, "Guest", isRoundWithExtraTime)
-                assignCardToPlayer(view, listViewAssignGuestRedSlots, databaseOfficialGuestDiscipline, assignGuestRedSlotsAdapter, guestPlayersList, guestTeam, homeBitmap, guestBitmap, databaseOfficialGuestRedCards, databaseOfficialGuestRedCardsTimeline, R.color.red, findGuestRedSlotsSelected, "Guest", isRoundWithExtraTime)
+                assignCardToPlayer(view, listViewAssignGuestYellowSlots, databaseOfficialGuestDiscipline, assignGuestYellowSlotsAdapter, guestPlayersList, guestTeam, homeBitmap, guestBitmap, databaseOfficialGuestYellowCards, databaseOfficialGuestYellowCardsTimeline, R.color.yellow, findGuestYellowSlotsSelected, "Guest", isRoundWithExtraTime, hasInternationalTeams)
+                assignCardToPlayer(view, listViewAssignGuestRedSlots, databaseOfficialGuestDiscipline, assignGuestRedSlotsAdapter, guestPlayersList, guestTeam, homeBitmap, guestBitmap, databaseOfficialGuestRedCards, databaseOfficialGuestRedCardsTimeline, R.color.red, findGuestRedSlotsSelected, "Guest", isRoundWithExtraTime, hasInternationalTeams)
             }
             view.findViewById<ProgressBar>(R.id.progress_updating_slots).visibility = INVISIBLE
             view.findViewById<RelativeLayout>(R.id.yellow_cards_info).visibility = VISIBLE
@@ -395,7 +396,7 @@ class OfficialDisciplinaryCards : Fragment() {
     }
 
     @SuppressLint("CutPasteId")
-    private fun assignCardToPlayer(view: View, listViewSlots: ListView, databaseTeamCardsOfficial: DatabaseReference, slotsAdapter: AssignSlotsAdapter, allPlayersList: List<Player>, team: String, homeBitmap: Bitmap?, guestBitmap: Bitmap?, databaseCardsOfficial: DatabaseReference, databaseTimelineOfficial: DatabaseReference, cardColor: Int, findSlotsSelected: MutableList<Int>, type: String, isRoundWithExtraTime: Boolean) {
+    private fun assignCardToPlayer(view: View, listViewSlots: ListView, databaseTeamCardsOfficial: DatabaseReference, slotsAdapter: AssignSlotsAdapter, allPlayersList: List<Player>, team: String, homeBitmap: Bitmap?, guestBitmap: Bitmap?, databaseCardsOfficial: DatabaseReference, databaseTimelineOfficial: DatabaseReference, cardColor: Int, findSlotsSelected: MutableList<Int>, type: String, isRoundWithExtraTime: Boolean, hasInternationalTeams: Boolean) {
         listViewSlots.setOnItemClickListener { _, slotView, slot, _ ->
             slotsAdapter.setSelectedPosition(slot)
 
@@ -442,7 +443,12 @@ class OfficialDisciplinaryCards : Fragment() {
                         slotView.setBackgroundColor(view.context.resources.getColor(R.color.objective))
                     }
 
-                    teamName.text = team
+                    if (hasInternationalTeams) {
+                        teamName.text = getString(view.resources.getIdentifier(team.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                    }
+                    else {
+                        teamName.text = team
+                    }
                     if (type == "Home") {
                         teamImage.setImageBitmap(homeBitmap!!)
                     }

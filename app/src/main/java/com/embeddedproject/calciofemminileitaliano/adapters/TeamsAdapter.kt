@@ -8,18 +8,19 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.embeddedproject.calciofemminileitaliano.R
 
-class TeamsAdapter(context: Context, resource: Int, slots: List<String>) : ArrayAdapter<String>(context, resource, slots) {
+class TeamsAdapter(context: Context, resource: Int, teams: List<String>, teamsTranslated: Map<String,String>) : ArrayAdapter<String>(context, resource, teams) {
 
     private val resourceLayout = resource
     private var selectedPosition = -1
+    private val teamsTranslations = teamsTranslated
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View = convertView ?: LayoutInflater.from(context).inflate(resourceLayout, parent, false)
 
-        val slot = getItem(position)
+        val team = getItem(position)
 
-        slot.let {
-            view.findViewById<TextView>(R.id.team_name).text = slot
+        team.let {
+            view.findViewById<TextView>(R.id.team_name).text = teamsTranslations[team]
         }
 
         if (position == selectedPosition) {

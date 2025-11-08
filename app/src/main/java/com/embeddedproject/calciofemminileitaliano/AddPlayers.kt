@@ -128,7 +128,7 @@ class AddPlayers : Fragment() {
                 }
             }
 
-            val allTeamsTranslated = mutableListOf<String>()
+            val allTeamsTranslated = mutableMapOf<String,String>()
             val allTeams = mutableListOf<String>()
             for (c in it.result.children) {
                 for (s in c.children) {
@@ -140,19 +140,19 @@ class AddPlayers : Fragment() {
                             else {
                                t.key.toString()
                             }
-                            if (!allTeams.contains(team)) {
-                                allTeamsTranslated.add(team)
+                            if (!allTeams.contains(t.key.toString())) {
+                                allTeamsTranslated[t.key.toString()] = team
                                 allTeams.add(t.key.toString())
                             }
                         }
                     }
                 }
             }
-            allTeamsTranslated.sort()
+            allTeamsTranslated.keys.sorted()
             allTeams.sort()
 
             view.findViewById<ProgressBar>(R.id.progress_updating_adding).visibility = INVISIBLE
-            val teamsAdapter = TeamsAdapter(view.context, R.layout.team, allTeamsTranslated)
+            val teamsAdapter = TeamsAdapter(view.context, R.layout.team, allTeams, allTeamsTranslated)
             val teamsListView = view.findViewById<ListView>(R.id.teams)
             view.findViewById<TextView>(R.id.select_team).visibility = VISIBLE
             teamsListView.visibility = VISIBLE
@@ -170,8 +170,8 @@ class AddPlayers : Fragment() {
                     playersAddedRecyclerView.adapter = playersAddedAdapter
                     teamsAdapter.setSelectedPosition(team)
                     lastTeamSelected = team
-                    val teamNameTranslated = allTeamsTranslated[team]
                     val teamName = allTeams[team]
+                    val teamNameTranslated = allTeamsTranslated[teamName]
                     val setTeamImage = dbReference.rawQuery("SELECT ImageBitmap FROM TEAM_IMAGE WHERE TeamName = ?", arrayOf(teamName))
                     var teamBitmap: Bitmap? = null
                     if (setTeamImage.moveToFirst()) {
@@ -209,7 +209,7 @@ class AddPlayers : Fragment() {
                 view.findViewById<RelativeLayout>(R.id.add_new_player).visibility = INVISIBLE
                 playersAddedRecyclerView.visibility = INVISIBLE
                 addedPlayersTextView.visibility = INVISIBLE
-                allTeamsTranslated.removeAll(allTeamsTranslated)
+                allTeamsTranslated.clear()
                 allTeams.removeAll(allTeams)
                 playersAlreadyAdded = emptyList<Player>().toMutableList()
                 playersAddedAdapter.dataChanged()
@@ -226,14 +226,14 @@ class AddPlayers : Fragment() {
                                     t.key.toString()
                                 }
                                 if (teamSearched.toString().isEmpty()) {
-                                    if (!allTeams.contains(team)) {
-                                        allTeamsTranslated.add(team)
+                                    if (!allTeams.contains(t.key.toString())) {
+                                        allTeamsTranslated[t.key.toString()] = team
                                         allTeams.add(t.key.toString())
                                     }
                                 }
                                 else if (team.contains(teamSearched.toString(), true)) {
-                                    if (!allTeams.contains(team)) {
-                                        allTeamsTranslated.add(team)
+                                    if (!allTeams.contains(t.key.toString())) {
+                                        allTeamsTranslated[t.key.toString()] = team
                                         allTeams.add(t.key.toString())
                                     }
                                 }
@@ -241,7 +241,7 @@ class AddPlayers : Fragment() {
                         }
                     }
                 }
-                allTeamsTranslated.sort()
+                allTeamsTranslated.keys.sorted()
                 allTeams.sort()
 
                 teamsListView.adapter = teamsAdapter
@@ -256,8 +256,8 @@ class AddPlayers : Fragment() {
                         playersAddedRecyclerView.adapter = playersAddedAdapter
                         teamsAdapter.setSelectedPosition(team)
                         lastTeamSelected = team
-                        val teamNameTranslated = allTeamsTranslated[team]
                         val teamName = allTeams[team]
+                        val teamNameTranslated = allTeamsTranslated[teamName]
                         var teamBitmap: Bitmap? = null
                         val setTeamImage = dbReference.rawQuery("SELECT ImageBitmap FROM TEAM_IMAGE WHERE TeamName = ?", arrayOf(teamName))
                         if (setTeamImage.moveToFirst()) {

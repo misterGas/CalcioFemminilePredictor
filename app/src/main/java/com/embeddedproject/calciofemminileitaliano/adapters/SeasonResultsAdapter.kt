@@ -49,7 +49,7 @@ class SeasonResultsAdapter(private val teamsResults: List<TeamResults>, private 
             }
             setTeamImage.close()
 
-            val teamResultsAdapter = TeamMatchesResultsAdapter(teamResults.teamMatches)
+            val teamResultsAdapter = TeamMatchesResultsAdapter(teamResults.teamMatches, championshipHasInternationalTeams)
             teamMatchesResultsRecyclerView.adapter = teamResultsAdapter
         }
     }

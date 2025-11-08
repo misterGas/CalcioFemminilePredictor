@@ -198,8 +198,8 @@
     <string name="edit_last_name">Edit last name</string>
     <string name="edit_email">Edit email</string>
 
-    <string name="match_about_to_start">is about to start in a few hours</string>
-    <string name="assign_scorers_notification">Assign now your predictions for the match scorers</string>
+    <string name="match_about_to_start">is about to start in a few hours!</string>
+    <string name="assign_scorers_notification">Assign now your predictions for the match scorers and the disciplinary cards</string>
 
     <string name="role">Role</string>
     <string name="goalkeeper">GK</string>

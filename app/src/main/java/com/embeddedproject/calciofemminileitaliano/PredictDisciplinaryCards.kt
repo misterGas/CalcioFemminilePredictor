@@ -243,10 +243,11 @@ class PredictDisciplinaryCards : Fragment() {
         }
 
         val databaseMatch = reference.child("Championships").child(championship).child(season).child("Matches").child(round.toString()).child("Matches").child("$homeTeam-$guestTeam")
-        databaseMatch.child("MatchInfo").get().addOnCompleteListener {
-            val matchesInfo = it.result
-            val date = matchesInfo.child("date").value.toString()
-            val time = matchesInfo.child("time").value.toString()
+        reference.get().addOnCompleteListener {
+            val matchInfo = it.result.child("Championships").child(championship).child(season).child("Matches").child(round.toString()).child("Matches").child("$homeTeam-$guestTeam").child("MatchInfo")
+            val hasInternationalTeams = it.result.child("Championships").child(championship).child(season).child("Info").hasChild("hasInternationalTeams")
+            val date = matchInfo.child("date").value.toString()
+            val time = matchInfo.child("time").value.toString()
 
             val utcDateTime = LocalDateTime.parse(date + "T" + time)
             val utcZone = utcDateTime.atZone(ZoneId.of("UTC"))
@@ -331,8 +332,8 @@ class PredictDisciplinaryCards : Fragment() {
                         }
                     }
                     homePlayersList = homePlayersList.sortedWith(compareBy({ sc -> if (sc.role == "Goalkeeper") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
-                    assignCardToPlayer(view, listViewAssignHomeYellowSlots, databaseUserHomeDisciplinePrediction, assignHomeYellowSlotsAdapter, homePlayersList, homeTeam, homeBitmap, guestBitmap, databaseUserHomeYellowCardsPrediction, R.color.yellow, findHomeYellowSlotsSelected, "Home")
-                    assignCardToPlayer(view, listViewAssignHomeRedSlots, databaseUserHomeDisciplinePrediction, assignHomeRedSlotsAdapter, homePlayersList, homeTeam, homeBitmap, guestBitmap, databaseUserHomeRedCardsPrediction, R.color.red, findHomeRedSlotsSelected, "Home")
+                    assignCardToPlayer(view, listViewAssignHomeYellowSlots, databaseUserHomeDisciplinePrediction, assignHomeYellowSlotsAdapter, homePlayersList, homeTeam, homeBitmap, guestBitmap, databaseUserHomeYellowCardsPrediction, R.color.yellow, findHomeYellowSlotsSelected, "Home", hasInternationalTeams)
+                    assignCardToPlayer(view, listViewAssignHomeRedSlots, databaseUserHomeDisciplinePrediction, assignHomeRedSlotsAdapter, homePlayersList, homeTeam, homeBitmap, guestBitmap, databaseUserHomeRedCardsPrediction, R.color.red, findHomeRedSlotsSelected, "Home", hasInternationalTeams)
                 }
 
                 var guestPlayersList = mutableListOf<Player>()
@@ -348,8 +349,8 @@ class PredictDisciplinaryCards : Fragment() {
                         }
                     }
                     guestPlayersList = guestPlayersList.sortedWith(compareBy({ sc -> if (sc.role == "Goalkeeper") 0 else 1 }, { sc -> if (sc.role == "Defender") 0 else 1 }, { sc -> if (sc.role == "Midfielder") 0 else 1 }, { sc -> sc.shirtNumber })).toMutableList()
-                    assignCardToPlayer(view, listViewAssignGuestYellowSlots, databaseUserGuestDisciplinePrediction, assignGuestYellowSlotsAdapter, guestPlayersList, guestTeam, homeBitmap, guestBitmap, databaseUserGuestYellowCardsPrediction, R.color.yellow, findGuestYellowSlotsSelected, "Guest")
-                    assignCardToPlayer(view, listViewAssignGuestRedSlots, databaseUserGuestDisciplinePrediction, assignGuestRedSlotsAdapter, guestPlayersList, guestTeam, homeBitmap, guestBitmap, databaseUserGuestRedCardsPrediction, R.color.red, findGuestRedSlotsSelected, "Guest")
+                    assignCardToPlayer(view, listViewAssignGuestYellowSlots, databaseUserGuestDisciplinePrediction, assignGuestYellowSlotsAdapter, guestPlayersList, guestTeam, homeBitmap, guestBitmap, databaseUserGuestYellowCardsPrediction, R.color.yellow, findGuestYellowSlotsSelected, "Guest", hasInternationalTeams)
+                    assignCardToPlayer(view, listViewAssignGuestRedSlots, databaseUserGuestDisciplinePrediction, assignGuestRedSlotsAdapter, guestPlayersList, guestTeam, homeBitmap, guestBitmap, databaseUserGuestRedCardsPrediction, R.color.red, findGuestRedSlotsSelected, "Guest", hasInternationalTeams)
                 }
                 view.findViewById<ProgressBar>(R.id.progress_updating_slots).visibility = INVISIBLE
                 view.findViewById<RelativeLayout>(R.id.yellow_cards_info).visibility = VISIBLE
@@ -377,7 +378,7 @@ class PredictDisciplinaryCards : Fragment() {
     }
 
     @SuppressLint("CutPasteId")
-    private fun assignCardToPlayer(view: View, listViewSlots: ListView, databaseTeamCardsPredictions: DatabaseReference, slotsAdapter: AssignSlotsAdapter, allPlayersList: List<Player>, team: String, homeBitmap: Bitmap?, guestBitmap: Bitmap?, databaseCardsPrediction: DatabaseReference, cardColor: Int, findSlotsSelected: MutableList<Int>, type: String) {
+    private fun assignCardToPlayer(view: View, listViewSlots: ListView, databaseTeamCardsPredictions: DatabaseReference, slotsAdapter: AssignSlotsAdapter, allPlayersList: List<Player>, team: String, homeBitmap: Bitmap?, guestBitmap: Bitmap?, databaseCardsPrediction: DatabaseReference, cardColor: Int, findSlotsSelected: MutableList<Int>, type: String, hasInternationalTeams: Boolean) {
         listViewSlots.setOnItemClickListener { _, slotView, slot, _ ->
             slotsAdapter.setSelectedPosition(slot)
 
@@ -416,7 +417,12 @@ class PredictDisciplinaryCards : Fragment() {
                         slotView.setBackgroundColor(view.context.resources.getColor(R.color.objective))
                     }
 
-                    teamName.text = team
+                    if (hasInternationalTeams) {
+                        teamName.text = getString(view.resources.getIdentifier(team.lowercase().replace(" ", "_"), "string", view.resources.getResourcePackageName(R.string.app_name)))
+                    }
+                    else {
+                        teamName.text = team
+                    }
                     if (type == "Home") {
                         teamImage.setImageBitmap(homeBitmap!!)
                     }

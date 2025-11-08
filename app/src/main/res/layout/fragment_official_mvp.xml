@@ -190,7 +190,6 @@
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textSize="20sp"
                 android:textColor="@color/black"
-                android:text="@string/home_team"
                 android:layout_below="@id/home_team_image" />
 
             <TextView
@@ -205,7 +204,6 @@
                 android:gravity="end"
                 android:textSize="20sp"
                 android:textColor="@color/black"
-                android:text="@string/guest_team"
                 android:layout_below="@id/guest_team_image" />
 
         </RelativeLayout>

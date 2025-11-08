@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.embeddedproject.calciofemminileitaliano.R
 import com.embeddedproject.calciofemminileitaliano.helpers.TeamMatch
 
-class TeamMatchesResultsAdapter(private val teamMatches: List<TeamMatch>) : RecyclerView.Adapter<TeamMatchesResultsAdapter.TeamMatchesResultsViewHolder>() {
+class TeamMatchesResultsAdapter(private val teamMatches: List<TeamMatch>, private val championshipHasInternationalTeams: Boolean) : RecyclerView.Adapter<TeamMatchesResultsAdapter.TeamMatchesResultsViewHolder>() {
 
     class TeamMatchesResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val resultRelativeLayout: RelativeLayout = itemView.findViewById(R.id.result)
@@ -21,7 +21,7 @@ class TeamMatchesResultsAdapter(private val teamMatches: List<TeamMatch>) : Recy
         private val lastResultInfoImageView: ImageView = itemView.findViewById(R.id.last_result_info)
 
         @SuppressLint("DiscouragedApi")
-        fun bind(teamMatch: TeamMatch, position: Int, totalMatches: Int) {
+        fun bind(teamMatch: TeamMatch, position: Int, totalMatches: Int, championshipHasInternationalTeams: Boolean) {
             val location = itemView.resources.getString(itemView.resources.getIdentifier(teamMatch.location, "string", itemView.resources.getResourcePackageName(R.string.app_name)))
             val outcome = itemView.resources.getString(itemView.resources.getIdentifier(teamMatch.outcome, "string", itemView.resources.getResourcePackageName(R.string.app_name)))
             if (position != totalMatches) {
@@ -39,7 +39,12 @@ class TeamMatchesResultsAdapter(private val teamMatches: List<TeamMatch>) : Recy
                         resultInfoImageView.setImageResource(R.drawable.wrong)
                     }
                 }
-                resultRelativeLayout.tooltipText = "vs ${teamMatch.vsTeam} ($location)\n$outcome (${teamMatch.homeScore}-${teamMatch.guestScore})"
+                if (championshipHasInternationalTeams) {
+                    resultRelativeLayout.tooltipText = "vs ${itemView.resources.getString(itemView.resources.getIdentifier(teamMatch.vsTeam.lowercase().replace(" ", "_"), "string", itemView.resources.getResourcePackageName(R.string.app_name)))} ($location)\n$outcome (${teamMatch.homeScore}-${teamMatch.guestScore})"
+                }
+                else {
+                    resultRelativeLayout.tooltipText = "vs ${teamMatch.vsTeam} ($location)\n$outcome (${teamMatch.homeScore}-${teamMatch.guestScore})"
+                }
             }
             else {
                 lastResultRelativeLayout.visibility = VISIBLE
@@ -56,7 +61,12 @@ class TeamMatchesResultsAdapter(private val teamMatches: List<TeamMatch>) : Recy
                         lastResultInfoImageView.setImageResource(R.drawable.wrong)
                     }
                 }
-                lastResultRelativeLayout.tooltipText = "vs ${teamMatch.vsTeam} ($location)\n$outcome (${teamMatch.homeScore}-${teamMatch.guestScore})"
+                if (championshipHasInternationalTeams) {
+                    lastResultRelativeLayout.tooltipText = "vs ${itemView.resources.getString(itemView.resources.getIdentifier(teamMatch.vsTeam.lowercase().replace(" ", "_"), "string", itemView.resources.getResourcePackageName(R.string.app_name)))} ($location)\n$outcome (${teamMatch.homeScore}-${teamMatch.guestScore})"
+                }
+                else {
+                    lastResultRelativeLayout.tooltipText = "vs ${teamMatch.vsTeam} ($location)\n$outcome (${teamMatch.homeScore}-${teamMatch.guestScore})"
+                }
             }
         }
     }
@@ -71,6 +81,6 @@ class TeamMatchesResultsAdapter(private val teamMatches: List<TeamMatch>) : Recy
     }
 
     override fun onBindViewHolder(holder: TeamMatchesResultsViewHolder, position: Int) {
-        holder.bind(teamMatches[position], position, teamMatches.size - 1)
+        holder.bind(teamMatches[position], position, teamMatches.size - 1, championshipHasInternationalTeams)
     }
 }

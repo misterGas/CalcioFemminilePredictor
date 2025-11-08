@@ -239,8 +239,8 @@
     <string name="edit_last_name">Modifica cognome</string>
     <string name="edit_email">Modifica email</string>
 
-    <string name="match_about_to_start">inizierà tra poche ore</string>
-    <string name="assign_scorers_notification">Assegna adesso i tuoi pronostici per le marcatrici della partita</string>
+    <string name="match_about_to_start">inizierà tra poche ore!</string>
+    <string name="assign_scorers_notification">Assegna ora i tuoi pronostici per le marcatrici e i cartellini disciplinari della partita</string>
 
     <string name="role">Ruolo</string>
     <string name="goalkeeper">POR</string>
