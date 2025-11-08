@@ -32,7 +32,7 @@ Sono inoltre presenti eventi speciali di squadra: l'utente può unirsi ad una sq
 ## Miglioramenti
 Miglioramenti possibili possono essere:
 - legati all'efficienza e all'efficacia dell'applicazione;
-- le giocatrici di ogni squadra sono gestite all'interno dell'applicazione (a causa del necessario pagamento di un abbonamento da parte dell'API che gestisce i dati sportivi), comprese minime informazioni personali utili per la gestione dei pronostici e assegnazioni manuali delle marcatrici ufficiali tramite UI. Per questo motivo, nell'applicazione è solo presente (per ora) il campionato di Serie A Femminile. Le giocatrici possono essere aggiunte nell'applicazione, oltre tramite UI, anche creando file JSON che vengono poi elaborati per salvare le informazioni delle giocatrici nel database Firestore;
+- le giocatrici di ogni squadra sono gestite all'interno dell'applicazione (a causa del necessario pagamento di un abbonamento da parte dell'API che gestisce i dati sportivi), comprese minime informazioni personali utili per la gestione dei pronostici e assegnazioni manuali delle marcatrici ufficiali tramite UI. Le giocatrici possono essere aggiunte nell'applicazione, oltre tramite UI, anche creando file JSON che vengono poi elaborati per salvare le informazioni delle giocatrici nel database Firestore;
 - miglioramenti al codice;
 - migliore UI.
 
@@ -46,6 +46,8 @@ Per ottenere le partite di ogni giornata si esegue una query del tipo https://ww
 E' necessario eseguire questa query (eventsround.php) che contiene il parametro r (round) in quanto quella che restituisce tutte le partite di campionato è limitata a 100 partite con richieste gratis effettuate con API-Key "3" (https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=5205&s=2025-2026).
 
 E' inoltre prevista l'aggiunta di un campionato, la stagione e le partite associate da database, ma i risultati ufficiali di ogni incontro ad ora devono essere inseriti a mano nella base di dati. In futuro, si può prevedere l'automazione di tali attività direttamente tramite interfaccia grafica.
+
+I campionati attualmente disponibili nell'applicazione sono: Serie A Women's Cup, Serie A Women, FIFA U17 Women's World Cup.
 
 ## Informativa sulla Privacy
 https://sites.google.com/view/calciofemminilepredictor/home-page
