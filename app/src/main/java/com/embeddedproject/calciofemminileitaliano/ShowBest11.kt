@@ -337,6 +337,9 @@ class ShowBest11 : Fragment() {
                                         playerPoints *= 2
                                         insertPointsDetailsInDatabase.child("Details").child(position).child("isCaptain").setValue(true)
                                     }
+                                    if (playerPoints > 0) {
+                                        insertPointsDetailsInDatabase.child("Details").child(position).child("playerPoints").setValue(playerPoints)
+                                    }
                                     totalPoints += playerPoints
                                 }
                             }

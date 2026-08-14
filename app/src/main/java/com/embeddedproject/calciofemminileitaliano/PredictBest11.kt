@@ -28,14 +28,20 @@ import com.embeddedproject.calciofemminileitaliano.adapters.SeasonsAdapter
 import com.embeddedproject.calciofemminileitaliano.helpers.MVPPlayer
 import com.embeddedproject.calciofemminileitaliano.helpers.Player
 import com.embeddedproject.calciofemminileitaliano.helpers.UserLoggedInHelper
+import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storage
 import java.util.stream.IntStream.range
 
 class PredictBest11 : Fragment() {
 
     private lateinit var db: FirebaseDatabase
     private lateinit var reference: DatabaseReference
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageReference: StorageReference
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_predict_best11, container, false)
@@ -46,6 +52,8 @@ class PredictBest11 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         db = FirebaseDatabase.getInstance()
         reference = db.reference
+        storage = Firebase.storage
+        storageReference = storage.reference
 
         val sqlDB = UserLoggedInHelper(view.context)
         val dbReference = sqlDB.writableDatabase
@@ -418,7 +426,7 @@ class PredictBest11 : Fragment() {
                                 selectRole.text = getString(view.resources.getIdentifier("select_${role.lowercase()}", "string", view.resources.getResourcePackageName(R.string.app_name)))
 
                                 listViewRolePlayers?.visibility = VISIBLE
-                                val playersAdapter = PlayerBest11Adapter(view.context, playersToAddRole, teamsBitmap, predictBest11Reference.child("Players").child(playerPosition))
+                                val playersAdapter = PlayerBest11Adapter(view.context, playersToAddRole, teamsBitmap, predictBest11Reference.child("Players").child(playerPosition), storageReference)
                                 listViewRolePlayers?.adapter = playersAdapter
 
                                 for (change in allPlayersModule[actualModule]!!.keys) {
@@ -683,7 +691,7 @@ class PredictBest11 : Fragment() {
                                         selectRole.text = getString(view.resources.getIdentifier("select_${role.lowercase()}", "string", view.resources.getResourcePackageName(R.string.app_name)))
 
                                         listViewRolePlayers?.visibility = VISIBLE
-                                        val playersAdapter = PlayerBest11Adapter(view.context, playersToAddRole, teamsBitmap, predictBest11Reference.child("Players").child(playerPosition))
+                                        val playersAdapter = PlayerBest11Adapter(view.context, playersToAddRole, teamsBitmap, predictBest11Reference.child("Players").child(playerPosition), storageReference)
                                         listViewRolePlayers?.adapter = playersAdapter
 
                                         for (change in allPlayersModule[actualModule]!!.keys) {

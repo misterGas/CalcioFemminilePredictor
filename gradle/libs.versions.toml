@@ -6,6 +6,9 @@ bcrypt = "1.0.9"
 core = "1.10.3"
 firebaseAuth = "23.0.0"
 firebaseBom = "33.1.2"
+firebaseStorageVersion = "22.0.1"
+firebaseUiStorage = "8.0.2"
+glide = "4.16.0"
 gson = "2.10.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
@@ -33,9 +36,13 @@ androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version
 app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
 app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
 bcrypt = { module = "com.ToxicBakery.library.bcrypt:bcrypt", version.ref = "bcrypt" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 core = { module = "com.google.android.play:core", version.ref = "core" }
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-ui-storage = { module = "com.firebaseui:firebase-ui-storage", version.ref = "firebaseUiStorage" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+google-firebase-storage = { module = "com.google.firebase:firebase-storage", version.ref = "firebaseStorageVersion" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

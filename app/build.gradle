@@ -7,13 +7,13 @@ plugins {
 
 android {
     namespace = "com.embeddedproject.calciofemminileitaliano"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.embeddedproject.calciofemminileitaliano"
         minSdk = 33
-        targetSdk = 35
-        versionCode = 920
+        targetSdk = 36
+        versionCode = 940
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -60,4 +60,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation libs.app.update
     implementation libs.app.update.ktx
+    implementation libs.google.firebase.storage
+    implementation libs.glide
+    annotationProcessor libs.compiler
+    implementation libs.firebase.ui.storage
 }

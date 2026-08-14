@@ -463,9 +463,13 @@
     <string name="yellow_cards_standings">Yellow cards standings</string>
     <string name="red_cards_standings">Red cards standings</string>
     <string name="best11_statistics">Best 11 statistics</string>
+    <string name="season_best11_statistics">Season Best 11 statistics</string>
     <string name="best_11_players_chosen_standings">Players frequencies</string>
     <string name="best_11_captains_chosen_standings">Captains frequencies</string>
     <string name="best_11_modules_chosen_standings">Modules frequencies</string>
+    <string name="best11_created">Best 11 created</string>
+    <string name="best11_chosen_players_podium">Players chosen points podium</string>
+    <string name="best11_chosen_teams_podium">Teams chosen points podium</string>
 
     <!--States names translated-->
     <string name="albania">Albania</string>

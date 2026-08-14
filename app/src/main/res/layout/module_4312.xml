@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="270sp">
+    android:layout_height="270sp"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:id="@+id/pitch_background"
@@ -11,12 +12,21 @@
         android:background="@drawable/soccer_pitch" />
 
     <RelativeLayout
-        android:id="@+id/goalkeeper"
+        android:id="@+id/goalkeeper_rel_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginTop="18sp">
 
+        <RelativeLayout
+            android:id="@+id/goalkeeper"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
+
         <include android:id="@+id/goalkeeper_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -25,7 +35,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="6sp"
-        android:layout_below="@id/goalkeeper">
+        android:layout_below="@id/goalkeeper_rel_layout">
 
         <RelativeLayout
             android:id="@+id/defender1"
@@ -115,8 +125,15 @@
         android:layout_marginTop="6sp"
         android:layout_below="@id/midfielders">
 
-        <include android:id="@+id/forward1_4312" layout="@layout/player_module"/>
+        <RelativeLayout
+            android:id="@+id/forward1"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
 
+            <include android:id="@+id/forward1_4312" layout="@layout/player_module"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -145,7 +162,5 @@
             <include android:id="@+id/forward3_4312" layout="@layout/player_module"/>
 
         </RelativeLayout>
-
     </RelativeLayout>
-
 </RelativeLayout>

@@ -504,9 +504,13 @@
     <string name="yellow_cards_standings">Classifica ammonizioni</string>
     <string name="red_cards_standings">Classifica espulsioni</string>
     <string name="best11_statistics">Statistiche Best 11</string>
+    <string name="season_best11_statistics">Statistiche stagionali Best 11</string>
     <string name="best_11_players_chosen_standings">Frequenze giocatrici</string>
     <string name="best_11_captains_chosen_standings">Frequenze capitani</string>
     <string name="best_11_modules_chosen_standings">Frequenze moduli</string>
+    <string name="best11_created">Best 11 create</string>
+    <string name="best11_chosen_players_podium">Podio punti giocatrici scelte</string>
+    <string name="best11_chosen_teams_podium">Podio punti squadre scelte</string>
 
     <!--States names translated-->
     <string name="albania">Albania</string>

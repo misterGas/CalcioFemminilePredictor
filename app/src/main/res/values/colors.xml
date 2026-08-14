@@ -22,4 +22,7 @@
     <color name="yellow">#FFCC00</color>
     <color name="yellow_reset">#FFDF11</color>
     <color name="red_reset">#FF5511</color>
+    <color name="oro">#D9B625</color>
+    <color name="argent">#C0C0C0</color>
+    <color name="bronze">#CD7F32</color>
 </resources>

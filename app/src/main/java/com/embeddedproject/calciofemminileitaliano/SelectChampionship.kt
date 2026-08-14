@@ -249,9 +249,11 @@ class SelectChampionship : Fragment() {
                             val championshipInfo = season.child("Info")
                             val leagueName = championshipInfo.child("name").value.toString()
                             if (championshipInfo.hasChild("championshipFromAPI")) {
-                                val leagueId = championshipInfo.child("id").value.toString()
-                                val allRounds = championshipInfo.child("rounds").value.toString().split(",")
-                                seasonMatches(leagueName, leagueId, s, view, allRounds)
+                                if (!championshipInfo.hasChild("championshipEnded")) {
+                                    val leagueId = championshipInfo.child("id").value.toString()
+                                    val allRounds = championshipInfo.child("rounds").value.toString().split(",")
+                                    seasonMatches(leagueName, leagueId, s, view, allRounds)
+                                }
                             }
                             else {
                                 Thread {

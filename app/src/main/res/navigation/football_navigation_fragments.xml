@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_matchesPredictions_to_officialDisciplinaryCards"
             app:destination="@id/officialDisciplinaryCards" />
+        <action
+            android:id="@+id/action_matchesPredictions_to_seasonBest11Statistics"
+            app:destination="@id/seasonBest11Statistics" />
     </fragment>
 
     <fragment
@@ -668,5 +671,26 @@
         <action
             android:id="@+id/action_best11Standings_to_best11DayDuel"
             app:destination="@id/best11DayDuel" />
+    </fragment>
+    <fragment
+        android:id="@+id/seasonBest11Statistics"
+        android:name="com.embeddedproject.calciofemminileitaliano.SeasonBest11Statistics"
+        android:label="fragment_season_best11_statistics"
+        tools:layout="@layout/fragment_season_best11_statistics">
+        <argument
+            android:name="user_nickname"
+            app:argType="string" />
+        <argument
+            android:name="championship"
+            app:argType="string" />
+        <argument
+            android:name="season"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_seasonBest11Statistics_to_matchesPredictions"
+            app:destination="@id/matchesPredictions" />
+        <action
+            android:id="@+id/action_seasonBest11Statistics_to_loginRegistration"
+            app:destination="@id/loginRegistration" />
     </fragment>
 </navigation>
