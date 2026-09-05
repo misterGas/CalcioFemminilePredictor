@@ -139,6 +139,7 @@
     <string name="coppa_italia_women">Coppa Italia Women</string>
     <string name="serie_a_women_cup">Serie A Women\'s Cup</string>
     <string name="fifa_womens_u17_world_cup">FIFA U17 Women\'s World Cup</string>
+    <string name="fifa_u20_womens_world_cup">FIFA U20 Women\'s World Cup</string>
 
     <string name="hear_rules">Hear rules</string>
     <string name="profile">Profile</string>
@@ -474,11 +475,13 @@
     <!--States names translated-->
     <string name="albania">Albania</string>
     <string name="andorra">Andorra</string>
+    <string name="argentina">Argentina</string>
     <string name="armenia">Armenia</string>
     <string name="austria">Austria</string>
     <string name="azerbaijan">Azerbaijan</string>
     <string name="belarus">Belarus</string>
     <string name="belgium">Belgium</string>
+    <string name="benin">Benin</string>
     <string name="bosnia_herzegovina">Bosnia Herzegovina</string>
     <string name="brazil">Brazil</string>
     <string name="bulgaria">Bulgaria</string>
@@ -499,6 +502,7 @@
     <string name="france">France</string>
     <string name="georgia">Georgia</string>
     <string name="germany">Germany</string>
+    <string name="ghana">Ghana</string>
     <string name="greece">Greece</string>
     <string name="hungary">Hungary</string>
     <string name="iceland">Iceland</string>
@@ -518,6 +522,7 @@
     <string name="montenegro">Montenegro</string>
     <string name="morocco">Morocco</string>
     <string name="netherlands">Netherlands</string>
+    <string name="new_caledonia">New Caledonia</string>
     <string name="new_zealand">New Zealand</string>
     <string name="north_korea">North Korea</string>
     <string name="north_macedonia">North Macedonia</string>
@@ -537,6 +542,7 @@
     <string name="spain">Spain</string>
     <string name="sweden">Sweden</string>
     <string name="switzerland">Switzerland</string>
+    <string name="tanzania">Tanzania</string>
     <string name="turkey">Turkey</string>
     <string name="ukraine">Ukraine</string>
     <string name="united_states">United States</string>

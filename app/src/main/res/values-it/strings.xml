@@ -139,6 +139,7 @@
     <string name="coppa_italia_women">Coppa Italia Women</string>
     <string name="serie_a_women_cup">Serie A Women\'s Cup</string>
     <string name="fifa_womens_u17_world_cup">FIFA U17 Women\'s World Cup</string>
+    <string name="fifa_u20_womens_world_cup">FIFA U20 Women\'s World Cup</string>
 
     <string name="hear_rules">Ascolta regole</string>
     <string name="profile">Profilo</string>
@@ -515,11 +516,13 @@
     <!--States names translated-->
     <string name="albania">Albania</string>
     <string name="andorra">Andorra</string>
+    <string name="argentina">Argentina</string>
     <string name="armenia">Armenia</string>
     <string name="austria">Austria</string>
     <string name="azerbaijan">Azerbaigian</string>
     <string name="belarus">Bielorussia</string>
     <string name="belgium">Belgio</string>
+    <string name="benin">Benin</string>
     <string name="bosnia_herzegovina">Bosnia Erzegovina</string>
     <string name="brazil">Brasile</string>
     <string name="bulgaria">Bulgaria</string>
@@ -540,6 +543,7 @@
     <string name="france">Francia</string>
     <string name="georgia">Georgia</string>
     <string name="germany">Germania</string>
+    <string name="ghana">Ghana</string>
     <string name="greece">Grecia</string>
     <string name="hungary">Ungheria</string>
     <string name="iceland">Islanda</string>
@@ -559,6 +563,7 @@
     <string name="montenegro">Montenegro</string>
     <string name="morocco">Marocco</string>
     <string name="netherlands">Paesi Bassi</string>
+    <string name="new_caledonia">Nuova Caledonia</string>
     <string name="new_zealand">Nuova Zelanda</string>
     <string name="north_korea">Corea del Nord</string>
     <string name="north_macedonia">Macedonia del Nord</string>
@@ -578,6 +583,7 @@
     <string name="spain">Spagna</string>
     <string name="sweden">Svezia</string>
     <string name="switzerland">Svizzera</string>
+    <string name="tanzania">Tanzania</string>
     <string name="turkey">Turchia</string>
     <string name="ukraine">Ucraina</string>
     <string name="united_states">Stati Uniti</string>
